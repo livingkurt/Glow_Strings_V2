@@ -31,12 +31,6 @@ void handle_button()
         Serial.println(2000);
         flash(224, 255, 255);
       }
-      // else if (since_press == 3000)
-      // {
-      //   Serial.println(3000);
-      //   flash(255, 0);
-      // }
-      // since_press += 20;
     }
     else if (changed)
     { // if not pressed and changed (just released)
@@ -57,10 +51,6 @@ void handle_button()
         FastLED.show();
         state = "hue";
       }
-      // else
-      // { // if more than 4s, lock light
-      //   // settings.locked = 1; // set locked bit
-      // }
     }
   }
   else if (state == "hue")
@@ -75,24 +65,18 @@ void handle_button()
         // flash(32, 32, 32); // Flash white when chip will sleep (500ms)
         flash(255, 255, 100);
       }
-      if (since_press == 2000)
-      {
-        Serial.println(2000);
-        // flash(0, 0, 128); // Flash blue when conjure will toggle (2s)
-        flash(96, 0, 255);
-      }
+      // if (since_press == 2000)
+      // {
+      //   Serial.println(2000);
+      //   // flash(0, 0, 128); // Flash blue when conjure will toggle (2s)
+      //   flash(96, 0, 255);
+      // }
 
-      else if (since_press == 3000)
-      {
-        Serial.println(3000);
-        // flash(128, 0, 0); // Flash red when chip will lock and sleep (4s)
-        flash(160, 255, 255);
-      }
-      // else if (since_press == 4000)
+      // else if (since_press == 3000)
       // {
       //   Serial.println(3000);
       //   // flash(128, 0, 0); // Flash red when chip will lock and sleep (4s)
-      //   flash(100, 0);
+      //   flash(160, 255, 255);
       // }
     }
     else if (changed)
@@ -105,141 +89,127 @@ void handle_button()
         since_press = 0;
         return;
       }
+      // else if (since_press < 2000)
+      // { // if less than 2s, sleep
+      //   Serial.println("Entering Value Menu");
+      //   state = "value";
+      // }
+      // else if (since_press < 3000)
+      // { // if less than 4s, toggle conjure
+      //   Serial.println("Entering Saturation Menu");
+      //   state = "saturation";
+      // }
       else if (since_press < 2000)
-      { // if less than 2s, sleep
-        Serial.println("Entering Value Menu");
-        state = "value";
-      }
-      else if (since_press < 3000)
-      { // if less than 4s, toggle conjure
-        Serial.println("Entering Saturation Menu");
-        state = "saturation";
-      }
-      else if (since_press < 4000)
       { // if less than 4s, toggle conjure
         Serial.println("Entering Modes Menu");
         state = "modes";
       }
     }
   }
-  else if (state == "value")
-  { // If playing
-    if (pressed)
-    { // and pressed
-      if (since_press == 1000)
-      {
-        Serial.println(1000);
-        // flash(32, 32, 32); // Flash white when chip will sleep (500ms)
+  // else if (state == "value")
+  // { // If playing
+  //   if (pressed)
+  //   { // and pressed
+  //     if (since_press == 1000)
+  //     {
+  //       Serial.println(1000);
+  //       // flash(32, 32, 32); // Flash white when chip will sleep (500ms)
 
-        flash(224, 255, 255);
-      }
-      if (since_press == 2000)
-      {
-        Serial.println(2000);
-        // flash(0, 0, 128); // Flash blue when conjure will toggle (2s)
-        flash(255, 0, 255);
-      }
+  //       flash(224, 255, 255);
+  //     }
+  //     if (since_press == 2000)
+  //     {
+  //       Serial.println(2000);
+  //       // flash(0, 0, 128); // Flash blue when conjure will toggle (2s)
+  //       flash(255, 0, 255);
+  //     }
 
-      else if (since_press == 3000)
-      {
-        Serial.println(3000);
-        // flash(128, 0, 0); // Flash red when chip will lock and sleep (4s)
-        flash(160, 255, 255);
-      }
-      // else if (since_press == 4000)
-      // {
-      //   Serial.println(3000);
-      //   // flash(128, 0, 0); // Flash red when chip will lock and sleep (4s)
-      //   flash(160, 0, 255);
-      // }
-    }
-    else if (changed)
-    { // if not pressed and changed (just released)
+  //     else if (since_press == 3000)
+  //     {
+  //       Serial.println(3000);
+  //       // flash(128, 0, 0); // Flash red when chip will lock and sleep (4s)
+  //       flash(160, 255, 255);
+  //     }
+  //   }
+  //   else if (changed)
+  //   { // if not pressed and changed (just released)
 
-      if (since_press < 1000 && since_press != 0)
-      { // if less than 500ms, sleep if conjuring and change mode if not
-        Serial.println("Next Color");
-        nextValue();
-        since_press = 0;
-        return;
-      }
-      else if (since_press < 2000)
-      { // if less than 2s, sleep
-        Serial.println("Change States");
-        state = "hue";
-      }
-      else if (since_press < 3000)
-      { // if less than 4s, toggle conjure
-        Serial.println("Change States");
-        state = "saturation";
-      }
-      else if (since_press < 4000)
-      { // if less than 4s, toggle conjure
-        Serial.println("Change States");
-        state = "modes";
-      }
-    }
-  }
-  else if (state == "saturation")
-  { // If playing
-    // state
+  //     if (since_press < 1000 && since_press != 0)
+  //     { // if less than 500ms, sleep if conjuring and change mode if not
+  //       Serial.println("Next Color");
+  //       nextValue();
+  //       since_press = 0;
+  //       return;
+  //     }
+  //     else if (since_press < 2000)
+  //     { // if less than 2s, sleep
+  //       Serial.println("Change States");
+  //       state = "hue";
+  //     }
+  //     else if (since_press < 3000)
+  //     { // if less than 4s, toggle conjure
+  //       Serial.println("Change States");
+  //       state = "saturation";
+  //     }
+  //     else if (since_press < 4000)
+  //     { // if less than 4s, toggle conjure
+  //       Serial.println("Change States");
+  //       state = "modes";
+  //     }
+  //   }
+  // }
+  // else if (state == "saturation")
+  // { // If playing
+  //   if (pressed)
+  //   { // and pressed
+  //     if (since_press == 1000)
+  //     {
+  //       Serial.println(1000);
+  //       // flash(32, 32, 32); // Flash white when chip will sleep (500ms)
 
-    if (pressed)
-    { // and pressed
-      if (since_press == 1000)
-      {
-        Serial.println(1000);
-        // flash(32, 32, 32); // Flash white when chip will sleep (500ms)
+  //       flash(224, 255, 255);
+  //     }
+  //     if (since_press == 2000)
+  //     {
+  //       Serial.println(2000);
+  //       // flash(0, 0, 128); // Flash blue when conjure will toggle (2s)
+  //       flash(255, 255, 100);
+  //     }
 
-        flash(224, 255, 255);
-      }
-      if (since_press == 2000)
-      {
-        Serial.println(2000);
-        // flash(0, 0, 128); // Flash blue when conjure will toggle (2s)
-        flash(255, 255, 100);
-      }
+  //     else if (since_press == 3000)
+  //     {
+  //       Serial.println(3000);
+  //       // flash(128, 0, 0); // Flash red when chip will lock and sleep (4s)
+  //       flash(255, 255, 255);
+  //     }
+  //   }
+  //   else if (changed)
+  //   { // if not pressed and changed (just released)
 
-      else if (since_press == 3000)
-      {
-        Serial.println(3000);
-        // flash(128, 0, 0); // Flash red when chip will lock and sleep (4s)
-        flash(255, 255, 255);
-      }
-      // else if (since_press == 4000)
-      // {
-      //   Serial.println(3000);
-      //   // flash(128, 0, 0); // Flash red when chip will lock and sleep (4s)
-      //   flash(100, 0, 255);
-      // }
-    }
-    else if (changed)
-    { // if not pressed and changed (just released)
-
-      if (since_press < 1000 && since_press != 0)
-      { // if less than 500ms, sleep if conjuring and change mode if not
-        Serial.println("Next Color");
-        nextSaturation();
-        since_press = 0;
-        return;
-      }
-      else if (since_press < 2000)
-      { // if less than 2s, sleep
-        Serial.println("Change States");
-        state = "hue";
-      }
-      else if (since_press < 3000)
-      { // if less than 4s, toggle conjure
-        Serial.println("Change States");
-        state = "value";
-      }
-      else if (since_press < 4000)
-      { // if less than 4s, toggle conjure
-        Serial.println("Change States");
-        state = "modes";
-      }
-    }
-  }
+  //     if (since_press < 1000 && since_press != 0)
+  //     { // if less than 500ms, sleep if conjuring and change mode if not
+  //       Serial.println("Next Color");
+  //       nextSaturation();
+  //       since_press = 0;
+  //       return;
+  //     }
+  //     else if (since_press < 2000)
+  //     { // if less than 2s, sleep
+  //       Serial.println("Change States");
+  //       state = "hue";
+  //     }
+  //     else if (since_press < 3000)
+  //     { // if less than 4s, toggle conjure
+  //       Serial.println("Change States");
+  //       state = "value";
+  //     }
+  //     else if (since_press < 4000)
+  //     { // if less than 4s, toggle conjure
+  //       Serial.println("Change States");
+  //       state = "modes";
+  //     }
+  //   }
+  // }
   since_press += 20;
   if (changed)
     since_press = 0;     // If state changed we need to reset since_press

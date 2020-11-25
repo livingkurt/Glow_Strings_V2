@@ -25,7 +25,7 @@ uint8_t gCurrentHueNumber = 0;
 uint8_t gCurrentSaturationNumber = 255;
 uint8_t gCurrentValueNumber = 255;
 
-int autoplay = true;
+bool autoplay = true;
 
 long state = "modes"; // Current state of the light
 
@@ -128,11 +128,12 @@ int num_colors = (sizeof(gColors) / sizeof(gColors[0]));
 void loop()
 {
   // readbutton();
+  Serial.println(state);
   if (state == "modes")
   {
     handle_mode_change();
   }
-  if (state == "hue" || state == "saturation" || state == "value")
+  if (state == "hue")
   {
     color_selection();
   }
