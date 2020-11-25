@@ -17,11 +17,17 @@
 #define INTERVAL 15
 // Choose Random or Not Random Mode Changes
 #define RANDOM "Not Random"
-// Choose Random or Not Random Mode Changes
+
+#define PIN_BUTTON 2        // Pin for the button
+#define MODE_CHOICE 0       // Mode Choise
+#define COLOR_CHOICE 1      // Color Choice
+#define FLASHING_PATTERNS 2 // Flashing Pattern Choice
 int autoplay = true;
 
+uint8_t op_state = MODE_CHOICE; // Current state of the light
+
 CRGB leds[NUM_LEDS];
-Button myButton(2, true, true, 50); // Declare the button
+// Button myButton(2, true, true, 50); // Declare the button
 
 #define BRIGHTNESS 255
 #define FRAMES_PER_SECOND 120
@@ -72,7 +78,7 @@ SimplePatternList gPatterns = {
     //    shooting_star_rainbow,
     //    sparkle_rainbow_random,
     //    pulse_rainbow,
-    pulse_rainbow,
+
     rainbow_cycle,
     sparkle_white,
     split_rainbow_2,
@@ -91,14 +97,51 @@ SimplePatternList gPatterns = {
     //    shooting_star_rainbow,
     shooting_star_rainbow_bnf,
     sparkle_rainbow_random,
-
+    pulse_rainbow,
 };
-
 int num_modes = (sizeof(gPatterns) / sizeof(gPatterns[0]));
 
+// int color = 0;
+
+typedef void (*SimpleColorList[])();
+
+SimpleColorList gColors = {
+    color_selection};
+
+int num_colors = (sizeof(gColors) / sizeof(gColors[0]));
+
+// typedef void (*SimplePartyModeList[])();
+
+// SimplePartyModeList gPartyPatterns = {
+//     section_flash,
+//     section_flash_rainbow_cycle,
+//     section_flash_rainbow_cycle_split,
+//     section_flash_all_rainbow,
+//     shooting_star_white_end_to_end,
+// };
+
+// int num_party_modes = (sizeof(gPartyPatterns) / sizeof(gPartyPatterns[0]));
+
 uint8_t gCurrentPatternNumber = 0;
+uint8_t gCurrentHueNumber = 0;
+uint8_t gCurrentSaturationNumber = 255;
+uint8_t gCurrentValueNumber = 255;
 
 void loop()
+{
+  // readbutton();
+  if (autoplay)
+  {
+    handle_mode_change();
+  }
+  if (op_state == 1)
+  {
+    color_selection();
+  }
+  handle_button();
+}
+
+void handle_mode_change()
 {
   // Call the current pattern function once, updating the 'leds' array
   gPatterns[gCurrentPatternNumber]();
@@ -106,133 +149,11 @@ void loop()
   FastLED.show();
   // insert a delay to keep the framerate modest
   FastLED.delay(1000 / FRAMES_PER_SECOND);
-  if (autoplay)
-  {
-    EVERY_N_SECONDS(INTERVAL)
-    {
-      nextPattern(); // change patterns periodically
-    }
-  }
 
-  readbutton();
+  EVERY_N_SECONDS(INTERVAL)
+  {
+    nextPattern(); // change patterns periodically
+  }
 }
 
 #define ARRAY_SIZE(A) (sizeof(A) / sizeof((A)[0]))
-
-// void nextPattern()
-// {
-//   // add one to the current pattern number, and wrap around at the end
-//   if (RANDOM == "Random")
-//   {
-//     gCurrentPatternNumber = random(num_modes) % ARRAY_SIZE(gPatterns);
-//   }
-//   else
-//   {
-//     Serial.println(random(num_modes));
-//     gCurrentPatternNumber = (gCurrentPatternNumber + 1) % ARRAY_SIZE(gPatterns);
-//   }
-// }
-void nextPattern()
-{
-  // add one to the current pattern number, and wrap around at the end
-  gCurrentPatternNumber = (gCurrentPatternNumber + 1) % ARRAY_SIZE(gPatterns);
-  Serial.println({gCurrentPatternNumber});
-}
-
-int forwards(int length, int placement, int pos)
-{
-  return (length * placement) + pos;
-}
-
-int backwards(int length, int placement, int pos)
-{
-  return length * placement - 1 - pos;
-}
-
-void hold(int period)
-{
-  unsigned long time_now = 0;
-  time_now = millis();
-  while (millis() < time_now + period)
-  {
-    // FastLED.show();
-  }
-}
-
-boolean held;
-
-void readbutton()
-{
-  myButton.read();
-
-  if (myButton.isReleased())
-  {
-    held = myButton.releasedFor(1000);
-    if (held)
-    {
-      // button has been pressed for one second
-      Serial.println("Button Held 2000!  Stop Autoplay...   ");
-
-      if (autoplay)
-      {
-        autoplay = false;
-        flash(255);
-      }
-      else
-      {
-        autoplay = true;
-        flash(160);
-      }
-      Serial.println(autoplay);
-      // hold(2000);
-      return;
-    }
-    return;
-  }
-  else if (myButton.wasPressed())
-  {
-    if (!held)
-    {
-      Serial.println("Button pressed!  Next pattern...   ");
-      nextPattern(); // Change to the next pattern
-      return;
-    }
-  }
-
-  // else if (myButton.releasedFor(2000))
-  // {
-  //   // button has been pressed for one second
-  //   Serial.println("Button Held 4000!  Stop Autoplay...   ");
-  //   Serial.println(autoplay);
-  //   if (autoplay)
-  //   {
-  //     autoplay = false;
-  //     flash();
-  //   }
-  //   return;
-  // }
-} //end_readbutton
-
-void flash(int color)
-{
-  int gap = 300;
-  fill_solid(leds, NUM_LEDS, CHSV(color, 255, 255)); // Set all to red.
-  hold(gap);
-  FastLED.show();
-  fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0)); // Set all to red.
-  hold(gap);
-  FastLED.show();
-  fill_solid(leds, NUM_LEDS, CHSV(color, 255, 255)); // Set all to red.
-  hold(gap);
-  FastLED.show();
-  fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0)); // Set all to red.
-  hold(gap);
-  FastLED.show();
-  fill_solid(leds, NUM_LEDS, CHSV(color, 255, 255)); // Set all to red.
-  hold(gap);
-  FastLED.show();
-  fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0)); // Set all to red.
-  hold(gap);
-  FastLED.show();
-  return;
-}
