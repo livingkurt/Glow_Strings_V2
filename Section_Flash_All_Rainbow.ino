@@ -1,5 +1,3 @@
-int num = 1;
-
 void section_flash_all_rainbow()
 {
   int rate = 10;
