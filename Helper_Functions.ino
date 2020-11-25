@@ -138,10 +138,12 @@ void handle_mode_change()
   FastLED.show();
   // insert a delay to keep the framerate modest
   FastLED.delay(1000 / FRAMES_PER_SECOND);
-
-  EVERY_N_SECONDS(INTERVAL)
+  if (autoplay)
   {
-    nextMode(); // change patterns periodically
+    EVERY_N_SECONDS(INTERVAL)
+    {
+      nextMode(); // change patterns periodically
+    }
   }
 }
 void handle_party_mode_change()
@@ -152,9 +154,11 @@ void handle_party_mode_change()
   FastLED.show();
   // insert a delay to keep the framerate modest
   FastLED.delay(1000 / FRAMES_PER_SECOND);
-
-  EVERY_N_SECONDS(INTERVAL)
+  if (autoplay)
   {
-    nextPartyMode(); // change patterns periodically
+    EVERY_N_SECONDS(INTERVAL)
+    {
+      nextPartyMode(); // change patterns periodically
+    }
   }
 }
