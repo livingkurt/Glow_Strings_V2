@@ -1,4 +1,4 @@
-// uint8_t op_state = STATE_PLAY; // Current state of the light
+// uint8_t state = STATE_PLAY; // Current state of the light
 uint32_t since_press = 0; // Tracks how long since last button press
 bool was_pressed = false; // Tracks if the button was pressed in previous frame
 
@@ -9,7 +9,73 @@ void handle_button()
   Serial.println(since_press);
   // Serial.println("Hello");
 
-  if (op_state == "modes")
+  if (state == "modes")
+  { // If playing
+
+    if (pressed)
+    { // and pressed
+      if (since_press == 1000)
+      {
+        flash(255, 255);
+      }
+      else if (since_press == 2000)
+      {
+        if (autoplay)
+        {
+          flash(160, 255);
+        }
+        else
+        {
+          flash(96, 255);
+        }
+      }
+      else if (since_press == 3000)
+      {
+        flash(64, 255);
+      }
+      else if (since_press == 4000)
+      {
+        flash(224, 255);
+      }
+    }
+    else if (changed)
+    { // if not pressed and changed (just released)
+      if (since_press < 1000 && since_press != 0)
+      { // if less than 500ms, sleep if conjuring and change mode if not
+        Serial.println("Next pattern");
+        nextMode(); // Change to the next pattern
+        since_press = 0;
+        return;
+      }
+      else if (since_press < 2000 && since_press > 1000)
+      { // if less than 2s, sleep
+        // Turn Off Lights
+        fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0));
+        FastLED.show();
+        state = "off";
+        last_state = "modes";
+        EEPROM.write(0, 2);
+      }
+      else if (since_press < 3000 && since_press > 2000)
+      { // if less than 4s, toggle conjure
+        decide_autoplay();
+      }
+      else if (since_press < 4000 && since_press > 3000)
+      {
+        state = "party_modes";
+        EEPROM.write(0, 3);
+      }
+      else if (since_press < 5000 && since_press > 4000)
+      {
+        state = "colors";
+        EEPROM.write(0, 1);
+      }
+      else
+      {
+      }
+    }
+  }
+  else if (state == "party_modes")
   { // If playing
 
     if (pressed)
@@ -38,8 +104,8 @@ void handle_button()
     { // if not pressed and changed (just released)
       if (since_press < 1000 && since_press != 0)
       { // if less than 500ms, sleep if conjuring and change mode if not
-        Serial.println("Next pattern");
-        nextPattern(); // Change to the next pattern
+        Serial.println("Next Party Mode");
+        nextPartyMode(); // Change to the next pattern
         since_press = 0;
         return;
       }
@@ -48,7 +114,7 @@ void handle_button()
         // Turn Off Lights
         fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0));
         FastLED.show();
-        op_state = "off";
+        state = "off";
         last_state = "modes";
         EEPROM.write(0, 2);
       }
@@ -58,18 +124,16 @@ void handle_button()
       }
       else if (since_press < 4000 && since_press > 3000)
       {
-        op_state = "colors";
-        EEPROM.write(0, 1);
+        state = "modes";
+        EEPROM.write(0, 0);
       }
       else
       {
       }
     }
   }
-  else if (op_state == "colors")
+  else if (state == "colors")
   { // If playing
-    // op_state
-
     if (pressed)
     { // and pressed
       if (since_press == 1000)
@@ -101,14 +165,14 @@ void handle_button()
         // Turn Off Lights
         fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0));
         FastLED.show();
-        op_state = "off";
+        state = "off";
         last_state = "colors";
         EEPROM.write(0, 2);
       }
       else if (since_press < 3000 && since_press > 2000)
       { // if less than 2s, sleep
         Serial.println("Change States");
-        op_state = "modes";
+        state = "modes";
         EEPROM.write(0, 0);
       }
       else
@@ -116,9 +180,8 @@ void handle_button()
       }
     }
   }
-  else if (op_state == "off")
+  else if (state == "off")
   { // If playing
-    // op_state
     if (pressed)
     { // and pressed
       if (since_press == 1000)
@@ -132,7 +195,7 @@ void handle_button()
       if (since_press < 2000 && since_press > 1000)
       { // if less than 2s, sleep
         Serial.println("Change States");
-        op_state = last_state;
+        state = last_state;
         EEPROM.write(0, 0);
       }
       else

@@ -1,9 +1,17 @@
-void nextPattern()
+void nextMode()
 {
   // add one to the current pattern number, and wrap around at the end
-  gCurrentPatternNumber = (gCurrentPatternNumber + 1) % ARRAY_SIZE(gPatterns);
-  Serial.println({gCurrentPatternNumber});
-  EEPROM.write(1, gCurrentPatternNumber);
+  gCurrentModeNumber = (gCurrentModeNumber + 1) % ARRAY_SIZE(gModes);
+  Serial.println({gCurrentModeNumber});
+  EEPROM.write(1, gCurrentModeNumber);
+  // EEPROM.commit();
+}
+void nextPartyMode()
+{
+  // add one to the current pattern number, and wrap around at the end
+  gCurrentPartyModeNumber = (gCurrentPartyModeNumber + 1) % ARRAY_SIZE(gPartyModes);
+  Serial.println({gCurrentPartyModeNumber});
+  EEPROM.write(1, gCurrentPartyModeNumber);
   // EEPROM.commit();
 }
 
@@ -89,5 +97,64 @@ void decide_autoplay()
     autoplay = true;
     Serial.println("Autoplay On");
     EEPROM.write(3, 1);
+  }
+}
+
+void load_setting()
+{
+  determine_state(EEPROM.read(0));
+  gCurrentModeNumber = EEPROM.read(1);
+  gCurrentHueNumber = EEPROM.read(2);
+  autoplay = EEPROM.read(3);
+  Serial.println(state);
+}
+
+void determine_state(int state)
+{
+  if (state == 0)
+  {
+    state = "modes";
+  }
+  else if (state == 1)
+  {
+    state = "colors";
+  }
+  else if (state == 3)
+  {
+    state = "party_modes";
+  }
+  else
+  {
+    state = "modes";
+  }
+  Serial.println(state);
+}
+
+void handle_mode_change()
+{
+  // Call the current pattern function once, updating the 'leds' array
+  gModes[gCurrentModeNumber]();
+  // gModes[random(num_modes)]();
+  FastLED.show();
+  // insert a delay to keep the framerate modest
+  FastLED.delay(1000 / FRAMES_PER_SECOND);
+
+  EVERY_N_SECONDS(INTERVAL)
+  {
+    nextMode(); // change patterns periodically
+  }
+}
+void handle_party_mode_change()
+{
+  // Call the current pattern function once, updating the 'leds' array
+  gPartyModes[gCurrentPartyModeNumber]();
+  // gModes[random(num_modes)]();
+  FastLED.show();
+  // insert a delay to keep the framerate modest
+  FastLED.delay(1000 / FRAMES_PER_SECOND);
+
+  EVERY_N_SECONDS(INTERVAL)
+  {
+    nextPartyMode(); // change patterns periodically
   }
 }
