@@ -45,11 +45,28 @@ void setup()
   // set master brightness control
   FastLED.setBrightness(BRIGHTNESS);
   // EEPROM.begin(512);
-  op_state = EEPROM.read(0) == 0 ? "modes" : "colors";
-  Serial.println(op_state);
+  determine_state(EEPROM.read(0));
   gCurrentPatternNumber = EEPROM.read(1);
   gCurrentHueNumber = EEPROM.read(2);
   autoplay = EEPROM.read(3);
+  Serial.println(op_state);
+}
+
+void determine_state(int state)
+{
+  if (state == 0)
+  {
+    op_state = "modes";
+  }
+  else if (state == 1)
+  {
+    op_state = "colors";
+  }
+  else
+  {
+    op_state = "modes";
+  }
+  Serial.println(op_state);
 }
 // List of patterns to cycle through.  Each is defined as a separate function below.
 typedef void (*SimplePatternList[])();
@@ -140,6 +157,10 @@ void loop()
   if (op_state == "colors")
   {
     color_selection();
+  }
+  if (op_state == "off")
+  {
+    off();
   }
   handle_button();
 }
