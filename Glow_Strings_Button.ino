@@ -1,5 +1,5 @@
 #include <FastLED.h>
-#include <JC_Button.h>
+#include <EEPROM.h>
 
 #if defined(FASTLED_VERSION) && (FASTLED_VERSION < 3001000)
 #warning "Requires FastLED 3.1 or later; check github for latest code."
@@ -18,13 +18,15 @@
 // Choose Random or Not Random Mode Changes
 #define RANDOM "Not Random"
 
-#define PIN_BUTTON 2        // Pin for the button
-#define MODE_CHOICE 0       // Mode Choise
-#define COLOR_CHOICE 1      // Color Choice
-#define FLASHING_PATTERNS 2 // Flashing Pattern Choice
+#define PIN_BUTTON 2 // Pin for the button
 int autoplay = true;
 
-uint8_t op_state = MODE_CHOICE; // Current state of the light
+long op_state = "modes"; // Current state of the light
+
+uint8_t gCurrentPatternNumber = 0;
+uint8_t gCurrentHueNumber = 0;
+uint8_t gCurrentSaturationNumber = 255;
+uint8_t gCurrentValueNumber = 255;
 
 CRGB leds[NUM_LEDS];
 // Button myButton(2, true, true, 50); // Declare the button
@@ -42,6 +44,12 @@ void setup()
   FastLED.addLeds<LED_TYPE, LED_PIN, COLOR_ORDER>(leds, NUM_LEDS).setCorrection(TypicalLEDStrip);
   // set master brightness control
   FastLED.setBrightness(BRIGHTNESS);
+  // EEPROM.begin(512);
+  op_state = EEPROM.read(0) == 0 ? "modes" : "colors";
+  Serial.println(op_state);
+  gCurrentPatternNumber = EEPROM.read(1);
+  gCurrentHueNumber = EEPROM.read(2);
+  autoplay = EEPROM.read(3);
 }
 // List of patterns to cycle through.  Each is defined as a separate function below.
 typedef void (*SimplePatternList[])();
@@ -122,19 +130,14 @@ int num_colors = (sizeof(gColors) / sizeof(gColors[0]));
 
 // int num_party_modes = (sizeof(gPartyPatterns) / sizeof(gPartyPatterns[0]));
 
-uint8_t gCurrentPatternNumber = 0;
-uint8_t gCurrentHueNumber = 0;
-uint8_t gCurrentSaturationNumber = 255;
-uint8_t gCurrentValueNumber = 255;
-
 void loop()
 {
   // readbutton();
-  if (autoplay)
+  if (op_state == "modes")
   {
     handle_mode_change();
   }
-  if (op_state == 1)
+  if (op_state == "colors")
   {
     color_selection();
   }

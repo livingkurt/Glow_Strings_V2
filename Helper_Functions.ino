@@ -3,6 +3,8 @@ void nextPattern()
   // add one to the current pattern number, and wrap around at the end
   gCurrentPatternNumber = (gCurrentPatternNumber + 1) % ARRAY_SIZE(gPatterns);
   Serial.println({gCurrentPatternNumber});
+  EEPROM.write(1, gCurrentPatternNumber);
+  // EEPROM.commit();
 }
 
 void nextHue()
@@ -10,21 +12,23 @@ void nextHue()
   // add one to the current pattern number, and wrap around at the end
   gCurrentHueNumber = (gCurrentHueNumber + 15) % 255;
   Serial.println({gCurrentHueNumber});
+  EEPROM.write(2, gCurrentHueNumber);
+  // EEPROM.commit();
 }
 
-void nextSaturation()
-{
-  // add one to the current pattern number, and wrap around at the end
-  gCurrentSaturationNumber = (gCurrentSaturationNumber - 15) % 255;
-  Serial.println({gCurrentSaturationNumber});
-}
+// void nextSaturation()
+// {
+//   // add one to the current pattern number, and wrap around at the end
+//   gCurrentSaturationNumber = (gCurrentSaturationNumber - 15) % 255;
+//   Serial.println({gCurrentSaturationNumber});
+// }
 
-void nextValue()
-{
-  // add one to the current pattern number, and wrap around at the end
-  gCurrentValueNumber = (gCurrentValueNumber - 15) % 255;
-  Serial.println({gCurrentValueNumber});
-}
+// void nextValue()
+// {
+//   // add one to the current pattern number, and wrap around at the end
+//   gCurrentValueNumber = (gCurrentValueNumber - 15) % 255;
+//   Serial.println({gCurrentValueNumber});
+// }
 
 int forwards(int length, int placement, int pos)
 {
@@ -78,10 +82,12 @@ void decide_autoplay()
   {
     autoplay = false;
     Serial.println("Autoplay Off");
+    EEPROM.write(3, 0);
   }
   else
   {
     autoplay = true;
     Serial.println("Autoplay On");
+    EEPROM.write(3, 1);
   }
 }

@@ -9,7 +9,7 @@ void handle_button()
   Serial.println(since_press);
   // Serial.println("Hello");
 
-  if (op_state == 0)
+  if (op_state == "modes")
   { // If playing
 
     if (pressed)
@@ -23,20 +23,20 @@ void handle_button()
         }
         else
         {
-          flash(160, 255);
+          flash(96, 255);
         }
       }
       else if (since_press == 2000)
       {
         Serial.println(2000);
-        flash(96, 255);
+        flash(224, 255);
       }
 
-      else if (since_press == 3000)
-      {
-        Serial.println(3000);
-        flash(255, 0);
-      }
+      // else if (since_press == 3000)
+      // {
+      //   Serial.println(3000);
+      //   flash(224, 0);
+      // }
       // since_press += 20;
     }
     else if (changed)
@@ -60,7 +60,9 @@ void handle_button()
         // fill_solid(leds, NUM_LEDS, CHSV(255, 255, 255)); // Set all to red.
         gPatterns[15]();
         FastLED.show();
-        op_state = 1;
+        op_state = "colors";
+        EEPROM.write(0, 1);
+        // EEPROM.commit();
         // since_press = 0;
       }
       else
@@ -70,7 +72,7 @@ void handle_button()
       }
     }
   }
-  else if (op_state == 1)
+  else if (op_state == "colors")
   { // If playing
     // op_state
 
@@ -84,12 +86,12 @@ void handle_button()
         flash(255, 255);
       }
 
-      if (since_press == 2000)
-      {
-        Serial.println(2000);
-        // flash(0, 0, 128); // Flash blue when conjure will toggle (2s)
-        flash(96, 255);
-      }
+      // if (since_press == 2000)
+      // {
+      //   Serial.println(2000);
+      //   // flash(0, 0, 128); // Flash blue when conjure will toggle (2s)
+      //   flash(96, 255);
+      // }
 
       // else if (since_press == 3000)
       // {
@@ -108,15 +110,16 @@ void handle_button()
         since_press = 0;
         return;
       }
-      else if (since_press < 2000)
+      else if (since_press < 2000 && since_press > 1000)
       { // if less than 2s, sleep
-      }
-      else if (since_press < 3000)
-      { // if less than 4s, toggle conjure
         Serial.println("Change States");
-        op_state = 0;
-        // enter_sleep();
+        op_state = "modes";
+        EEPROM.write(0, 0);
       }
+      // else if (since_press < 3000)
+      // { // if less than 4s, toggle conjure
+
+      // }
       // else
       // { // if more than 4s, lock light
       //   // settings.locked = 1; // set locked bit
