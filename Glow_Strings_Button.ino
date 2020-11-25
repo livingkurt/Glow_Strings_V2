@@ -110,13 +110,15 @@ int num_modes = (sizeof(gModes) / sizeof(gModes[0]));
 typedef void (*SimplePartyModeList[])();
 
 SimplePartyModeList gPartyModes = {
-    section_flash_all_rainbow,
-    flash_rainbow,
+    section_flash_random,
     section_flash,
+    section_flash_all_fade,
+    flash_red,
+    section_flash_all_rainbow,
+    flash_white,
     section_flash_rainbow_cycle,
+    flash_rainbow,
     section_flash_rainbow_cycle_split,
-
-    // shooting_star_white_end_to_end,
 };
 
 int num_party_modes = (sizeof(gPartyModes) / sizeof(gPartyModes[0]));

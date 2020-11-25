@@ -1,8 +1,8 @@
 void flash_rainbow()
 {
   int rate = 10;
-  int strobe = 5;
-  int gap = 10;
+  int strobe = 10;
+  int gap = 30;
 
   int start_hue;
   int delta_hue = 5;
