@@ -22,6 +22,7 @@
 int autoplay = true;
 
 long op_state = "modes"; // Current state of the light
+long last_state = "";    // Current state of the light
 
 uint8_t gCurrentPatternNumber = 0;
 uint8_t gCurrentHueNumber = 0;
