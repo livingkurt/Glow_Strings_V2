@@ -1,27 +1,51 @@
+void load_setting()
+{
+  determine_state(EEPROM.read(0));
+  gCurrentModeNumber = EEPROM.read(1);
+  gCurrentHueNumber = EEPROM.read(2);
+  autoplay = EEPROM.read(3);
+  Serial.println(state);
+}
+
+void determine_state(int state)
+{
+  if (state == 0)
+  {
+    state = "modes";
+  }
+  else if (state == 1)
+  {
+    state = "party_modes";
+  }
+  else if (state == 2)
+  {
+    state = "colors";
+  }
+  else
+  {
+    state = "modes";
+  }
+  Serial.println(state);
+}
+
 void nextMode()
 {
-  // add one to the current pattern number, and wrap around at the end
   gCurrentModeNumber = (gCurrentModeNumber + 1) % ARRAY_SIZE(gModes);
   Serial.println({gCurrentModeNumber});
   EEPROM.write(1, gCurrentModeNumber);
-  // EEPROM.commit();
 }
 void nextPartyMode()
 {
-  // add one to the current pattern number, and wrap around at the end
-  gCurrentPartyModeNumber = (gCurrentPartyModeNumber + 1) % ARRAY_SIZE(gPartyModes);
+  gCurrentPartyModeNumber = random_interval ? random(num_modes) : (gCurrentPartyModeNumber + 1) % ARRAY_SIZE(gPartyModes);
   Serial.println({gCurrentPartyModeNumber});
-  EEPROM.write(1, gCurrentPartyModeNumber);
-  // EEPROM.commit();
+  EEPROM.write(2, gCurrentPartyModeNumber);
 }
 
 void nextHue()
 {
-  // add one to the current pattern number, and wrap around at the end
   gCurrentHueNumber = (gCurrentHueNumber + 15) % 255;
   Serial.println({gCurrentHueNumber});
-  EEPROM.write(2, gCurrentHueNumber);
-  // EEPROM.commit();
+  EEPROM.write(3, gCurrentHueNumber);
 }
 
 // void nextSaturation()
@@ -55,6 +79,7 @@ void hold(int period)
   while (millis() < time_now + period)
   {
     // FastLED.show();
+    // return true;
   }
 }
 
@@ -80,7 +105,7 @@ void flash(int color, int sat)
   hold(gap);
   FastLED.show();
 
-  // since_press += 1000;
+  // since_press += 1;
   return;
 }
 
@@ -99,35 +124,20 @@ void decide_autoplay()
     EEPROM.write(3, 1);
   }
 }
-
-void load_setting()
+void decide_random_interval()
 {
-  determine_state(EEPROM.read(0));
-  gCurrentModeNumber = EEPROM.read(1);
-  gCurrentHueNumber = EEPROM.read(2);
-  autoplay = EEPROM.read(3);
-  Serial.println(state);
-}
-
-void determine_state(int state)
-{
-  if (state == 0)
+  if (random_interval)
   {
-    state = "modes";
-  }
-  else if (state == 1)
-  {
-    state = "colors";
-  }
-  else if (state == 3)
-  {
-    state = "party_modes";
+    random_interval = false;
+    Serial.println("Random Intverval Off");
+    EEPROM.write(4, 0);
   }
   else
   {
-    state = "modes";
+    random_interval = true;
+    Serial.println("Intverval On");
+    EEPROM.write(4, 1);
   }
-  Serial.println(state);
 }
 
 void handle_mode_change()
@@ -154,11 +164,25 @@ void handle_party_mode_change()
   FastLED.show();
   // insert a delay to keep the framerate modest
   FastLED.delay(1000 / FRAMES_PER_SECOND);
-  if (autoplay)
+  if (random_interval)
+  {
+
+    EVERY_N_SECONDS(random(1, 5))
+    {
+      nextPartyMode(); // change patterns periodically
+    }
+  }
+  else
   {
     EVERY_N_SECONDS(INTERVAL)
     {
       nextPartyMode(); // change patterns periodically
     }
   }
+}
+
+void enter_sleep()
+{
+  fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0));
+  FastLED.show();
 }
