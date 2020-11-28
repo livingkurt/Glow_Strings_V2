@@ -39,42 +39,28 @@ void handle_button()
 void state_select(bool pressed, bool changed)
 {
   if (pressed)
-  { // and pressed
+  {
     if (since_press == 1000)
     {
       Serial.println(1000);
-      // flash(32, 32, 32); // Flash white when chip will sleep (5000ms)
       flash(255, 255);
-    }
-    else if (since_press == 2000)
-    {
-      Serial.println(1000);
-      // flash(32, 32, 32); // Flash white when chip will sleep (5000ms)
-      flash(224, 255);
     }
   }
   else if (changed)
-  { // if not pressed and changed (just released)
-
+  {
     if (since_press < 1000 && since_press != 0)
-    { // if less than 5000ms, sleep if conjuring and change mode if not
+    {
       Serial.println("Next Color");
       nextState();
       since_press = 0;
       return;
     }
     else if (since_press < 2000 && since_press > 1000)
-    { // if less than 2s, sleep
+    {
       update_state();
     }
-    // else if (since_press < 3000 && since_press > 2000)
-    // { // if less than 2s, sleep
-    //   Serial.println("Change States");
-    //   state = "modes";
-    //   EEPROM.write(0, 0);
-    // }
     else
-    { // if more than 4s, lock light
+    {
     }
   }
 }
@@ -82,47 +68,21 @@ void state_select(bool pressed, bool changed)
 void modes(bool pressed, bool changed)
 {
   if (pressed)
-  { // and pressed
-    if (since_press == 1000)
-    {
-      flash(255, 255);
-    }
-    else if (since_press == 2000)
-    {
-      if (autoplay)
-      {
-        flash(160, 255);
-      }
-      else
-      {
-        flash(96, 255);
-      }
-    }
-    else if (since_press == 3000)
-    {
-      flash(64, 255);
-    }
-    // else if (since_press == 4000)
-    // {
-    //   flash(224, 255);
-    // }
-    // else if (since_press == 5000)
-    // {
-    //   flash(32, 255);
-    // }
+  {
+    flash_menus();
   }
   else if (changed)
-  { // if not pressed and changed (just released)
+  {
     if (since_press < 1000 && since_press != 0)
-    { // if less than 500ms, sleep if conjuring and change mode if not
+    {
       Serial.println("Next pattern");
-      nextMode(); // Change to the next pattern
+      nextMode();
       since_press = 0;
       return;
     }
     else if (since_press < 2000 && since_press > 1000)
-    { // if less than 2s, sleep
-      // Turn Off Lights
+    {
+
       fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0));
       FastLED.show();
       state = "enter_sleep";
@@ -130,7 +90,7 @@ void modes(bool pressed, bool changed)
       EEPROM.write(0, 3);
     }
     else if (since_press < 3000 && since_press > 2000)
-    { // if less than 4s, toggle conjure
+    {
       decide_autoplay();
     }
     else if (since_press < 4000 && since_press > 3000)
@@ -146,39 +106,21 @@ void modes(bool pressed, bool changed)
 void party_modes(bool pressed, bool changed)
 {
   if (pressed)
-  { // and pressed
-    if (since_press == 1000)
-    {
-      flash(255, 255);
-    }
-    else if (since_press == 2000)
-    {
-      if (autoplay)
-      {
-        flash(160, 255);
-      }
-      else
-      {
-        flash(96, 255);
-      }
-    }
-    else if (since_press == 3000)
-    {
-      flash(64, 255);
-    }
+  {
+    flash_menus();
   }
   else if (changed)
-  { // if not pressed and changed (just released)
+  {
     if (since_press < 1000 && since_press != 0)
-    { // if less than 5000ms, sleep if conjuring and change mode if not
+    {
       Serial.println("Next Party Mode");
-      nextPartyMode(); // Change to the next pattern
+      nextPartyMode();
       since_press = 0;
       return;
     }
     else if (since_press < 2000 && since_press > 1000)
-    { // if less than 2s, sleep
-      // Turn Off Lights
+    {
+
       fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0));
       FastLED.show();
       state = "enter_sleep";
@@ -186,7 +128,7 @@ void party_modes(bool pressed, bool changed)
       EEPROM.write(0, 2);
     }
     else if (since_press < 3000 && since_press > 2000)
-    { // if less than 4s, toggle conjure
+    {
       decide_random_interval();
     }
     else if (since_press < 4000 && since_press > 3000)
@@ -202,39 +144,21 @@ void party_modes(bool pressed, bool changed)
 void all_modes(bool pressed, bool changed)
 {
   if (pressed)
-  { // and pressed
-    if (since_press == 1000)
-    {
-      flash(255, 255);
-    }
-    else if (since_press == 2000)
-    {
-      if (autoplay)
-      {
-        flash(160, 255);
-      }
-      else
-      {
-        flash(96, 255);
-      }
-    }
-    else if (since_press == 3000)
-    {
-      flash(224, 255);
-    }
+  {
+    flash_menus();
   }
   else if (changed)
-  { // if not pressed and changed (just released)
+  {
     if (since_press < 1000 && since_press != 0)
-    { // if less than 5000ms, sleep if conjuring and change mode if not
+    {
       Serial.println("Next All Mode");
-      nextAllMode(); // Change to the next pattern
+      nextAllMode();
       since_press = 0;
       return;
     }
     else if (since_press < 2000 && since_press > 1000)
-    { // if less than 2s, sleep
-      // Turn Off Lights
+    {
+
       fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0));
       FastLED.show();
       state = "enter_sleep";
@@ -242,7 +166,7 @@ void all_modes(bool pressed, bool changed)
       EEPROM.write(0, 2);
     }
     else if (since_press < 3000 && since_press > 2000)
-    { // if less than 4s, toggle conjure
+    {
       decide_autoplay();
     }
     else if (since_press < 4000 && since_press > 3000)
@@ -258,25 +182,18 @@ void all_modes(bool pressed, bool changed)
 void colors(bool pressed, bool changed)
 {
   if (pressed)
-  { // and pressed
+  {
     if (since_press == 1000)
     {
       Serial.println(1000);
-      // flash(32, 32, 32); // Flash white when chip will sleep (5000ms)
       flash(255, 255);
     }
-    // else if (since_press == 2000)
-    // {
-    //   Serial.println(1000);
-    //   // flash(32, 32, 32); // Flash white when chip will sleep (5000ms)
-    //   flash(224, 255);
-    // }
   }
   else if (changed)
-  { // if not pressed and changed (just released)
+  {
 
     if (since_press < 1000 && since_press != 0)
-    { // if less than 5000ms, sleep if conjuring and change mode if not
+    {
       Serial.println("Next Color");
       nextHue();
       since_press = 0;
@@ -295,7 +212,7 @@ void colors(bool pressed, bool changed)
 void enter_sleep(bool pressed, bool changed)
 {
   if (pressed)
-  { // and pressed
+  {
     if (since_press == 1000)
     {
       Serial.println(1000);
@@ -303,9 +220,9 @@ void enter_sleep(bool pressed, bool changed)
     }
   }
   else if (changed)
-  { // if not pressed and changed (just released)
+  {
     if (since_press < 2000 && since_press > 1000)
-    { // if less than 2s, sleep
+    {
       Serial.println("Change States");
       state = last_state;
       EEPROM.write(0, 0);
@@ -313,5 +230,49 @@ void enter_sleep(bool pressed, bool changed)
     else
     { // if more than 4s, lock light
     }
+  }
+}
+
+void update_state()
+{
+  EEPROM.write(0, gCurrentStateNumber);
+  if (gCurrentStateNumber == 0)
+  {
+    state = "modes";
+  }
+  else if (gCurrentStateNumber == 1)
+  {
+    state = "party_modes";
+  }
+  else if (gCurrentStateNumber == 2)
+  {
+    state = "colors";
+  }
+  else if (gCurrentStateNumber == 3)
+  {
+    state = "all_modes";
+  }
+}
+
+void flash_menus()
+{
+  if (since_press == 1000)
+  {
+    flash(255, 255);
+  }
+  else if (since_press == 2000)
+  {
+    if (autoplay)
+    {
+      flash(160, 255);
+    }
+    else
+    {
+      flash(96, 255);
+    }
+  }
+  else if (since_press == 3000)
+  {
+    flash(64, 255);
   }
 }

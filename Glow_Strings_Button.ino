@@ -71,12 +71,7 @@ const int *state_colors[4] = {
     0,
     32,
     64,
-    96
-    // 160,
-    // 224,
-    // 64,
-    // 255,
-};
+    96};
 int num_state_colors = (sizeof(state_colors) / sizeof(state_colors[0]));
 
 // List of patterns to cycle through.  Each is defined as a separate function below.
@@ -165,7 +160,6 @@ void loop()
 {
   // current_millis = millis() / 10;
   // Serial.println(current_millis);
-  Serial.println(state);
   if (state == "modes")
   {
     handle_mode_change();
