@@ -157,37 +157,42 @@ SimpleAllModeList gAllModes = {
 
 int num_all_modes = (sizeof(gAllModes) / sizeof(gAllModes[0]));
 
+uint32_t since_press = 0; // Tracks how long since last button press
+bool was_pressed = false; // Tracks if the button was pressed in previous frame
+
 void loop()
 {
   // current_millis = millis() / 10;
   // Serial.println(current_millis);
-  if (state == "modes")
+  bool pressed = digitalRead(PIN_BUTTON) == HIGH; // Button is pressed when pin is low
+  bool changed = pressed != was_pressed;          // If pressed state has changed, we might need to act
+
+  if (!pressed)
   {
-    handle_mode_change();
+    if (state == "modes")
+    {
+      handle_mode_change();
+    }
+    if (state == "party_modes")
+    {
+      handle_party_mode_change();
+    }
+    if (state == "colors" || state == "value" || state == "saturation")
+    {
+      color_selection();
+    }
+    if (state == "state_select")
+    {
+      state_selection();
+    }
+    if (state == "all_modes")
+    {
+      handle_all_mode_change();
+    }
+    if (state == "enter_sleep")
+    {
+      enter_sleep();
+    }
   }
-  if (state == "party_modes")
-  {
-    handle_party_mode_change();
-  }
-  if (state == "colors" || state == "value" || state == "saturation")
-  {
-    color_selection();
-  }
-  if (state == "state_select")
-  {
-    state_selection();
-  }
-  if (state == "all_modes")
-  {
-    handle_all_mode_change();
-  }
-  if (state == "enter_sleep")
-  {
-    enter_sleep();
-  }
-  // if (state == "menu")
-  // {
-  //   menu();
-  // }
-  handle_button();
+  handle_button(pressed, changed);
 }

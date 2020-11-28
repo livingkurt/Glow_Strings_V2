@@ -1,10 +1,8 @@
-uint32_t since_press = 0; // Tracks how long since last button press
-bool was_pressed = false; // Tracks if the button was pressed in previous frame
 
-void handle_button()
+
+void handle_button(bool pressed, bool changed)
 {
-  bool pressed = digitalRead(PIN_BUTTON) == HIGH; // Button is pressed when pin is low
-  bool changed = pressed != was_pressed;          // If pressed state has changed, we might need to act
+
   Serial.println(since_press);
   if (state == "modes")
   {
@@ -200,13 +198,13 @@ void colors(bool pressed, bool changed)
 {
   if (pressed)
   {
-    if (since_press == 500)
-    {
-      fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0));
-      FastLED.show();
-      // state = "menu";
-    }
-    else if (since_press == 1000)
+    // if (since_press == 500)
+    // {
+    //   fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0));
+    //   FastLED.show();
+    //   // state = "menu";
+    // }
+    if (since_press == 1000)
     {
       flash(0, 255, 255);
     }
@@ -368,13 +366,13 @@ void update_state()
 
 void flash_menus()
 {
-  if (since_press == 500)
-  {
-    fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0));
-    FastLED.show();
-    // state = "menu";
-  }
-  else if (since_press == 1000)
+  // if (since_press == 500)
+  // {
+  //   fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0));
+  //   FastLED.show();
+  //   // state = "menu";
+  // }
+  if (since_press == 1000)
   {
     flash(255, 255, 255);
   }
@@ -397,7 +395,7 @@ void flash_menus()
 
 void flash(int color, int sat, int value)
 {
-  int gap = 100;
+  int gap = 150;
   fill_solid(leds, NUM_LEDS, CHSV(color, sat, value)); // Set all to red.
   hold(gap);
   FastLED.show();
@@ -417,6 +415,6 @@ void flash(int color, int sat, int value)
   hold(gap);
   FastLED.show();
 
-  since_press += 20;
+  // since_press += 20;
   return;
 }
