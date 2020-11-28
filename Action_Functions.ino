@@ -47,29 +47,3 @@ void nextValue()
   Serial.println({gCurrentValueNumber});
   EEPROM.write(7, gCurrentValueNumber);
 }
-
-void flash(int color, int sat, int value)
-{
-  int gap = 200;
-  fill_solid(leds, NUM_LEDS, CHSV(color, sat, value)); // Set all to red.
-  hold(gap);
-  FastLED.show();
-  fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0)); // Set all to red.
-  hold(gap);
-  FastLED.show();
-  fill_solid(leds, NUM_LEDS, CHSV(color, sat, value)); // Set all to red.
-  hold(gap);
-  FastLED.show();
-  fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0)); // Set all to red.
-  hold(gap);
-  FastLED.show();
-  fill_solid(leds, NUM_LEDS, CHSV(color, sat, value)); // Set all to red.
-  hold(gap);
-  FastLED.show();
-  fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0)); // Set all to red.
-  hold(gap);
-  FastLED.show();
-
-  // since_press += 1;
-  return;
-}

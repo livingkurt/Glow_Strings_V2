@@ -113,6 +113,7 @@ void modes(bool pressed, bool changed)
     }
   }
 }
+
 void party_modes(bool pressed, bool changed)
 {
   if (pressed)
@@ -153,6 +154,7 @@ void party_modes(bool pressed, bool changed)
     }
   }
 }
+
 void all_modes(bool pressed, bool changed)
 {
   if (pressed)
@@ -193,6 +195,7 @@ void all_modes(bool pressed, bool changed)
     }
   }
 }
+
 void colors(bool pressed, bool changed)
 {
   if (pressed)
@@ -213,7 +216,7 @@ void colors(bool pressed, bool changed)
     }
     else if (since_press == 3000)
     {
-      flash(gCurrentHueNumber, 50, 255);
+      flash(gCurrentHueNumber, 150, 255);
     }
     else if (since_press == 4000)
     {
@@ -254,10 +257,11 @@ void colors(bool pressed, bool changed)
       EEPROM.write(0, 1);
     }
     else
-    { // if more than 4s, lock light
+    {
     }
   }
 }
+
 void saturation(bool pressed, bool changed)
 {
   if (pressed)
@@ -283,7 +287,7 @@ void saturation(bool pressed, bool changed)
       EEPROM.write(0, 2);
     }
     else
-    { // if more than 4s, lock light
+    {
     }
   }
 }
@@ -312,7 +316,7 @@ void value(bool pressed, bool changed)
       EEPROM.write(0, 2);
     }
     else
-    { // if more than 4s, lock light
+    {
     }
   }
 }
@@ -336,7 +340,7 @@ void enter_sleep(bool pressed, bool changed)
       EEPROM.write(0, 0);
     }
     else
-    { // if more than 4s, lock light
+    {
     }
   }
 }
@@ -389,4 +393,30 @@ void flash_menus()
   {
     flash(64, 255, 255);
   }
+}
+
+void flash(int color, int sat, int value)
+{
+  int gap = 100;
+  fill_solid(leds, NUM_LEDS, CHSV(color, sat, value)); // Set all to red.
+  hold(gap);
+  FastLED.show();
+  fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0)); // Set all to red.
+  hold(gap);
+  FastLED.show();
+  fill_solid(leds, NUM_LEDS, CHSV(color, sat, value)); // Set all to red.
+  hold(gap);
+  FastLED.show();
+  fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0)); // Set all to red.
+  hold(gap);
+  FastLED.show();
+  fill_solid(leds, NUM_LEDS, CHSV(color, sat, value)); // Set all to red.
+  hold(gap);
+  FastLED.show();
+  fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0)); // Set all to red.
+  hold(gap);
+  FastLED.show();
+
+  since_press += 20;
+  return;
 }
