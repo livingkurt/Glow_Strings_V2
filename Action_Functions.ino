@@ -2,8 +2,8 @@ void nextState()
 {
   gCurrentStateNumber = (gCurrentStateNumber + 1) % ARRAY_SIZE(states);
   Serial.println({gCurrentStateNumber});
-  gCurrentHueNumber = state_colors[gCurrentStateNumber];
-  Serial.println({gCurrentHueNumber});
+  gCurrentStateHueNumber = state_colors[gCurrentStateNumber];
+  Serial.println({gCurrentStateHueNumber});
   // EEPROM.write(0, gCurrentStateNumber);
 }
 void nextMode()

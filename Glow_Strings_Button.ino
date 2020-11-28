@@ -27,6 +27,7 @@ long last_state = ""; // Current state of the light
 
 uint8_t gCurrentModeNumber = 0;
 uint8_t gCurrentStateNumber = 0;
+uint8_t gCurrentStateHueNumber = 0;
 uint8_t gCurrentPartyModeNumber = 0;
 uint8_t gCurrentAllModeNumber = 0;
 uint8_t gCurrentHueNumber = 0;
@@ -174,7 +175,7 @@ void loop()
   }
   if (state == "state_select")
   {
-    color_selection();
+    state_selection();
   }
   if (state == "all_modes")
   {
@@ -184,5 +185,9 @@ void loop()
   {
     enter_sleep();
   }
+  // if (state == "menu")
+  // {
+  //   menu();
+  // }
   handle_button();
 }
