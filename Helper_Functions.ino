@@ -53,12 +53,12 @@ void nextPartyMode()
   Serial.println({gCurrentPartyModeNumber});
   EEPROM.write(2, gCurrentPartyModeNumber);
 }
-// void nextAllMode()
-// {
-//   gCurrentAllModeNumber = random(num_all_modes) % ARRAY_SIZE(gAllModes);
-//   Serial.println({gCurrentAllModeNumber});
-//   EEPROM.write(2, gCurrentAllModeNumber);
-// }
+void nextAllMode()
+{
+  gCurrentAllModeNumber = random(num_all_modes) % ARRAY_SIZE(gAllModes);
+  Serial.println({gCurrentAllModeNumber});
+  EEPROM.write(2, gCurrentAllModeNumber);
+}
 
 void nextHue()
 {
@@ -176,22 +176,22 @@ void handle_mode_change()
   }
 }
 
-// void handle_all_mode_change()
-// {
-//   // Call the current pattern function once, updating the 'leds' array
-//   gModes[gCurrentModeNumber]();
-//   // gModes[random(num_modes)]();
-//   FastLED.show();
-//   // insert a delay to keep the framerate modest
-//   FastLED.delay(1000 / FRAMES_PER_SECOND);
-//   if (autoplay)
-//   {
-//     EVERY_N_SECONDS(INTERVAL)
-//     {
-//       nextMode(); // change patterns periodically
-//     }
-//   }
-// }
+void handle_all_mode_change()
+{
+  // Call the current pattern function once, updating the 'leds' array
+  gAllModes[gCurrentAllModeNumber]();
+  // gModes[random(num_modes)]();
+  FastLED.show();
+  // insert a delay to keep the framerate modest
+  FastLED.delay(1000 / FRAMES_PER_SECOND);
+  if (autoplay)
+  {
+    EVERY_N_SECONDS(INTERVAL)
+    {
+      nextAllMode(); // change patterns periodically
+    }
+  }
+}
 void handle_party_mode_change()
 {
   // Call the current pattern function once, updating the 'leds' array
@@ -240,16 +240,16 @@ void update_state()
   {
     state = "colors";
   }
-  // else if (gCurrentStateNumber == 2)
+  else if (gCurrentStateNumber == 3)
+  {
+    state = "all_modes";
+  }
+  // else if (gCurrentStateNumber == 4)
   // {
-  //   state = "all_modes";
+  //   state = "state_select";
   // }
-  else if (gCurrentStateNumber == 4)
-  {
-    state = "state_select";
-  }
-  else
-  {
-    state = "modes";
-  }
+  // else
+  // {
+  //   state = "modes";
+  // }
 }

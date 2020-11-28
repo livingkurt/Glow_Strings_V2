@@ -59,19 +59,23 @@ void setup()
 const char *states[4] = {
     "modes",
     "party_modes",
-    "all_modes",
     "colors",
+    "all_modes",
 };
 
 int num_states = (sizeof(states) / sizeof(states[0]));
 // List of patterns to cycle through.  Each is defined as a separate function below.
 typedef void (*SimpleStateColorsList[])();
 
-SimpleStateColorsList state_colors = {
-    160,
-    224,
+const int *state_colors[4] = {
+    0,
+    32,
     64,
-    255,
+    96
+    // 160,
+    // 224,
+    // 64,
+    // 255,
 };
 int num_state_colors = (sizeof(state_colors) / sizeof(state_colors[0]));
 
@@ -166,10 +170,6 @@ void loop()
   {
     handle_mode_change();
   }
-  // if (state == "state_select")
-  // {
-  //   handle_state_change();
-  // }
   if (state == "party_modes")
   {
     handle_party_mode_change();
@@ -182,10 +182,10 @@ void loop()
   {
     color_selection();
   }
-  // if (state == "all_modes")
-  // {
-  //   handle_all_mode_change();
-  // }
+  if (state == "all_modes")
+  {
+    handle_all_mode_change();
+  }
   if (state == "enter_sleep")
   {
     enter_sleep();
