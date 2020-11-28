@@ -36,10 +36,16 @@ void nextMode()
 }
 void nextPartyMode()
 {
-  gCurrentPartyModeNumber = random_interval ? random(num_modes) : (gCurrentPartyModeNumber + 1) % ARRAY_SIZE(gPartyModes);
+  gCurrentPartyModeNumber = random_interval ? random(num_party_modes) : (gCurrentPartyModeNumber + 1) % ARRAY_SIZE(gPartyModes);
   Serial.println({gCurrentPartyModeNumber});
   EEPROM.write(2, gCurrentPartyModeNumber);
 }
+// void nextAllMode()
+// {
+//   gCurrentAllModeNumber = random(num_all_modes) % ARRAY_SIZE(gAllModes);
+//   Serial.println({gCurrentAllModeNumber});
+//   EEPROM.write(2, gCurrentAllModeNumber);
+// }
 
 void nextHue()
 {
@@ -156,6 +162,22 @@ void handle_mode_change()
     }
   }
 }
+// void handle_all_mode_change()
+// {
+//   // Call the current pattern function once, updating the 'leds' array
+//   gModes[gCurrentModeNumber]();
+//   // gModes[random(num_modes)]();
+//   FastLED.show();
+//   // insert a delay to keep the framerate modest
+//   FastLED.delay(1000 / FRAMES_PER_SECOND);
+//   if (autoplay)
+//   {
+//     EVERY_N_SECONDS(INTERVAL)
+//     {
+//       nextMode(); // change patterns periodically
+//     }
+//   }
+// }
 void handle_party_mode_change()
 {
   // Call the current pattern function once, updating the 'leds' array

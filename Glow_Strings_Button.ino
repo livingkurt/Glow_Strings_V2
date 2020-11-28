@@ -27,6 +27,7 @@ long last_state = ""; // Current state of the light
 
 uint8_t gCurrentModeNumber = 0;
 uint8_t gCurrentPartyModeNumber = 0;
+uint8_t gCurrentAllModeNumber = 0;
 uint8_t gCurrentHueNumber = 0;
 uint8_t gCurrentSaturationNumber = 255;
 uint8_t gCurrentValueNumber = 255;
@@ -53,6 +54,17 @@ void setup()
   // set master brightness control
   FastLED.setBrightness(BRIGHTNESS);
 }
+
+// // List of patterns to cycle through.  Each is defined as a separate function below.
+// typedef void (*SimpleStateList[])();
+
+// SimpleStateList states = {
+//     "modes",
+//     "party_modes",
+//     "colors",
+
+// };
+// int num_modes = (sizeof(gModes) / sizeof(gModes[0]));
 
 // List of patterns to cycle through.  Each is defined as a separate function below.
 typedef void (*SimplePatternList[])();
@@ -103,6 +115,39 @@ SimplePartyModeList gPartyModes = {
 
 int num_party_modes = (sizeof(gPartyModes) / sizeof(gPartyModes[0]));
 
+typedef void (*SimpleAllModeList[])();
+
+SimpleAllModeList gAllModes = {
+    rainbow_cycle,
+    sparkle_white,
+    split_rainbow_2,
+    shooting_star_white_bnf,
+    sparkle_rainbow_all_fade,
+    juggle,
+    pulse_white,
+    split_rainbow_4,
+    sparkle_white_rainbow_all_fade,
+    all_rainbow,
+    juggle_white,
+    bpm,
+    sparkle_rainbow_saturation,
+    shooting_star_rainbow_bnf,
+    sparkle_rainbow_random,
+    pulse_rainbow,
+    section_flash_random,
+    flash_red,
+    section_flash,
+    section_flash_all_fade,
+    flash_red,
+    section_flash_all_rainbow,
+    flash_white,
+    section_flash_rainbow_cycle,
+    flash_rainbow,
+    section_flash_rainbow_cycle_split,
+};
+
+int num_all_modes = (sizeof(gAllModes) / sizeof(gAllModes[0]));
+
 void loop()
 {
   // current_millis = millis() / 10;
@@ -119,6 +164,10 @@ void loop()
   {
     color_selection();
   }
+  // if (state == "all_modes")
+  // {
+  //   handle_all_mode_change();
+  // }
   if (state == "off")
   {
     enter_sleep();
