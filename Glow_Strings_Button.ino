@@ -26,6 +26,7 @@ long state = "modes"; // Current state of the light
 long last_state = ""; // Current state of the light
 
 uint8_t gCurrentModeNumber = 0;
+uint8_t gCurrentStateNumber = 0;
 uint8_t gCurrentPartyModeNumber = 0;
 uint8_t gCurrentAllModeNumber = 0;
 uint8_t gCurrentHueNumber = 0;
@@ -55,16 +56,24 @@ void setup()
   FastLED.setBrightness(BRIGHTNESS);
 }
 
-// // List of patterns to cycle through.  Each is defined as a separate function below.
-// typedef void (*SimpleStateList[])();
+const char *states[4] = {
+    "modes",
+    "party_modes",
+    "all_modes",
+    "colors",
+};
 
-// SimpleStateList states = {
-//     "modes",
-//     "party_modes",
-//     "colors",
+int num_states = (sizeof(states) / sizeof(states[0]));
+// List of patterns to cycle through.  Each is defined as a separate function below.
+typedef void (*SimpleStateColorsList[])();
 
-// };
-// int num_modes = (sizeof(gModes) / sizeof(gModes[0]));
+SimpleStateColorsList state_colors = {
+    160,
+    224,
+    64,
+    255,
+};
+int num_state_colors = (sizeof(state_colors) / sizeof(state_colors[0]));
 
 // List of patterns to cycle through.  Each is defined as a separate function below.
 typedef void (*SimplePatternList[])();
@@ -152,10 +161,15 @@ void loop()
 {
   // current_millis = millis() / 10;
   // Serial.println(current_millis);
+  Serial.println(state);
   if (state == "modes")
   {
     handle_mode_change();
   }
+  // if (state == "state_select")
+  // {
+  //   handle_state_change();
+  // }
   if (state == "party_modes")
   {
     handle_party_mode_change();
@@ -164,11 +178,15 @@ void loop()
   {
     color_selection();
   }
+  if (state == "state_select")
+  {
+    color_selection();
+  }
   // if (state == "all_modes")
   // {
   //   handle_all_mode_change();
   // }
-  if (state == "off")
+  if (state == "enter_sleep")
   {
     enter_sleep();
   }

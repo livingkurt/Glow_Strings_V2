@@ -10,7 +10,10 @@ void handle_button()
   {
     modes(pressed, changed);
   }
-
+  else if (state == "state_select")
+  {
+    state_select(pressed, changed);
+  }
   else if (state == "party_modes")
   {
     party_modes(pressed, changed);
@@ -23,14 +26,57 @@ void handle_button()
   // {
   //   all_modes(pressed, changed);
   // }
-  else if (state == "off")
+  else if (state == "enter_sleep")
   {
-    off(pressed, changed);
+    enter_sleep(pressed, changed);
   }
   since_press += 20;
   if (changed)
     since_press = 0;     // If state changed we need to reset since_press
   was_pressed = pressed; // Update was_pressed to this frame's button status
+}
+
+void state_select(bool pressed, bool changed)
+{
+  if (pressed)
+  { // and pressed
+    if (since_press == 1000)
+    {
+      Serial.println(1000);
+      // flash(32, 32, 32); // Flash white when chip will sleep (5000ms)
+      flash(255, 255);
+    }
+    else if (since_press == 2000)
+    {
+      Serial.println(1000);
+      // flash(32, 32, 32); // Flash white when chip will sleep (5000ms)
+      flash(224, 255);
+    }
+  }
+  else if (changed)
+  { // if not pressed and changed (just released)
+
+    if (since_press < 1000 && since_press != 0)
+    { // if less than 5000ms, sleep if conjuring and change mode if not
+      Serial.println("Next Color");
+      nextState();
+      since_press = 0;
+      return;
+    }
+    else if (since_press < 2000 && since_press > 1000)
+    { // if less than 2s, sleep
+      update_state();
+    }
+    // else if (since_press < 3000 && since_press > 2000)
+    // { // if less than 2s, sleep
+    //   Serial.println("Change States");
+    //   state = "modes";
+    //   EEPROM.write(0, 0);
+    // }
+    else
+    { // if more than 4s, lock light
+    }
+  }
 }
 
 void modes(bool pressed, bool changed)
@@ -56,14 +102,14 @@ void modes(bool pressed, bool changed)
     {
       flash(64, 255);
     }
-    else if (since_press == 4000)
-    {
-      flash(224, 255);
-    }
-    else if (since_press == 5000)
-    {
-      flash(32, 255);
-    }
+    // else if (since_press == 4000)
+    // {
+    //   flash(224, 255);
+    // }
+    // else if (since_press == 5000)
+    // {
+    //   flash(32, 255);
+    // }
   }
   else if (changed)
   { // if not pressed and changed (just released)
@@ -79,7 +125,7 @@ void modes(bool pressed, bool changed)
       // Turn Off Lights
       fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0));
       FastLED.show();
-      state = "off";
+      state = "enter_sleep";
       last_state = "modes";
       EEPROM.write(0, 3);
     }
@@ -89,19 +135,9 @@ void modes(bool pressed, bool changed)
     }
     else if (since_press < 4000 && since_press > 3000)
     {
-      state = "party_modes";
+      state = "state_select";
       EEPROM.write(0, 1);
     }
-    else if (since_press < 5000 && since_press > 4000)
-    {
-      state = "colors";
-      EEPROM.write(0, 2);
-    }
-    // else if (since_press < 6000 && since_press > 5000)
-    // {
-    //   state = "all_modes";
-    //   EEPROM.write(0, 3);
-    // }
     else
     {
     }
@@ -117,7 +153,7 @@ void party_modes(bool pressed, bool changed)
     }
     else if (since_press == 2000)
     {
-      if (random_interval)
+      if (autoplay)
       {
         flash(160, 255);
       }
@@ -128,7 +164,7 @@ void party_modes(bool pressed, bool changed)
     }
     else if (since_press == 3000)
     {
-      flash(224, 255);
+      flash(64, 255);
     }
   }
   else if (changed)
@@ -145,7 +181,7 @@ void party_modes(bool pressed, bool changed)
       // Turn Off Lights
       fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0));
       FastLED.show();
-      state = "off";
+      state = "enter_sleep";
       last_state = "modes";
       EEPROM.write(0, 2);
     }
@@ -155,8 +191,8 @@ void party_modes(bool pressed, bool changed)
     }
     else if (since_press < 4000 && since_press > 3000)
     {
-      state = "modes";
-      EEPROM.write(0, 0);
+      state = "state_select";
+      EEPROM.write(0, 1);
     }
     else
     {
@@ -201,7 +237,7 @@ void party_modes(bool pressed, bool changed)
 //       // Turn Off Lights
 //       fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0));
 //       FastLED.show();
-//       state = "off";
+//       state = "enter_sleep";
 //       last_state = "modes";
 //       EEPROM.write(0, 2);
 //     }
@@ -211,8 +247,8 @@ void party_modes(bool pressed, bool changed)
 //     }
 //     else if (since_press < 4000 && since_press > 3000)
 //     {
-//       state = "modes";
-//       EEPROM.write(0, 0);
+//       state = "state_select";
+//       EEPROM.write(0, 1);
 //     }
 //     else
 //     {
@@ -247,27 +283,16 @@ void colors(bool pressed, bool changed)
       return;
     }
     else if (since_press < 2000 && since_press > 1000)
-    { // if less than 2s, sleep
-
-      // Turn Off Lights
-      fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0));
-      FastLED.show();
-      state = "off";
-      last_state = "colors";
-      EEPROM.write(0, 3);
-    }
-    else if (since_press < 3000 && since_press > 2000)
-    { // if less than 2s, sleep
-      Serial.println("Change States");
-      state = "modes";
-      EEPROM.write(0, 0);
+    {
+      state = "state_select";
+      EEPROM.write(0, 1);
     }
     else
     { // if more than 4s, lock light
     }
   }
 }
-void off(bool pressed, bool changed)
+void enter_sleep(bool pressed, bool changed)
 {
   if (pressed)
   { // and pressed

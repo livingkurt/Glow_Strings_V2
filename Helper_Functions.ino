@@ -21,13 +21,26 @@ void determine_state(int state)
   {
     state = "colors";
   }
+  else if (state == 3)
+  {
+    state = "colors";
+  }
   else
   {
     state = "modes";
   }
+  return state;
   Serial.println(state);
 }
 
+void nextState()
+{
+  gCurrentStateNumber = (gCurrentStateNumber + 1) % ARRAY_SIZE(states);
+  Serial.println({gCurrentStateNumber});
+  gCurrentHueNumber = state_colors[gCurrentStateNumber];
+  Serial.println({gCurrentHueNumber});
+  // EEPROM.write(0, gCurrentStateNumber);
+}
 void nextMode()
 {
   gCurrentModeNumber = (gCurrentModeNumber + 1) % ARRAY_SIZE(gModes);
@@ -162,6 +175,7 @@ void handle_mode_change()
     }
   }
 }
+
 // void handle_all_mode_change()
 // {
 //   // Call the current pattern function once, updating the 'leds' array
@@ -207,4 +221,35 @@ void enter_sleep()
 {
   fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0));
   FastLED.show();
+}
+
+void update_state()
+{
+  // Turn Off Lights
+  EEPROM.write(0, gCurrentStateNumber);
+  // determine_state(gCurrentStateNumber);
+  if (gCurrentStateNumber == 0)
+  {
+    state = "modes";
+  }
+  else if (gCurrentStateNumber == 1)
+  {
+    state = "party_modes";
+  }
+  else if (gCurrentStateNumber == 2)
+  {
+    state = "colors";
+  }
+  // else if (gCurrentStateNumber == 2)
+  // {
+  //   state = "all_modes";
+  // }
+  else if (gCurrentStateNumber == 4)
+  {
+    state = "state_select";
+  }
+  else
+  {
+    state = "modes";
+  }
 }
