@@ -169,7 +169,7 @@ void loop()
   {
     handle_party_mode_change();
   }
-  if (state == "colors")
+  if (state == "colors" || state == "value" || state == "saturation")
   {
     color_selection();
   }

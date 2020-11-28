@@ -22,7 +22,7 @@ void nextAllMode()
 {
   gCurrentAllModeNumber = random(num_all_modes) % ARRAY_SIZE(gAllModes);
   Serial.println({gCurrentAllModeNumber});
-  EEPROM.write(2, gCurrentAllModeNumber);
+  EEPROM.write(3, gCurrentAllModeNumber);
 }
 
 void nextHue()
@@ -32,36 +32,38 @@ void nextHue()
   EEPROM.write(3, gCurrentHueNumber);
 }
 
-// void nextSaturation()
-// {
-//   // add one to the current pattern number, and wrap around at the end
-//   gCurrentSaturationNumber = (gCurrentSaturationNumber - 15) % 255;
-//   Serial.println({gCurrentSaturationNumber});
-// }
+void nextSaturation()
+{
+  // add one to the current pattern number, and wrap around at the end
+  gCurrentSaturationNumber = (gCurrentSaturationNumber - 51) % 255;
+  Serial.println({gCurrentSaturationNumber});
+  EEPROM.write(6, gCurrentSaturationNumber);
+}
 
-// void nextValue()
-// {
-//   // add one to the current pattern number, and wrap around at the end
-//   gCurrentValueNumber = (gCurrentValueNumber - 15) % 255;
-//   Serial.println({gCurrentValueNumber});
-// }
+void nextValue()
+{
+  // add one to the current pattern number, and wrap around at the end
+  gCurrentValueNumber = (gCurrentValueNumber - 51) % 255;
+  Serial.println({gCurrentValueNumber});
+  EEPROM.write(7, gCurrentValueNumber);
+}
 
-void flash(int color, int sat)
+void flash(int color, int sat, int value)
 {
   int gap = 200;
-  fill_solid(leds, NUM_LEDS, CHSV(color, sat, 255)); // Set all to red.
+  fill_solid(leds, NUM_LEDS, CHSV(color, sat, value)); // Set all to red.
   hold(gap);
   FastLED.show();
   fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0)); // Set all to red.
   hold(gap);
   FastLED.show();
-  fill_solid(leds, NUM_LEDS, CHSV(color, sat, 255)); // Set all to red.
+  fill_solid(leds, NUM_LEDS, CHSV(color, sat, value)); // Set all to red.
   hold(gap);
   FastLED.show();
   fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0)); // Set all to red.
   hold(gap);
   FastLED.show();
-  fill_solid(leds, NUM_LEDS, CHSV(color, sat, 255)); // Set all to red.
+  fill_solid(leds, NUM_LEDS, CHSV(color, sat, value)); // Set all to red.
   hold(gap);
   FastLED.show();
   fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0)); // Set all to red.

@@ -22,6 +22,14 @@ void handle_button()
   {
     colors(pressed, changed);
   }
+  else if (state == "value")
+  {
+    value(pressed, changed);
+  }
+  else if (state == "saturation")
+  {
+    saturation(pressed, changed);
+  }
   else if (state == "all_modes")
   {
     all_modes(pressed, changed);
@@ -43,7 +51,7 @@ void state_select(bool pressed, bool changed)
     if (since_press == 1000)
     {
       Serial.println(1000);
-      flash(255, 255);
+      flash(255, 255, 255);
     }
   }
   else if (changed)
@@ -197,8 +205,19 @@ void colors(bool pressed, bool changed)
     }
     else if (since_press == 1000)
     {
-      Serial.println(1000);
-      flash(255, 255);
+      flash(0, 255, 255);
+    }
+    else if (since_press == 2000)
+    {
+      flash(gCurrentHueNumber, 255, 100);
+    }
+    else if (since_press == 3000)
+    {
+      flash(gCurrentHueNumber, 50, 255);
+    }
+    else if (since_press == 4000)
+    {
+      flash(224, 255, 255);
     }
   }
   else if (changed)
@@ -213,7 +232,6 @@ void colors(bool pressed, bool changed)
     }
     else if (since_press < 2000 && since_press > 1000)
     {
-
       fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0));
       FastLED.show();
       state = "enter_sleep";
@@ -222,14 +240,77 @@ void colors(bool pressed, bool changed)
     }
     else if (since_press < 3000 && since_press > 2000)
     {
+      state = "value";
+      EEPROM.write(0, 2);
+    }
+    else if (since_press < 4000 && since_press > 3000)
+    {
+      state = "saturation";
+      EEPROM.write(0, 2);
+    }
+    else if (since_press < 5000 && since_press > 4000)
+    {
       state = "state_select";
       EEPROM.write(0, 1);
     }
-    // else if (since_press < 4000 && since_press > 3000)
-    // {
-    //   state = "state_select";
-    //   EEPROM.write(0, 1);
-    // }
+    else
+    { // if more than 4s, lock light
+    }
+  }
+}
+void saturation(bool pressed, bool changed)
+{
+  if (pressed)
+  {
+    if (since_press == 1000)
+    {
+      Serial.println(1000);
+      flash(255, 255, 255);
+    }
+  }
+  else if (changed)
+  {
+    if (since_press < 1000 && since_press != 0)
+    {
+      Serial.println("Next Color");
+      nextSaturation();
+      since_press = 0;
+      return;
+    }
+    else if (since_press < 2000 && since_press > 1000)
+    {
+      state = "colors";
+      EEPROM.write(0, 2);
+    }
+    else
+    { // if more than 4s, lock light
+    }
+  }
+}
+void value(bool pressed, bool changed)
+{
+  if (pressed)
+  {
+    if (since_press == 1000)
+    {
+      Serial.println(1000);
+      flash(255, 255, 255);
+    }
+  }
+  else if (changed)
+  {
+    if (since_press < 1000 && since_press != 0)
+    {
+      Serial.println("Next Color");
+      nextValue();
+      since_press = 0;
+      return;
+    }
+    else if (since_press < 2000 && since_press > 1000)
+    {
+      state = "colors";
+      EEPROM.write(0, 2);
+    }
     else
     { // if more than 4s, lock light
     }
@@ -243,7 +324,7 @@ void enter_sleep(bool pressed, bool changed)
     if (since_press == 1000)
     {
       Serial.println(1000);
-      flash(255, 0);
+      flash(255, 0, 255);
     }
   }
   else if (changed)
@@ -291,21 +372,21 @@ void flash_menus()
   }
   else if (since_press == 1000)
   {
-    flash(255, 255);
+    flash(255, 255, 255);
   }
   else if (since_press == 2000)
   {
     if (autoplay)
     {
-      flash(160, 255);
+      flash(160, 255, 255);
     }
     else
     {
-      flash(96, 255);
+      flash(96, 255, 255);
     }
   }
   else if (since_press == 3000)
   {
-    flash(64, 255);
+    flash(64, 255, 255);
   }
 }

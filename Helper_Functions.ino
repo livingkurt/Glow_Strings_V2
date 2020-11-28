@@ -2,9 +2,13 @@ void load_setting()
 {
   determine_state(EEPROM.read(0));
   gCurrentModeNumber = EEPROM.read(1);
-  gCurrentHueNumber = EEPROM.read(2);
-  autoplay = EEPROM.read(3);
-  Serial.println(state);
+  gCurrentPartyModeNumber = EEPROM.read(2);
+  gCurrentAllModeNumber = EEPROM.read(3);
+  autoplay = EEPROM.read(4);
+  random_interval = EEPROM.read(5);
+  gCurrentHueNumber = EEPROM.read(6);
+  gCurrentSaturationNumber = EEPROM.read(7);
+  gCurrentValueNumber = EEPROM.read(8);
 }
 
 int forwards(int length, int placement, int pos)
@@ -33,13 +37,13 @@ void decide_autoplay()
   {
     autoplay = false;
     Serial.println("Autoplay Off");
-    EEPROM.write(3, 0);
+    EEPROM.write(4, 0);
   }
   else
   {
     autoplay = true;
     Serial.println("Autoplay On");
-    EEPROM.write(3, 1);
+    EEPROM.write(4, 1);
   }
 }
 void decide_random_interval()
@@ -48,13 +52,13 @@ void decide_random_interval()
   {
     random_interval = false;
     Serial.println("Random Intverval Off");
-    EEPROM.write(4, 0);
+    EEPROM.write(5, 0);
   }
   else
   {
     random_interval = true;
     Serial.println("Intverval On");
-    EEPROM.write(4, 1);
+    EEPROM.write(5, 1);
   }
 }
 
@@ -74,7 +78,7 @@ void determine_state(int state)
   }
   else if (state == 3)
   {
-    state = "colors";
+    state = "all_modes";
   }
   else
   {
