@@ -9,7 +9,7 @@ void all_rainbow()
   delta_hue = 20;
   start_hue = -1 * millis() / rate;
 
-  fill_solid(leds, NUM_LEDS, CHSV(start_hue, 255, 200)); // Set all to red.
+  fill_solid(leds, NUM_LEDS, CHSV(start_hue, 255, 255)); // Set all to red.
   FastLED.show();
   start_hue += delta_hue;
 }

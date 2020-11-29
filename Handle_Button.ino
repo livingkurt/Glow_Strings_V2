@@ -198,28 +198,7 @@ void colors(bool pressed, bool changed)
 {
   if (pressed)
   {
-    // if (since_press == 500)
-    // {
-    //   fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0));
-    //   FastLED.show();
-    //   // state = "menu";
-    // }
-    if (since_press == 1000)
-    {
-      flash(0, 255, 255);
-    }
-    else if (since_press == 2000)
-    {
-      flash(gCurrentHueNumber, 255, 100);
-    }
-    else if (since_press == 3000)
-    {
-      flash(gCurrentHueNumber, 150, 255);
-    }
-    else if (since_press == 4000)
-    {
-      flash(224, 255, 255);
-    }
+    color_menu();
   }
   else if (changed)
   {
@@ -366,12 +345,6 @@ void update_state()
 
 void flash_menus()
 {
-  // if (since_press == 500)
-  // {
-  //   fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0));
-  //   FastLED.show();
-  //   // state = "menu";
-  // }
   if (since_press == 1000)
   {
     flash(255, 255, 255);
@@ -390,6 +363,26 @@ void flash_menus()
   else if (since_press == 3000)
   {
     flash(64, 255, 255);
+  }
+}
+
+void color_menu()
+{
+  if (since_press == 1000)
+  {
+    flash(0, 255, 255);
+  }
+  else if (since_press == 2000)
+  {
+    flash(gCurrentHueNumber, 255, 100);
+  }
+  else if (since_press == 3000)
+  {
+    flash(gCurrentHueNumber, 150, 255);
+  }
+  else if (since_press == 4000)
+  {
+    flash(224, 255, 255);
   }
 }
 

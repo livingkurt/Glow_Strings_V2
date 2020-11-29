@@ -15,8 +15,6 @@
 #define COLOR_ORDER RGB
 // Interval Between Mode Changes
 #define INTERVAL 15
-// Choose Random or Not Random Mode Changes
-#define RANDOM "Not Random"
 
 #define PIN_BUTTON 2 // Pin for the button
 int autoplay = true;
@@ -101,24 +99,22 @@ int num_modes = (sizeof(gModes) / sizeof(gModes[0]));
 typedef void (*SimplePartyModeList[])();
 
 SimplePartyModeList gPartyModes = {
-    // wave_rainbow_shooting_star,
-    // wave_white_shooting_star,
-    // wave_white_shooting_star_split_2,
-    // wave_rainbow_shooting_star_split_2,
-    // wave_rainbow_split_2,
-    // wave_white_split_2,
-    // wave_rainbow,
-    // shooting_star_mirror_white_bnf,
-    // wave_white,
     section_flash_random,
-    flash_red,
+    wave_white,
     section_flash,
+    wave_rainbow,
     section_flash_all_fade,
     flash_red,
+    wave_rainbow_mirror,
     section_flash_all_rainbow,
+    wave_rainbow_shooting_star,
     flash_white,
+    wave_white_mirror_shooting_star,
     section_flash_rainbow_cycle,
+    wave_white_mirror,
     flash_rainbow,
+    wave_rainbow_mirror_shooting_star,
+    wave_white_shooting_star,
     section_flash_rainbow_cycle_split,
 };
 
