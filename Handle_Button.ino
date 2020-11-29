@@ -307,6 +307,11 @@ void enter_sleep(bool pressed, bool changed)
       Serial.println(1000);
       flash(255, 0, 255);
     }
+    else if (since_press == 4000)
+    {
+      Serial.println(4000);
+      flash(96, 255, 255);
+    }
   }
   else if (changed)
   {
@@ -314,6 +319,13 @@ void enter_sleep(bool pressed, bool changed)
     {
       Serial.println("Change States");
       state = last_state;
+      EEPROM.write(0, determine_state_number(last_state));
+    }
+    if (since_press < 3000 && since_press > 2000)
+    {
+      Serial.println("Reset Settings");
+      state = "modes";
+      reset_setting();
       EEPROM.write(0, 0);
     }
     else

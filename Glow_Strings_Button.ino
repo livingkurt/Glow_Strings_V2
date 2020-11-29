@@ -17,20 +17,20 @@
 #define INTERVAL 15
 
 #define PIN_BUTTON 2 // Pin for the button
-int autoplay = true;
-int random_interval = true;
 
 long state = "modes"; // Current state of the light
 long last_state = ""; // Current state of the light
 
-uint8_t gCurrentModeNumber = 0;
-uint8_t gCurrentStateNumber = 0;
-uint8_t gCurrentStateHueNumber = 0;
-uint8_t gCurrentPartyModeNumber = 0;
-uint8_t gCurrentAllModeNumber = 0;
-uint8_t gCurrentHueNumber = 0;
-uint8_t gCurrentSaturationNumber = 255;
-uint8_t gCurrentValueNumber = 255;
+uint8_t gCurrentStateNumber = 0;        // EPPROM 0
+uint8_t gCurrentStateHueNumber = 0;     // EPPROM 0
+uint8_t gCurrentModeNumber = 0;         // EPPROM 1
+uint8_t gCurrentPartyModeNumber = 0;    // EPPROM 2
+uint8_t gCurrentAllModeNumber = 0;      // EPPROM 3
+uint8_t autoplay = 1;                   // EPPROM 4
+uint8_t random_interval = 1;            // EPPROM 5
+uint8_t gCurrentHueNumber = 0;          // EPPROM 6
+uint8_t gCurrentSaturationNumber = 255; // EPPROM 7
+uint8_t gCurrentValueNumber = 255;      // EPPROM 8
 // unsigned long current_millis;
 // unsigned long previous_press_duration;
 // unsigned long previous_button_millis;
@@ -53,6 +53,7 @@ void setup()
   FastLED.addLeds<LED_TYPE, LED_PIN, COLOR_ORDER>(leds, NUM_LEDS).setCorrection(TypicalLEDStrip);
   // set master brightness control
   FastLED.setBrightness(BRIGHTNESS);
+  load_setting();
 }
 
 const char *states[4] = {
@@ -140,14 +141,21 @@ SimpleAllModeList gAllModes = {
     sparkle_rainbow_random,
     pulse_rainbow,
     section_flash_random,
-    flash_red,
+    wave_white,
     section_flash,
+    wave_rainbow,
     section_flash_all_fade,
     flash_red,
+    wave_rainbow_mirror,
     section_flash_all_rainbow,
+    wave_rainbow_shooting_star,
     flash_white,
+    wave_white_mirror_shooting_star,
     section_flash_rainbow_cycle,
+    wave_white_mirror,
     flash_rainbow,
+    wave_rainbow_mirror_shooting_star,
+    wave_white_shooting_star,
     section_flash_rainbow_cycle_split,
 };
 
