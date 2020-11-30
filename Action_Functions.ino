@@ -7,6 +7,24 @@ void nextState()
   // EEPROM.write(0, gCurrentStateNumber);
   EEPROM.write(0, gCurrentStateHueNumber);
 }
+void nextSetting()
+{
+  gCurrentSettingNumber = (gCurrentSettingNumber + 1) % ARRAY_SIZE(settings);
+  Serial.println({gCurrentSettingNumber});
+  gCurrentSettingHueNumber = setting_colors[gCurrentSettingNumber];
+  Serial.println({gCurrentSettingHueNumber});
+  // EEPROM.write(0, gCurrentSettingNumber);
+  // EEPROM.write(0, gCurrentSettingHueNumber);
+}
+void nextInterval()
+{
+  gCurrentIntervalNumber = (gCurrentIntervalNumber + 1) % ARRAY_SIZE(intervals);
+  Serial.println({gCurrentIntervalNumber});
+  gCurrentIntervalHueNumber = interval_colors[gCurrentIntervalNumber];
+  Serial.println({gCurrentIntervalHueNumber});
+  // EEPROM.write(0, gCurrentSettingNumber);
+  // EEPROM.write(0, gCurrentSettingHueNumber);
+}
 void nextMode()
 {
   gCurrentModeNumber = (gCurrentModeNumber + 1) % ARRAY_SIZE(gModes);
@@ -33,12 +51,31 @@ void decide_autoplay()
     autoplay = 0;
     Serial.println("Autoplay Off");
     EEPROM.write(4, 0);
+    flash(160, 255, 255);
   }
   else
   {
     autoplay = 1;
     Serial.println("Autoplay On");
     EEPROM.write(4, 1);
+    flash(96, 255, 255);
+  }
+}
+void decide_random_order()
+{
+  if (random_order)
+  {
+    random_order = 0;
+    Serial.println("Random Intverval Off");
+    EEPROM.write(5, 0);
+    flash(160, 255, 255);
+  }
+  else
+  {
+    random_order = 1;
+    Serial.println("Intverval On");
+    EEPROM.write(5, 1);
+    flash(96, 255, 255);
   }
 }
 void decide_random_interval()
@@ -48,12 +85,14 @@ void decide_random_interval()
     random_interval = 0;
     Serial.println("Random Intverval Off");
     EEPROM.write(5, 0);
+    flash(160, 255, 255);
   }
   else
   {
     random_interval = 1;
     Serial.println("Intverval On");
     EEPROM.write(5, 1);
+    flash(96, 255, 255);
   }
 }
 

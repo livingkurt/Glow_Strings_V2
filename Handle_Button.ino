@@ -12,6 +12,10 @@ void handle_button(bool pressed, bool changed)
   {
     state_select(pressed, changed);
   }
+  else if (state == "setting_select")
+  {
+    setting_select(pressed, changed);
+  }
   else if (state == "party_modes")
   {
     party_modes(pressed, changed);
@@ -56,7 +60,7 @@ void state_select(bool pressed, bool changed)
   {
     if (since_press < 1000 && since_press != 0)
     {
-      Serial.println("Next Color");
+      Serial.println("Next State");
       nextState();
       since_press = 0;
       return;
@@ -70,6 +74,63 @@ void state_select(bool pressed, bool changed)
     }
   }
 }
+
+void setting_select(bool pressed, bool changed)
+{
+  if (pressed)
+  {
+    if (since_press == 1000)
+    {
+      Serial.println(1000);
+      flash(255, 255, 255);
+    }
+  }
+  else if (changed)
+  {
+    if (since_press < 1000 && since_press != 0)
+    {
+      Serial.println("Next Setting");
+      nextSetting();
+      since_press = 0;
+      return;
+    }
+    else if (since_press < 2000 && since_press > 1000)
+    {
+      go_to_setting();
+    }
+    else
+    {
+    }
+  }
+}
+// void interval_select(bool pressed, bool changed)
+// {
+//   if (pressed)
+//   {
+//     if (since_press == 1000)
+//     {
+//       Serial.println(1000);
+//       flash(255, 255, 255);
+//     }
+//   }
+//   else if (changed)
+//   {
+//     if (since_press < 1000 && since_press != 0)
+//     {
+//       Serial.println("Next Setting");
+//       nextSetting();
+//       since_press = 0;
+//       return;
+//     }
+//     else if (since_press < 2000 && since_press > 1000)
+//     {
+//       update_state();
+//     }
+//     else
+//     {
+//     }
+//   }
+// }
 
 void modes(bool pressed, bool changed)
 {
@@ -98,13 +159,13 @@ void modes(bool pressed, bool changed)
     }
     else if (since_press < 3000 && since_press > 2000)
     {
-      state = "modes";
-      decide_autoplay();
+      // decide_autoplay();
+      state = "setting_select";
+      last_state = "modes";
     }
     else if (since_press < 4000 && since_press > 3000)
     {
       state = "state_select";
-      EEPROM.write(0, 1);
     }
     else
     {
@@ -139,13 +200,13 @@ void party_modes(bool pressed, bool changed)
     }
     else if (since_press < 3000 && since_press > 2000)
     {
-      state = "party_modes";
-      decide_random_interval();
+      // decide_autoplay();
+      state = "setting_select";
+      last_state = "party_modes";
     }
     else if (since_press < 4000 && since_press > 3000)
     {
       state = "state_select";
-      EEPROM.write(0, 1);
     }
     else
     {
@@ -180,13 +241,13 @@ void all_modes(bool pressed, bool changed)
     }
     else if (since_press < 3000 && since_press > 2000)
     {
-      state = "all_modes";
-      decide_autoplay();
+      // decide_autoplay();
+      state = "setting_select";
+      last_state = "all_modes";
     }
     else if (since_press < 4000 && since_press > 3000)
     {
       state = "state_select";
-      EEPROM.write(0, 1);
     }
     else
     {
@@ -231,7 +292,6 @@ void colors(bool pressed, bool changed)
     else if (since_press < 5000 && since_press > 4000)
     {
       state = "state_select";
-      EEPROM.write(0, 1);
     }
     else
     {
@@ -310,7 +370,7 @@ void enter_sleep(bool pressed, bool changed)
     else if (since_press == 4000)
     {
       Serial.println(4000);
-      flash(96, 255, 255);
+      flash(255, 255, 255);
     }
   }
   else if (changed)
@@ -321,11 +381,11 @@ void enter_sleep(bool pressed, bool changed)
       state = last_state;
       EEPROM.write(0, determine_state_number(last_state));
     }
-    if (since_press < 3000 && since_press > 2000)
+    else if (since_press < 6000 && since_press > 5000)
     {
       Serial.println("Reset Settings");
-      state = "modes";
       reset_setting();
+      state = "modes";
       EEPROM.write(0, 0);
     }
     else
@@ -352,6 +412,31 @@ void update_state()
   else if (gCurrentStateNumber == 3)
   {
     state = "all_modes";
+  }
+}
+
+void go_to_setting()
+{
+  EEPROM.write(0, gCurrentSettingNumber);
+  if (gCurrentSettingNumber == 0)
+  {
+    // state = "autoplay";
+    decide_autoplay();
+    state = last_state;
+  }
+  else if (gCurrentSettingNumber == 1)
+  {
+    state = "interval";
+  }
+  else if (gCurrentSettingNumber == 2)
+  {
+    decide_random_interval();
+    state = last_state;
+  }
+  else if (gCurrentSettingNumber == 3)
+  {
+    decide_random_order();
+    state = last_state;
   }
 }
 

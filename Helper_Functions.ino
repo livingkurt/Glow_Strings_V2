@@ -1,6 +1,11 @@
 void load_setting()
 {
-  determine_state(EEPROM.read(0));
+  // if (EEPROM.length())
+  // {
+
+  state = determine_state(EEPROM.read(0));
+  Serial.println("Determine States");
+  Serial.println(state);
   gCurrentModeNumber = EEPROM.read(1);
   gCurrentPartyModeNumber = EEPROM.read(2);
   gCurrentAllModeNumber = EEPROM.read(3);
@@ -9,43 +14,60 @@ void load_setting()
   gCurrentHueNumber = EEPROM.read(6);
   gCurrentSaturationNumber = EEPROM.read(7);
   gCurrentValueNumber = EEPROM.read(8);
+  random_order = EEPROM.read(9);
+  interval = EEPROM.read(10);
+  // }
 }
 void reset_setting()
 {
-  EEPROM.write(0, 0);
-  EEPROM.write(1, 0);
-  EEPROM.write(2, 0);
-  EEPROM.write(3, 0);
-  EEPROM.write(4, 1);
-  EEPROM.write(5, 1);
-  EEPROM.write(6, 0);
-  EEPROM.write(7, 254);
-  EEPROM.write(8, 254);
+
+  // state = "modes";
+  gCurrentStateNumber = 0;        // EPPROM 0
+  gCurrentStateHueNumber = 0;     // EPPROM 0
+  gCurrentModeNumber = 0;         // EPPROM 1
+  gCurrentPartyModeNumber = 0;    // EPPROM 2
+  gCurrentAllModeNumber = 0;      // EPPROM 3
+  autoplay = 1;                   // EPPROM 4
+  random_interval = 1;            // EPPROM 5
+  gCurrentHueNumber = 0;          // EPPROM 6
+  gCurrentSaturationNumber = 255; // EPPROM 7
+  gCurrentValueNumber = 255;      // EPPROM 8
+  random_order = 0;               // EPPROM 9
+  interval = 0;                   // EPPROM 9
+  // EEPROM.write(0, 0);
+  // EEPROM.write(1, 0);
+  // EEPROM.write(2, 0);
+  // EEPROM.write(3, 0);
+  // EEPROM.write(4, 1);
+  // EEPROM.write(5, 1);
+  // EEPROM.write(6, 0);
+  // EEPROM.write(7, 254);
+  // EEPROM.write(8, 254);
+  for (int i = 0; i < EEPROM.length(); i++)
+  {
+    EEPROM.write(i, 0);
+  }
 }
 
-void determine_state(int state)
+int determine_state(int state)
 {
+
   if (state == 0)
   {
-    state = "modes";
+    return "modes";
   }
   else if (state == 1)
   {
-    state = "party_modes";
+    return "party_modes";
   }
   else if (state == 2)
   {
-    state = "colors";
+    return "colors";
   }
   else if (state == 3)
   {
-    state = "all_modes";
+    return "all_modes";
   }
-  // else
-  // {
-  //   state = "modes";
-  // }
-  return state;
   Serial.println(state);
 }
 int determine_state_number(long state)

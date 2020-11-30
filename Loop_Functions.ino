@@ -61,3 +61,26 @@ void enter_sleep()
   fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0));
   FastLED.show();
 }
+
+void color_selection()
+{
+  fill_solid(leds, NUM_LEDS, CHSV(gCurrentHueNumber, gCurrentSaturationNumber, gCurrentValueNumber));
+  FastLED.show();
+}
+
+void state_selection()
+{
+  fill_solid(leds, NUM_LEDS, CHSV(gCurrentStateHueNumber, 255, 255));
+  FastLED.show();
+}
+
+void setting_selection()
+{
+  fill_solid(leds, NUM_LEDS, CHSV(gCurrentSettingHueNumber, 255, 255));
+  FastLED.show();
+}
+void interval_selection()
+{
+  fill_solid(leds, NUM_LEDS, CHSV(gCurrentIntervalHueNumber, 255, 255));
+  FastLED.show();
+}

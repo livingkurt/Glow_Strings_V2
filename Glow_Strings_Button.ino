@@ -21,8 +21,12 @@
 long state = "modes"; // Current state of the light
 long last_state = ""; // Current state of the light
 
-uint8_t gCurrentStateNumber = 0;        // EPPROM 0
-uint8_t gCurrentStateHueNumber = 0;     // EPPROM 0
+uint8_t gCurrentStateNumber = 0;    // EPPROM 0
+uint8_t gCurrentStateHueNumber = 0; // EPPROM 0
+uint8_t gCurrentSettingNumber = 0;
+uint8_t gCurrentSettingHueNumber = 110;
+uint8_t gCurrentIntervalNumber = 0;
+uint8_t gCurrentIntervalHueNumber = 110;
 uint8_t gCurrentModeNumber = 0;         // EPPROM 1
 uint8_t gCurrentPartyModeNumber = 0;    // EPPROM 2
 uint8_t gCurrentAllModeNumber = 0;      // EPPROM 3
@@ -31,10 +35,8 @@ uint8_t random_interval = 1;            // EPPROM 5
 uint8_t gCurrentHueNumber = 0;          // EPPROM 6
 uint8_t gCurrentSaturationNumber = 255; // EPPROM 7
 uint8_t gCurrentValueNumber = 255;      // EPPROM 8
-// unsigned long current_millis;
-// unsigned long previous_press_duration;
-// unsigned long previous_button_millis;
-// unsigned long pressed_millis;
+uint8_t random_order = 0;               // EPPROM 9
+uint8_t interval = 60;                  // EPPROM 10
 
 CRGB leds[NUM_LEDS];
 // Button myButton(2, true, true, 50); // Declare the button
@@ -64,8 +66,6 @@ const char *states[4] = {
 };
 
 int num_states = (sizeof(states) / sizeof(states[0]));
-// List of patterns to cycle through.  Each is defined as a separate function below.
-typedef void (*SimpleStateColorsList[])();
 
 const int *state_colors[4] = {
     0,
@@ -73,6 +73,38 @@ const int *state_colors[4] = {
     64,
     96};
 int num_state_colors = (sizeof(state_colors) / sizeof(state_colors[0]));
+
+const char *settings[4] = {
+    "autoplay",
+    "interval Length",
+    "random_modes",
+    "random_interval",
+};
+
+int num_settings = (sizeof(settings) / sizeof(settings[0]));
+
+const int *setting_colors[4] = {
+    110,
+    130,
+    150,
+    170};
+
+int num_setting_colors = (sizeof(setting_colors) / sizeof(setting_colors[0]));
+
+const char *intervals[4] = {
+    "long",
+    "mid",
+    "short",
+};
+
+int num_intervals = (sizeof(intervals) / sizeof(intervals[0]));
+
+const int *interval_colors[4] = {
+    60,
+    30,
+    10};
+
+int num_interval_colors = (sizeof(interval_colors) / sizeof(interval_colors[0]));
 
 // List of patterns to cycle through.  Each is defined as a separate function below.
 typedef void (*SimplePatternList[])();
@@ -166,8 +198,6 @@ bool was_pressed = false; // Tracks if the button was pressed in previous frame
 
 void loop()
 {
-  // current_millis = millis() / 10;
-  // Serial.println(current_millis);
   bool pressed = digitalRead(PIN_BUTTON) == HIGH; // Button is pressed when pin is low
   bool changed = pressed != was_pressed;          // If pressed state has changed, we might need to act
 
@@ -188,6 +218,14 @@ void loop()
     if (state == "state_select")
     {
       state_selection();
+    }
+    if (state == "setting_select")
+    {
+      setting_selection();
+    }
+    if (state == "interval_select")
+    {
+      interval_selection();
     }
     if (state == "all_modes")
     {
