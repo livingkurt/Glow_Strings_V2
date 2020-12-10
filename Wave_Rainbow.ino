@@ -42,7 +42,7 @@
 void wave_rainbow()
 {
   int rate = 10;
-  int rand = random(10);
+  int rand = random(determine_strobe());
   int rand_length = random(NUM_LEDS);
   int strobe = rand;
   int start_hue;

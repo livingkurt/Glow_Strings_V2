@@ -1,46 +1,46 @@
 void nextState()
 {
   gCurrentStateNumber = (gCurrentStateNumber + 1) % ARRAY_SIZE(states);
-  Serial.println({gCurrentStateNumber});
+  Serial.println(gCurrentStateNumber);
   gCurrentStateHueNumber = state_colors[gCurrentStateNumber];
-  Serial.println({gCurrentStateHueNumber});
+  Serial.println(gCurrentStateHueNumber);
   // EEPROM.write(0, gCurrentStateNumber);
   EEPROM.write(0, gCurrentStateHueNumber);
 }
 void nextSetting()
 {
   gCurrentSettingNumber = (gCurrentSettingNumber + 1) % ARRAY_SIZE(settings);
-  Serial.println({gCurrentSettingNumber});
+  Serial.println(gCurrentSettingNumber);
   gCurrentSettingHueNumber = setting_colors[gCurrentSettingNumber];
-  Serial.println({gCurrentSettingHueNumber});
+  Serial.println(gCurrentSettingHueNumber);
   // EEPROM.write(0, gCurrentSettingNumber);
   // EEPROM.write(0, gCurrentSettingHueNumber);
 }
 void nextInterval()
 {
   gCurrentIntervalNumber = (gCurrentIntervalNumber + 1) % ARRAY_SIZE(intervals);
-  Serial.println({gCurrentIntervalNumber});
-  gCurrentIntervalHueNumber = interval_colors[gCurrentIntervalNumber];
-  Serial.println({gCurrentIntervalHueNumber});
+  Serial.println(gCurrentIntervalNumber);
+  gCurrentIntervalValueNumber = interval_colors[gCurrentIntervalNumber];
+  Serial.println(gCurrentIntervalValueNumber);
   // EEPROM.write(0, gCurrentSettingNumber);
   // EEPROM.write(0, gCurrentSettingHueNumber);
 }
 void nextMode()
 {
-  gCurrentModeNumber = (gCurrentModeNumber + 1) % ARRAY_SIZE(gModes);
-  Serial.println({gCurrentModeNumber});
+  gCurrentModeNumber = random_order ? random(num_modes) : (gCurrentModeNumber + 1) % ARRAY_SIZE(gModes);
+  Serial.println(gCurrentModeNumber);
   EEPROM.write(1, gCurrentModeNumber);
 }
 void nextPartyMode()
 {
-  gCurrentPartyModeNumber = random_interval ? random(num_party_modes) : (gCurrentPartyModeNumber + 1) % ARRAY_SIZE(gPartyModes);
-  Serial.println({gCurrentPartyModeNumber});
+  gCurrentPartyModeNumber = random_order ? random(num_party_modes) : (gCurrentPartyModeNumber + 1) % ARRAY_SIZE(gPartyModes);
+  Serial.println(gCurrentPartyModeNumber);
   EEPROM.write(2, gCurrentPartyModeNumber);
 }
 void nextAllMode()
 {
-  gCurrentAllModeNumber = random(num_all_modes) % ARRAY_SIZE(gAllModes);
-  Serial.println({gCurrentAllModeNumber});
+  gCurrentAllModeNumber = random_order ? random(num_all_modes) : (gCurrentAllModeNumber + 1) % ARRAY_SIZE(gAllModes);
+  Serial.println(gCurrentAllModeNumber);
   EEPROM.write(3, gCurrentAllModeNumber);
 }
 
@@ -99,7 +99,7 @@ void decide_random_interval()
 void nextHue()
 {
   gCurrentHueNumber = (gCurrentHueNumber + 15) % 255;
-  Serial.println({gCurrentHueNumber});
+  Serial.println(gCurrentHueNumber);
   EEPROM.write(6, gCurrentHueNumber);
 }
 
@@ -107,7 +107,7 @@ void nextSaturation()
 {
   // add one to the current pattern number, and wrap around at the end
   gCurrentSaturationNumber = (gCurrentSaturationNumber - 51) % 255;
-  Serial.println({gCurrentSaturationNumber});
+  Serial.println(gCurrentSaturationNumber);
   EEPROM.write(7, gCurrentSaturationNumber);
 }
 
@@ -115,6 +115,6 @@ void nextValue()
 {
   // add one to the current pattern number, and wrap around at the end
   gCurrentValueNumber = (gCurrentValueNumber - 51) % 255;
-  Serial.println({gCurrentValueNumber});
+  Serial.println(gCurrentValueNumber);
   EEPROM.write(8, gCurrentValueNumber);
 }

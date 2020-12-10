@@ -8,7 +8,6 @@ int ROW_10 = NUM_LEDS / 3;
 
 void shooting_stars()
 {
-  Serial.println("pattern_10");
   start_hue_10 = -1 * millis() / RATE_10;
   for (int i = 0; i < ROW_10; i++)
   {

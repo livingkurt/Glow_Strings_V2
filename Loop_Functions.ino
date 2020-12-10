@@ -1,57 +1,64 @@
 void handle_mode_change()
 {
-  // Call the current pattern function once, updating the 'leds' array
   gModes[gCurrentModeNumber]();
-  // gModes[random(num_modes)]();
   FastLED.show();
-  // insert a delay to keep the framerate modest
   FastLED.delay(1000 / FRAMES_PER_SECOND);
-  if (autoplay)
+  if (autoplay && random_interval)
   {
-    EVERY_N_SECONDS(INTERVAL)
+
+    EVERY_N_SECONDS(random(1, 5))
     {
-      nextMode(); // change patterns periodically
+      nextMode();
+    }
+  }
+  else if (autoplay)
+  {
+    EVERY_N_SECONDS(interval)
+    {
+      nextMode();
     }
   }
 }
 
 void handle_all_mode_change()
 {
-  // Call the current pattern function once, updating the 'leds' array
   gAllModes[gCurrentAllModeNumber]();
-  // gModes[random(num_modes)]();
   FastLED.show();
-  // insert a delay to keep the framerate modest
   FastLED.delay(1000 / FRAMES_PER_SECOND);
-  if (autoplay)
+  if (autoplay && random_interval)
   {
-    EVERY_N_SECONDS(INTERVAL)
+
+    EVERY_N_SECONDS(random(1, 5))
     {
-      nextAllMode(); // change patterns periodically
+      nextAllMode();
+    }
+  }
+  else if (autoplay)
+  {
+    EVERY_N_SECONDS(interval)
+    {
+      nextAllMode();
     }
   }
 }
 void handle_party_mode_change()
 {
-  // Call the current pattern function once, updating the 'leds' array
   gPartyModes[gCurrentPartyModeNumber]();
-  // gModes[random(num_modes)]();
   FastLED.show();
-  // insert a delay to keep the framerate modest
   FastLED.delay(1000 / FRAMES_PER_SECOND);
-  if (random_interval)
+  if (autoplay && random_interval)
   {
 
     EVERY_N_SECONDS(random(1, 5))
     {
-      nextPartyMode(); // change patterns periodically
+      nextPartyMode();
     }
   }
-  else
+  else if (autoplay)
   {
-    EVERY_N_SECONDS(INTERVAL)
+    EVERY_N_SECONDS(interval)
     {
-      nextPartyMode(); // change patterns periodically
+      nextPartyMode();
     }
   }
 }
@@ -81,6 +88,6 @@ void setting_selection()
 }
 void interval_selection()
 {
-  fill_solid(leds, NUM_LEDS, CHSV(gCurrentIntervalHueNumber, 255, 255));
+  fill_solid(leds, NUM_LEDS, CHSV(255, 255, gCurrentIntervalValueNumber));
   FastLED.show();
 }

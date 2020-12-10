@@ -4,7 +4,7 @@ void load_setting()
   // {
 
   state = determine_state(EEPROM.read(0));
-  Serial.println("Determine States");
+  Serial.print("Determine States");
   Serial.println(state);
   gCurrentModeNumber = EEPROM.read(1);
   gCurrentPartyModeNumber = EEPROM.read(2);
@@ -68,7 +68,6 @@ int determine_state(int state)
   {
     return "all_modes";
   }
-  Serial.println(state);
 }
 int determine_state_number(long state)
 {
@@ -107,5 +106,93 @@ void hold(int period)
   while (millis() < time_now + period)
   {
     // FastLED.show();
+  }
+}
+
+int determine_length()
+{
+  switch (NUM_LEDS)
+  {
+  case 50:
+    return 30;
+    break;
+  case 100:
+    return 20;
+    break;
+  case 150:
+    return 10;
+    break;
+  case 200:
+    return 7;
+    break;
+  case 300:
+    return 7;
+    break;
+  case 400:
+    return 5;
+    break;
+  case 500:
+    return 2;
+    break;
+  default:
+    break;
+  }
+}
+int determine_speed()
+{
+  switch (NUM_LEDS)
+  {
+  case 50:
+    return 30;
+    break;
+  case 100:
+    return 30;
+    break;
+  case 150:
+    return 30;
+    break;
+  case 200:
+    return 30;
+    break;
+  case 300:
+    return 20;
+    break;
+  case 400:
+    return 20;
+    break;
+  case 500:
+    return 10;
+    break;
+  default:
+    break;
+  }
+}
+int determine_strobe()
+{
+  switch (NUM_LEDS)
+  {
+  case 50:
+    return 10;
+    break;
+  case 100:
+    return 7;
+    break;
+  case 150:
+    return 5;
+    break;
+  case 200:
+    return 3;
+    break;
+  case 300:
+    return 2;
+    break;
+  case 400:
+    return 1;
+    break;
+  case 500:
+    return 0;
+    break;
+  default:
+    break;
   }
 }

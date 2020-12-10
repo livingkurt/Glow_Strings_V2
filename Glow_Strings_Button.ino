@@ -10,11 +10,9 @@
 // LED Chip Type
 #define LED_TYPE WS2811
 // Number of LEDs Used
-#define NUM_LEDS 50
+#define NUM_LEDS 150
 // The Order of RGB was wired on the chip
 #define COLOR_ORDER RGB
-// Interval Between Mode Changes
-#define INTERVAL 15
 
 #define PIN_BUTTON 2 // Pin for the button
 
@@ -25,18 +23,26 @@ uint8_t gCurrentStateNumber = 0;    // EPPROM 0
 uint8_t gCurrentStateHueNumber = 0; // EPPROM 0
 uint8_t gCurrentSettingNumber = 0;
 uint8_t gCurrentSettingHueNumber = 110;
-uint8_t gCurrentIntervalNumber = 0;
-uint8_t gCurrentIntervalHueNumber = 110;
+uint8_t gCurrentIntervalNumber = 1;
+uint8_t gCurrentIntervalValueNumber = 255;
 uint8_t gCurrentModeNumber = 0;         // EPPROM 1
 uint8_t gCurrentPartyModeNumber = 0;    // EPPROM 2
 uint8_t gCurrentAllModeNumber = 0;      // EPPROM 3
 uint8_t autoplay = 1;                   // EPPROM 4
-uint8_t random_interval = 1;            // EPPROM 5
+int interval = 30;                      // EPPROM 10
+uint8_t random_interval = 0;            // EPPROM 5
+uint8_t random_order = 0;               // EPPROM 9
 uint8_t gCurrentHueNumber = 0;          // EPPROM 6
 uint8_t gCurrentSaturationNumber = 255; // EPPROM 7
 uint8_t gCurrentValueNumber = 255;      // EPPROM 8
-uint8_t random_order = 0;               // EPPROM 9
-uint8_t interval = 60;                  // EPPROM 10
+
+int short_press = 1000;
+int menu_1_length = 2000;
+int menu_2_length = 3000;
+int menu_3_length = 4000;
+int menu_4_length = 5000;
+int menu_5_length = 6000;
+int menu_6_length = 7000;
 
 CRGB leds[NUM_LEDS];
 // Button myButton(2, true, true, 50); // Declare the button
@@ -55,7 +61,7 @@ void setup()
   FastLED.addLeds<LED_TYPE, LED_PIN, COLOR_ORDER>(leds, NUM_LEDS).setCorrection(TypicalLEDStrip);
   // set master brightness control
   FastLED.setBrightness(BRIGHTNESS);
-  load_setting();
+  // load_setting();
 }
 
 const char *states[4] = {
@@ -76,7 +82,7 @@ int num_state_colors = (sizeof(state_colors) / sizeof(state_colors[0]));
 
 const char *settings[4] = {
     "autoplay",
-    "interval Length",
+    "interval_length",
     "random_modes",
     "random_interval",
 };
@@ -91,7 +97,7 @@ const int *setting_colors[4] = {
 
 int num_setting_colors = (sizeof(setting_colors) / sizeof(setting_colors[0]));
 
-const char *intervals[4] = {
+const char *intervals[3] = {
     "long",
     "mid",
     "short",
@@ -99,10 +105,10 @@ const char *intervals[4] = {
 
 int num_intervals = (sizeof(intervals) / sizeof(intervals[0]));
 
-const int *interval_colors[4] = {
-    60,
-    30,
-    10};
+const int *interval_colors[3] = {
+    255,
+    170,
+    85};
 
 int num_interval_colors = (sizeof(interval_colors) / sizeof(interval_colors[0]));
 
@@ -110,22 +116,31 @@ int num_interval_colors = (sizeof(interval_colors) / sizeof(interval_colors[0]))
 typedef void (*SimplePatternList[])();
 
 SimplePatternList gModes = {
+    // split_rainbow_5,
+    // split_shooting_star_random,
+
+    // juggle_rainbow_all,
     rainbow_cycle,
     sparkle_white,
     split_rainbow_2,
     shooting_star_white_bnf,
+    split_shooting_star_rainbow,
+    juggle_white_one_way,
+    juggle_rainbow_one_way,
     sparkle_rainbow_all_fade,
-    juggle,
+    juggle_rainbow,
     pulse_white,
-    split_rainbow_4,
     sparkle_white_rainbow_all_fade,
+    shooting_star_white_mirror,
     all_rainbow,
     juggle_white,
     bpm,
     sparkle_rainbow_saturation,
     shooting_star_rainbow_bnf,
     sparkle_rainbow_random,
+    shooting_star_rainbow_mirror,
     pulse_rainbow,
+    split_shooting_star_white,
 };
 int num_modes = (sizeof(gModes) / sizeof(gModes[0]));
 
@@ -135,19 +150,19 @@ SimplePartyModeList gPartyModes = {
     section_flash_random,
     wave_white,
     section_flash,
-    wave_rainbow,
+    // wave_rainbow,
     section_flash_all_fade,
     flash_red,
-    wave_rainbow_mirror,
+    // wave_rainbow_mirror,
     section_flash_all_rainbow,
-    wave_rainbow_shooting_star,
+    // wave_rainbow_shooting_star,
     flash_white,
-    wave_white_mirror_shooting_star,
+    // wave_white_mirror_shooting_star,
     section_flash_rainbow_cycle,
-    wave_white_mirror,
+    // wave_white_mirror,
     flash_rainbow,
-    wave_rainbow_mirror_shooting_star,
-    wave_white_shooting_star,
+    // wave_rainbow_mirror_shooting_star,
+    // wave_white_shooting_star,
     section_flash_rainbow_cycle_split,
 };
 
@@ -161,9 +176,9 @@ SimpleAllModeList gAllModes = {
     split_rainbow_2,
     shooting_star_white_bnf,
     sparkle_rainbow_all_fade,
-    juggle,
+    juggle_rainbow,
     pulse_white,
-    split_rainbow_4,
+    // split_rainbow_4,
     sparkle_white_rainbow_all_fade,
     all_rainbow,
     juggle_white,
@@ -173,21 +188,21 @@ SimpleAllModeList gAllModes = {
     sparkle_rainbow_random,
     pulse_rainbow,
     section_flash_random,
-    wave_white,
+    // wave_white,
     section_flash,
-    wave_rainbow,
+    // wave_rainbow,
     section_flash_all_fade,
     flash_red,
-    wave_rainbow_mirror,
+    // wave_rainbow_mirror,
     section_flash_all_rainbow,
-    wave_rainbow_shooting_star,
+    // wave_rainbow_shooting_star,
     flash_white,
-    wave_white_mirror_shooting_star,
+    // wave_white_mirror_shooting_star,
     section_flash_rainbow_cycle,
-    wave_white_mirror,
+    // wave_white_mirror,
     flash_rainbow,
-    wave_rainbow_mirror_shooting_star,
-    wave_white_shooting_star,
+    // wave_rainbow_mirror_shooting_star,
+    // wave_white_shooting_star,
     section_flash_rainbow_cycle_split,
 };
 
