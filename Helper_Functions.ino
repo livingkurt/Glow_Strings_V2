@@ -111,7 +111,7 @@ int determine_length()
   switch (NUM_LEDS)
   {
   case 50:
-    return 30;
+    return 20;
     break;
   case 100:
     return 20;
@@ -140,13 +140,13 @@ int determine_speed()
   switch (NUM_LEDS)
   {
   case 50:
-    return 30;
+    return 13;
     break;
   case 100:
     return 30;
     break;
   case 150:
-    return 30;
+    return 10;
     break;
   case 200:
     return 30;

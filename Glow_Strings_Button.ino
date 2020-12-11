@@ -10,7 +10,7 @@
 // LED Chip Type
 #define LED_TYPE WS2811
 // Number of LEDs Used
-#define NUM_LEDS 150
+#define NUM_LEDS 50
 // The Order of RGB was wired on the chip
 #define COLOR_ORDER RGB
 
@@ -131,8 +131,10 @@ typedef void (*SimplePatternList[])();
 SimplePatternList gModes = {
     // split_rainbow_5,
     // split_shooting_star_random,
-
+    // shooting_star_white,
     // juggle_rainbow_all,
+    shooting_star_rainbow,
+    shooting_star_white,
     rainbow_cycle,
     sparkle_white,
     split_rainbow_2,
@@ -161,7 +163,7 @@ typedef void (*SimplePartyModeList[])();
 
 SimplePartyModeList gPartyModes = {
     section_flash_random,
-    wave_white,
+    // wave_white,
     section_flash,
     // wave_rainbow,
 

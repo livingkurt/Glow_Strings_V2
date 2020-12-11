@@ -2,13 +2,13 @@
 
 void stripe_shooting_star_rainbow()
 {
-  int rate = 2;
+  int rate = 10;
   int start_hue;
-  int delta_hue = 30;
+  int delta_hue = 1;
   start_hue = -1 * millis() / rate;
-  fadeToBlackBy(leds, NUM_LEDS, 30); //change fadeby to smaller or larger number to adjust the length of the tail.
+  fadeToBlackBy(leds, NUM_LEDS, 20); //change fadeby to smaller or larger number to adjust the length of the tail.
   uint8_t u;
-  u = beat8(20, 0); //BPM will allow you to adjust the speed the dot is moving.
+  u = beat8(30, 0); //BPM will allow you to adjust the speed the dot is moving.
   // Forward 1/6
   uint16_t pos_1 = map(u, 0, 255, 0, NUM_LEDS / 6);
   // Backward 2/6
