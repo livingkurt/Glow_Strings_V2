@@ -220,7 +220,7 @@ void update_interval()
   }
   else if (gCurrentIntervalNumber == 2)
   {
-    interval = 2;
+    interval = 10;
     flash(255, 0, 85);
   }
   // Serial.print("Interval Number ");

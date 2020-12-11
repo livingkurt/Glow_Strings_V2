@@ -108,9 +108,9 @@ void handle_all_mode_change()
         nextAllMode();
       }
     }
-    else if (interval == 2)
+    else if (interval == 10)
     {
-      EVERY_N_SECONDS(2)
+      EVERY_N_SECONDS(10)
       {
         nextAllMode();
       }

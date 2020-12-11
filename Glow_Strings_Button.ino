@@ -34,7 +34,7 @@ uint8_t gCurrentValueNumber = 255;      // EPPROM 8
 uint8_t gCurrentSettingNumber = 0;
 uint8_t gCurrentSettingHueNumber = 110;
 // Interval
-uint8_t gCurrentIntervalNumber = 1;
+uint8_t gCurrentIntervalNumber = 0;
 uint8_t gCurrentIntervalValueNumber = 255;
 // Settings
 uint8_t autoplay = 1;        // EPPROM 4
