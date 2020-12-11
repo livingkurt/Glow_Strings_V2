@@ -116,28 +116,18 @@ void decide_random_interval()
   else
   {
     random_interval = 1;
+    // if (!autoplay)
+    // {
+    //   autoplay = 1;
+    //   Serial.println("Autoplay Off");
+    //   EEPROM.write(7, 0);
+    // }
     Serial.println("Random Intverval On");
     EEPROM.write(9, 1);
     flash(96, 255, 255);
   }
 }
-void decide_save_settings()
-{
-  if (save_settings)
-  {
-    save_settings = 0;
-    Serial.println("Save Settings Off");
-    EEPROM.write(11, 0);
-    flash(160, 255, 255);
-  }
-  else
-  {
-    save_settings = 1;
-    Serial.println("Save Settings On");
-    EEPROM.write(11, 1);
-    flash(96, 255, 255);
-  }
-}
+
 void decide_interval()
 {
   if (interval == 60)
@@ -202,10 +192,12 @@ void update_setting()
   }
   else if (gCurrentSettingNumber == 4)
   {
-    decide_save_settings();
+    // decide_save_settings();
     state = last_state;
   }
+  gCurrentSettingNumber = 0;
 }
+
 void update_interval()
 {
   if (gCurrentIntervalNumber == 0)
@@ -234,3 +226,21 @@ void update_interval()
   // }
   state = last_state;
 }
+
+// void decide_save_settings()
+// {
+//   if (save_settings)
+//   {
+//     save_settings = 0;
+//     Serial.println("Save Settings Off");
+//     EEPROM.write(11, 0);
+//     flash(160, 255, 255);
+//   }
+//   else
+//   {
+//     save_settings = 1;
+//     Serial.println("Save Settings On");
+//     EEPROM.write(11, 1);
+//     flash(96, 255, 255);
+//   }
+// }

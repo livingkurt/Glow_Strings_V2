@@ -165,7 +165,6 @@ void modes(bool pressed, bool changed)
     }
     else if (since_press < menu_3_length && since_press > menu_2_length)
     {
-      // decide_autoplay();
       state = "setting_select";
       last_state = "modes";
     }
@@ -206,7 +205,6 @@ void party_modes(bool pressed, bool changed)
     }
     else if (since_press < menu_3_length && since_press > menu_2_length)
     {
-      // decide_autoplay();
       state = "setting_select";
       last_state = "party_modes";
     }
@@ -247,7 +245,6 @@ void all_modes(bool pressed, bool changed)
     }
     else if (since_press < menu_3_length && since_press > menu_2_length)
     {
-      // decide_autoplay();
       state = "setting_select";
       last_state = "all_modes";
     }
@@ -409,14 +406,7 @@ void flash_menus()
   }
   else if (since_press == menu_2_length)
   {
-    // if (autoplay)
-    // {
     flash(160, 255, 255);
-    // }
-    // else
-    // {
-    //   flash(96, 255, 255);
-    // }
   }
   else if (since_press == menu_3_length)
   {

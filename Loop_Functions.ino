@@ -16,6 +16,8 @@ void handle_mode_change()
   {
     Serial.print("Interval ");
     Serial.println(interval);
+    Serial.print("Autoplay ");
+    Serial.println(autoplay);
     if (interval == 60)
     {
       EVERY_N_SECONDS(60)
@@ -30,9 +32,9 @@ void handle_mode_change()
         nextMode();
       }
     }
-    else if (interval == 2)
+    else if (interval == 10)
     {
-      EVERY_N_SECONDS(2)
+      EVERY_N_SECONDS(10)
       {
         nextMode();
       }
@@ -69,9 +71,9 @@ void handle_party_mode_change()
         nextPartyMode();
       }
     }
-    else if (interval == 2)
+    else if (interval == 10)
     {
-      EVERY_N_SECONDS(2)
+      EVERY_N_SECONDS(10)
       {
         nextPartyMode();
       }
@@ -144,5 +146,18 @@ void setting_selection()
 void interval_selection()
 {
   fill_solid(leds, NUM_LEDS, CHSV(255, 255, gCurrentIntervalValueNumber));
+  FastLED.show();
+}
+
+void back_choice()
+{
+  int rate = 10;
+  int strobe = 10;
+  int gap = 30;
+  fill_solid(leds, NUM_LEDS, CHSV(255, 0, 100));
+  hold(strobe);
+  FastLED.show();
+  fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0));
+  hold(gap);
   FastLED.show();
 }
