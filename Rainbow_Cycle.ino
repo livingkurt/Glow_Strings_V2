@@ -1,3 +1,4 @@
+
 void rainbow_cycle()
 {
   int start_index;
