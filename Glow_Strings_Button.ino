@@ -19,22 +19,29 @@
 long state = "modes"; // Current state of the light
 long last_state = ""; // Current state of the light
 
+// State
 uint8_t gCurrentStateNumber = 0;    // EPPROM 0
 uint8_t gCurrentStateHueNumber = 0; // EPPROM 0
-uint8_t gCurrentSettingNumber = 0;
-uint8_t gCurrentSettingHueNumber = 110;
-uint8_t gCurrentIntervalNumber = 1;
-uint8_t gCurrentIntervalValueNumber = 255;
-uint8_t gCurrentModeNumber = 0;         // EPPROM 1
-uint8_t gCurrentPartyModeNumber = 0;    // EPPROM 2
-uint8_t gCurrentAllModeNumber = 0;      // EPPROM 3
-uint8_t autoplay = 1;                   // EPPROM 4
-int interval = 30;                      // EPPROM 10
-uint8_t random_interval = 0;            // EPPROM 5
-uint8_t random_order = 0;               // EPPROM 9
+// Modes
+uint8_t gCurrentModeNumber = 0;      // EPPROM 1
+uint8_t gCurrentPartyModeNumber = 0; // EPPROM 2
+uint8_t gCurrentAllModeNumber = 0;   // EPPROM 3
+// Colors
 uint8_t gCurrentHueNumber = 0;          // EPPROM 6
 uint8_t gCurrentSaturationNumber = 255; // EPPROM 7
 uint8_t gCurrentValueNumber = 255;      // EPPROM 8
+// Settings Menu
+uint8_t gCurrentSettingNumber = 0;
+uint8_t gCurrentSettingHueNumber = 110;
+// Interval
+uint8_t gCurrentIntervalNumber = 1;
+uint8_t gCurrentIntervalValueNumber = 255;
+// Settings
+uint8_t autoplay = 1;        // EPPROM 4
+uint8_t random_order = 0;    // EPPROM 9
+uint8_t random_interval = 0; // EPPROM 5
+int interval = 60;           // EPPROM 10
+uint8_t save_settings = 0;   // EPPROM 9
 
 int short_press = 1000;
 int menu_1_length = 2000;
@@ -61,7 +68,10 @@ void setup()
   FastLED.addLeds<LED_TYPE, LED_PIN, COLOR_ORDER>(leds, NUM_LEDS).setCorrection(TypicalLEDStrip);
   // set master brightness control
   FastLED.setBrightness(BRIGHTNESS);
-  // load_setting();
+  // if (save_settings)
+  // {
+  //   load_setting();
+  // }
 }
 
 const char *states[4] = {
@@ -80,20 +90,22 @@ const int *state_colors[4] = {
     96};
 int num_state_colors = (sizeof(state_colors) / sizeof(state_colors[0]));
 
-const char *settings[4] = {
+const char *settings[5] = {
     "autoplay",
-    "interval_length",
-    "random_modes",
+    "random_order",
     "random_interval",
+    "interval_length",
+    "save_settings",
 };
 
 int num_settings = (sizeof(settings) / sizeof(settings[0]));
 
-const int *setting_colors[4] = {
+const int *setting_colors[5] = {
     110,
     130,
     150,
-    170};
+    170,
+    190};
 
 int num_setting_colors = (sizeof(setting_colors) / sizeof(setting_colors[0]));
 
