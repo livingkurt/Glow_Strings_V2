@@ -62,7 +62,7 @@ void cycle_red_and_blue()
   for (int i = 0; i < NUM_LEDS; i++)
   {
     leds[i] = ColorFromPalette(myPalette, startIndex, 255, LINEARBLEND);
-    startIndex += 50;
+    startIndex += 10;
   };
   FastLED.show();
 }
@@ -88,7 +88,46 @@ void cycle_purple_and_black()
   for (int i = 0; i < NUM_LEDS; i++)
   {
     leds[i] = ColorFromPalette(myPalette, startIndex, 255, LINEARBLEND);
-    startIndex += 50;
+    startIndex += 20;
+  };
+  FastLED.show();
+}
+
+// =================== Cycle Rainbow Speed ===================
+
+void cycle_rainbow_speed()
+{
+  int start_index;
+  start_index = -1 * millis() / 3;
+  for (int i = 0; i < NUM_LEDS; i++)
+  {
+    leds[i] = CHSV(start_index, 255, 255);
+    start_index += 5;
+  };
+}
+
+// =================== Cycle Red and Blue Speed ===================
+
+void cycle_red_and_blue_speed()
+{
+
+  // Define a color palette pre-filled with a gradient
+  // that goes from startColor, to endColor (in the middle),
+  // and back to startColor.
+  CRGB startColor(CRGB::Blue);
+  CRGB endColor(CRGB::Red);
+  CRGBPalette16 myPalette(startColor, endColor, startColor);
+
+  // Start with the color at the beginning of the palette,
+  // and choose colors from along the palette moving by a few
+  // palette slots per pixel.
+  static uint8_t startIndex = 0;
+  startIndex = -1 * millis() / 3;
+
+  for (int i = 0; i < NUM_LEDS; i++)
+  {
+    leds[i] = ColorFromPalette(myPalette, startIndex, 255, LINEARBLEND);
+    startIndex += 5;
   };
   FastLED.show();
 }
