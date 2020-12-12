@@ -14,7 +14,7 @@ void wave_rainbow_shooting_star_split_2()
   {
     leds[i] += CHSV(start_hue, 255, 255);
     leds[NUM_LEDS - 1 - i] += CHSV(start_hue, 255, 255);
-    hold(strobe);
+    FastLED.delay(strobe);
     fadeToBlackBy(leds, NUM_LEDS, 100);
     FastLED.show();
     start_hue += delta_hue;

@@ -13,7 +13,7 @@ void split_shooting_star_white_2()
     leds[NUM_LEDS - 1 - i] = CHSV(255, 0, 255);
 
     FastLED.show();
-    hold(strobe);
+    FastLED.delay(strobe);
     fadeToBlackBy(leds, NUM_LEDS, 100);
     FastLED.show();
   };

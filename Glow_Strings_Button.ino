@@ -129,10 +129,12 @@ int num_interval_colors = (sizeof(interval_colors) / sizeof(interval_colors[0]))
 typedef void (*SimplePatternList[])();
 
 SimplePatternList gModes = {
+    wave_white,
     rainbow_cycle,
     sparkle_white,
     split_rainbow_2,
     shooting_star_white_bnf,
+    juggle_rainbow,
     split_shooting_star_rainbow,
     juggle_white_one_way,
     sparkle_rainbow_all_fade,
@@ -146,6 +148,7 @@ SimplePatternList gModes = {
     juggle_rainbow_one_way,
     shooting_star_white,
     sparkle_rainbow_saturation,
+    juggle_white,
     shooting_star_rainbow_bnf,
     sparkle_rainbow_random,
     shooting_star_rainbow_mirror,
@@ -157,31 +160,25 @@ int num_modes = (sizeof(gModes) / sizeof(gModes[0]));
 typedef void (*SimplePartyModeList[])();
 
 SimplePartyModeList gPartyModes = {
-    section_flash_random,
+
     // wave_white,
-    flash_blue,
-    section_flash,
-    // wave_rainbow,
-    juggle_rainbow,
-    section_flash_rainbow_cycle,
-
-    flash_red,
-    // wave_rainbow_mirror,
-
-    section_flash_all_rainbow,
-    // wave_rainbow_shooting_star,
-    flash_white,
-
-    // wave_white_mirror_shooting_star,
-    flash_red_and_blue,
-    // wave_white_mirror,
-    section_flash_all_fade,
-    juggle_white,
-
-    flash_rainbow,
-
     // wave_rainbow_mirror_shooting_star,
     // wave_white_shooting_star,
+    // wave_rainbow,
+    // wave_rainbow_shooting_star,
+    // wave_rainbow_mirror,
+    // wave_white_mirror_shooting_star,
+    // wave_white_mirror,
+    section_flash_random,
+    flash_blue,
+    section_flash,
+    flash_red,
+    section_flash_rainbow_cycle,
+    flash_white,
+    section_flash_all_rainbow,
+    flash_red_and_blue,
+    section_flash_all_fade,
+    flash_rainbow,
     section_flash_rainbow_cycle_split,
 };
 

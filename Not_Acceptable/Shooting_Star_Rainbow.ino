@@ -10,7 +10,7 @@ void shooting_star_rainbow()
   for (int i = 0; i < NUM_LEDS; i++)
   {
     leds[i] += CHSV(start_hue, 255, 255);
-    hold(strobe);
+    FastLED.delay(strobe);
     fadeToBlackBy(leds, NUM_LEDS, 50);
     FastLED.show();
     start_hue += delta_hue;

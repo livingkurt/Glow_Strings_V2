@@ -9,7 +9,7 @@ void wave_white_split_2()
   {
     leds[i] += CHSV(255, 0, 255);
     leds[NUM_LEDS - 1 - i] += CHSV(255, 0, 255);
-    hold(strobe);
+    FastLED.delay(strobe);
     // fadeToBlackBy(leds, NUM_LEDS, 50);
     FastLED.show();
   }

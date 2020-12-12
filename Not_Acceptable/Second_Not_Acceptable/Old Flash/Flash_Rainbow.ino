@@ -13,9 +13,9 @@ void flash_rainbow()
     leds[i] = CHSV(start_hue, 255, 255);
     start_hue += delta_hue;
   };
-  hold(strobe);
+  FastLED.delay(strobe);
   FastLED.show();
   fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0));
-  hold(gap);
+  FastLED.delay(gap);
   FastLED.show();
 }

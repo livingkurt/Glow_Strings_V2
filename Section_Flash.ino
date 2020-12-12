@@ -9,10 +9,10 @@ void section_flash()
   int gap = 40;
   int rand = random(split_value);
   fill_solid(leds + row * rand, row, CHSV(255, 0, 255));
-  hold(strobe);
+  FastLED.delay(strobe);
   FastLED.show();
   fill_solid(leds + row * rand, row, CHSV(0, 0, 0));
-  hold(gap);
+  FastLED.delay(gap);
   FastLED.show();
 }
 
@@ -27,10 +27,10 @@ void section_flash_random()
   int gap = 40;
   int rand = random(split_value);
   fill_solid(leds + row * rand, row, CHSV(random(255), 255, 255));
-  hold(strobe);
+  FastLED.delay(strobe);
   FastLED.show();
   fill_solid(leds + row * rand, row, CHSV(0, 0, 0));
-  hold(gap);
+  FastLED.delay(gap);
   FastLED.show();
 }
 
@@ -56,11 +56,11 @@ void section_flash_rainbow_cycle()
   FastLED.show();
   int rand = random(split_value);
   fill_solid(leds + row * rand, row, CHSV(255, 0, 255));
-  hold(strobe);
+  FastLED.delay(strobe);
   start_hue += delta_hue;
   FastLED.show();
   fill_solid(leds + row * rand, row, CHSV(0, 0, 0));
-  hold(gap);
+  FastLED.delay(gap);
   FastLED.show();
 }
 
@@ -86,11 +86,11 @@ void section_flash_rainbow_cycle_split()
   FastLED.show();
   int rand = random(split_value);
   fill_solid(leds + row * rand, row, CHSV(255, 0, 255));
-  hold(strobe);
+  FastLED.delay(strobe);
   start_hue += delta_hue;
   FastLED.show();
   fill_solid(leds + row * rand, row, CHSV(0, 0, 0));
-  hold(gap);
+  FastLED.delay(gap);
   FastLED.show();
 }
 
@@ -112,11 +112,11 @@ void section_flash_all_rainbow()
   FastLED.show();
   int rand = random(split_value);
   fill_solid(leds + row * rand, row, CHSV(255, 0, 255));
-  hold(strobe);
+  FastLED.delay(strobe);
   start_hue += delta_hue;
   FastLED.show();
   fill_solid(leds + row * rand, row, CHSV(0, 0, 0));
-  hold(gap);
+  FastLED.delay(gap);
   FastLED.show();
 }
 
@@ -134,10 +134,10 @@ void section_flash_all_fade()
   int delta_hue = 5;
   start_hue = -1 * millis() / rate;
   fill_solid(leds + row * rand, row, CHSV(start_hue, 255, 255));
-  hold(strobe);
+  FastLED.delay(strobe);
   FastLED.show();
   fill_solid(leds + row * rand, row, CHSV(0, 0, 0));
-  hold(gap);
+  FastLED.delay(gap);
   FastLED.show();
   start_hue += delta_hue;
 }

@@ -13,14 +13,14 @@ void pulse_rainbow()
     for (int i = 50; i < brightness; i++)
     {
       fill_solid(leds, NUM_LEDS, CHSV(rainbow_palette[h], 255, i)); // Set all to Off.
-      hold(strobe);
+      FastLED.delay(strobe);
       FastLED.show();
     }
 
     for (int i = brightness; i > 50; i--)
     {
       fill_solid(leds, NUM_LEDS, CHSV(rainbow_palette[h], 255, i)); // Set all to Off.
-      hold(strobe);
+      FastLED.delay(strobe);
       FastLED.show();
     }
   }

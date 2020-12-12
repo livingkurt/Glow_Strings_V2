@@ -45,7 +45,7 @@ void handle_button(bool pressed, bool changed)
     enter_sleep(pressed, changed);
   }
   // since_press += 20;
-  hold(5);
+  FastLED.delay(5);
   since_press += 20;
   if (changed)
     since_press = 0;     // If state changed we need to reset since_press
@@ -438,22 +438,22 @@ void flash(int color, int sat, int value)
 {
   int gap = 150;
   fill_solid(leds, NUM_LEDS, CHSV(color, sat, value)); // Set all to red.
-  hold(gap);
+  FastLED.delay(gap);
   FastLED.show();
   fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0)); // Set all to red.
-  hold(gap);
+  FastLED.delay(gap);
   FastLED.show();
   fill_solid(leds, NUM_LEDS, CHSV(color, sat, value)); // Set all to red.
-  hold(gap);
+  FastLED.delay(gap);
   FastLED.show();
   fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0)); // Set all to red.
-  hold(gap);
+  FastLED.delay(gap);
   FastLED.show();
   fill_solid(leds, NUM_LEDS, CHSV(color, sat, value)); // Set all to red.
-  hold(gap);
+  FastLED.delay(gap);
   FastLED.show();
   fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0)); // Set all to red.
-  hold(gap);
+  FastLED.delay(gap);
   FastLED.show();
   return;
 }

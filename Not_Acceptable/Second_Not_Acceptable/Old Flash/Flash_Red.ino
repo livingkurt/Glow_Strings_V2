@@ -4,9 +4,9 @@ void flash_red()
   int strobe = 10;
   int gap = 30;
   fill_solid(leds, NUM_LEDS, CHSV(255, 255, 255));
-  hold(strobe);
+  FastLED.delay(strobe);
   FastLED.show();
   fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0));
-  hold(gap);
+  FastLED.delay(gap);
   FastLED.show();
 }

@@ -9,11 +9,11 @@ void sparkle_rainbow_random()
     for (int i = 0; i < 10; i++)
     {
       leds[random(NUM_LEDS)] = CHSV(random(0, 255), 255, random(0, 255)); // Change To Random LED and change color to White
-      hold(strobe);
+      FastLED.delay(strobe);
       FastLED.show();
     }
     fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0)); // Set all to Off.
     FastLED.show();
-    hold(gap);
+    FastLED.delay(gap);
   }
 }

@@ -7,7 +7,7 @@ void wave_white_shooting_star()
   for (int i = 0; i < NUM_LEDS; i++)
   {
     leds[i] += CHSV(255, 0, 255);
-    hold(strobe);
+    FastLED.delay(strobe);
     fadeToBlackBy(leds, NUM_LEDS, 100);
     FastLED.show();
   }

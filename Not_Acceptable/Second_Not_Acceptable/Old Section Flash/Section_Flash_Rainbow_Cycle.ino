@@ -20,10 +20,10 @@ void section_flash_rainbow_cycle()
   FastLED.show();
   int rand = random(split_value);
   fill_solid(leds + row * rand, row, CHSV(255, 0, 255));
-  hold(strobe);
+  FastLED.delay(strobe);
   start_hue += delta_hue;
   FastLED.show();
   fill_solid(leds + row * rand, row, CHSV(0, 0, 0));
-  hold(gap);
+  FastLED.delay(gap);
   FastLED.show();
 }

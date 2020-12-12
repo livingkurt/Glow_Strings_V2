@@ -10,10 +10,10 @@ void section_flash_all_fade()
   int delta_hue = 5;
   start_hue = -1 * millis() / rate;
   fill_solid(leds + row * rand, row, CHSV(start_hue, 255, 255));
-  hold(strobe);
+  FastLED.delay(strobe);
   FastLED.show();
   fill_solid(leds + row * rand, row, CHSV(0, 0, 0));
-  hold(gap);
+  FastLED.delay(gap);
   FastLED.show();
   start_hue += delta_hue;
 }

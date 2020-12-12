@@ -13,29 +13,29 @@ void section_flash()
   // int rand = random(split_value);
   fill_solid(leds, row, CHSV(255, 0, 255));
   FastLED.show();
-  hold(100);
+  FastLED.delay(100);
   fill_solid(leds, row, CHSV(0, 0, 0));
   FastLED.show();
-  hold(100);
+  FastLED.delay(100);
   fill_solid(leds + row * 3, row, CHSV(255, 0, 255));
   FastLED.show();
-  hold(100);
+  FastLED.delay(100);
   fill_solid(leds + row * 3, row, CHSV(0, 0, 0));
   FastLED.show();
-  hold(100);
+  FastLED.delay(100);
   fill_solid(leds + row, row, CHSV(255, 0, 255));
   FastLED.show();
-  hold(100);
+  FastLED.delay(100);
   fill_solid(leds + row, row, CHSV(0, 0, 0));
   FastLED.show();
-  hold(100);
+  FastLED.delay(100);
   fill_solid(leds + row * 2, row, CHSV(255, 0, 255));
   FastLED.show();
-  hold(100);
+  FastLED.delay(100);
   fill_solid(leds + row * 2, row, CHSV(0, 0, 0));
   FastLED.show();
 
-  // hold(100);
+  // FastLED.delay(100);
   //   for (int i = 0; i < split_value; i++)
   // {
   //   leds[NUM_LEDS - i - 1] = leds[i];
@@ -45,31 +45,31 @@ void section_flash()
 
   // fill_solid(leds + row * rand, row, CHSV(255, 0, beatsin16(100, 50, 255)));
   // FastLED.show();
-  // hold(100);
+  // FastLED.delay(100);
 
   // fill_solid(leds + row * rand, row, CHSV(0, 0, 0));
   // FastLED.show();
-  // hold(100);
+  // FastLED.delay(100);
   // }
 
   // fill_solid(leds + row, row, CHSV(255, 0, 255));
   // FastLED.show();
-  // hold(20);
+  // FastLED.delay(20);
   // fill_solid(leds + row, row, CHSV(0, 0, 0));
   // FastLED.show();
-  // hold(20);
+  // FastLED.delay(20);
   // fill_solid(leds + row * 2, row * 2, CHSV(255, 0, 255));
   // FastLED.show();
-  // hold(20);
+  // FastLED.delay(20);
   // fill_solid(leds + row * 2, row * 2, CHSV(0, 0, 0));
   // FastLED.show();
-  // hold(20);
+  // FastLED.delay(20);
   // fill_solid(leds + row * 3, row * 3, CHSV(255, 0, 255));
   // FastLED.show();
-  // hold(20);
+  // FastLED.delay(20);
   // fill_solid(leds + row * 3, row * 3, CHSV(0, 0, 0));
   // FastLED.show();
-  // hold(20);
+  // FastLED.delay(20);
   // fill_solid(leds + row * 2, row * 2, CHSV(255, 0, 255));
   // FastLED.show();
   // fill_solid(leds + row, row, CHSV(0, 0, 0));
@@ -79,37 +79,37 @@ void section_flash()
   //   leds[NUM_LEDS - i - 1] = leds[i];
   // }
   // FastLED.show();
-  // hold(20);
+  // FastLED.delay(20);
   // fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0)); // Set all to red.
   // FastLED.show();
-  // hold(20);
+  // FastLED.delay(20);
   // for (int i = row; i < row * 2; i++)
   // {
   //   leds[NUM_LEDS - i - 1] = leds[i];
   // }
   // FastLED.show();
-  // hold(20);
+  // FastLED.delay(20);
   // fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0)); // Set all to red.
   // FastLED.show();
-  // hold(20);
+  // FastLED.delay(20);
   // for (int i = row * 2; i < row * 3; i++)
   // {
   //   leds[NUM_LEDS - i - 1] = leds[i];
   // }
   // FastLED.show();
-  // hold(20);
+  // FastLED.delay(20);
   // fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0)); // Set all to red.
   // FastLED.show();
-  // hold(20);
+  // FastLED.delay(20);
   // for (int i = row * 3; i < row * 5; i++)
   // {
   //   leds[NUM_LEDS - i - 1] = leds[i];
   // }
   // FastLED.show();
-  // hold(20);
+  // FastLED.delay(20);
   // fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0)); // Set all to red.
   // FastLED.show();
-  // hold(20);
+  // FastLED.delay(20);
 
   // for (int i = 0; i < row; i++)
   // {

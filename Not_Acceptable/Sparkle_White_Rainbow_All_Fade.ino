@@ -23,6 +23,6 @@ void sparkle_white_rainbow_all_fade()
     leds[random_leds[i]] = CHSV(0, 0, 255); // Change To Random LED and change color to White
   }
   FastLED.show();
-  hold(strobe);
+  FastLED.delay(strobe);
   start_hue += delta_hue;
 }

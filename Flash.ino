@@ -6,10 +6,10 @@ void flash_white()
   int strobe = 10;
   int gap = 30;
   fill_solid(leds, NUM_LEDS, CHSV(255, 0, 255));
-  hold(strobe);
+  FastLED.delay(strobe);
   FastLED.show();
   fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0));
-  hold(gap);
+  FastLED.delay(gap);
   FastLED.show();
 }
 
@@ -21,10 +21,10 @@ void flash_red()
   int strobe = 10;
   int gap = 30;
   fill_solid(leds, NUM_LEDS, CHSV(255, 255, 255));
-  hold(strobe);
+  FastLED.delay(strobe);
   FastLED.show();
   fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0));
-  hold(gap);
+  FastLED.delay(gap);
   FastLED.show();
 }
 
@@ -36,10 +36,10 @@ void flash_blue()
   int strobe = 10;
   int gap = 30;
   fill_solid(leds, NUM_LEDS, CHSV(160, 255, 255));
-  hold(strobe);
+  FastLED.delay(strobe);
   FastLED.show();
   fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0));
-  hold(gap);
+  FastLED.delay(gap);
   FastLED.show();
 }
 
@@ -51,16 +51,16 @@ void flash_red_and_blue()
   int strobe = 10;
   int gap = 30;
   fill_solid(leds, NUM_LEDS, CHSV(255, 255, 255));
-  hold(strobe);
+  FastLED.delay(strobe);
   FastLED.show();
   fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0));
-  hold(gap);
+  FastLED.delay(gap);
   FastLED.show();
   fill_solid(leds, NUM_LEDS, CHSV(160, 255, 255));
-  hold(strobe);
+  FastLED.delay(strobe);
   FastLED.show();
   fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0));
-  hold(gap);
+  FastLED.delay(gap);
   FastLED.show();
 }
 
@@ -81,9 +81,9 @@ void flash_rainbow()
     leds[i] = CHSV(start_hue, 255, 255);
     start_hue += delta_hue;
   };
-  hold(strobe);
+  FastLED.delay(strobe);
   FastLED.show();
   fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0));
-  hold(gap);
+  FastLED.delay(gap);
   FastLED.show();
 }
