@@ -129,8 +129,9 @@ int num_interval_colors = (sizeof(interval_colors) / sizeof(interval_colors[0]))
 typedef void (*SimplePatternList[])();
 
 SimplePatternList gModes = {
-
-    rainbow_cycle,
+    cycle_red_and_blue,
+    cycle_purple_and_black,
+    cycle_rainbow,
     sparkle_white,
     split_rainbow_2,
     shooting_star_white_bnf,
@@ -189,7 +190,7 @@ int num_party_modes = (sizeof(gPartyModes) / sizeof(gPartyModes[0]));
 typedef void (*SimpleAllModeList[])();
 
 SimpleAllModeList gAllModes = {
-    rainbow_cycle,
+    cycle_rainbow,
     sparkle_white,
     split_rainbow_2,
     shooting_star_white_bnf,
