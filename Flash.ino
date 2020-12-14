@@ -30,12 +30,14 @@ void flash_red()
 
 // =================== Flash Blue ===================
 
-void flash_blue()
+int flash_color_random_color = random(255);
+
+void flash_color()
 {
   int rate = 10;
   int strobe = 10;
   int gap = 30;
-  fill_solid(leds, NUM_LEDS, CHSV(160, 255, 255));
+  fill_solid(leds, NUM_LEDS, CHSV(flash_color_random_color, 255, 255));
   FastLED.delay(strobe);
   FastLED.show();
   fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0));

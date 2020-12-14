@@ -69,14 +69,16 @@ void cycle_red_and_blue()
 
 // =================== Cycle Purple and Black ===================
 
-void cycle_purple_and_black()
+int cycle_color_and_black_random_color = random(255);
+
+void cycle_color_and_black()
 {
 
   // Define a color palette pre-filled with a gradient
   // that goes from startColor, to endColor (in the middle),
   // and back to startColor.
   CRGB startColor(CRGB::Black);
-  CRGB endColor(CRGB::Purple);
+  CRGB endColor(CHSV(cycle_color_and_black_random_color, 255, 255));
   CRGBPalette16 myPalette(startColor, endColor, startColor);
 
   // Start with the color at the beginning of the palette,

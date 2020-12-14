@@ -23,7 +23,7 @@ void nextPartyMode()
 }
 void nextAllMode()
 {
-  gCurrentAllModeNumber = random_order ? random(num_all_modes) : (gCurrentAllModeNumber + 1) % ARRAY_SIZE(gAllModes);
+  gCurrentAllModeNumber = random(num_all_modes) % ARRAY_SIZE(gAllModes);
   // Serial.println(gCurrentAllModeNumber);
   EEPROM.write(3, gCurrentAllModeNumber);
 }

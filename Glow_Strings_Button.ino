@@ -51,7 +51,6 @@ int menu_4_length = 5000;
 int menu_5_length = 6000;
 int menu_6_length = 7000;
 
-int color_1 = random(255);
 int color_2 = random(255);
 int color_3 = random(255);
 int color_4 = random(255);
@@ -159,6 +158,15 @@ SimplePatternList gModes = {
     // wave_white_shooting_star,
     // cycle_rainbow_ramp,
     // juggle_all_rainbow_one_way,
+    // wave_rainbow_mirror_shooting_star,
+    wave_white_mirror,
+    wave_rainbow_mirror,
+    wave_white_mirror_shooting_star,
+    wave_rainbow_mirror_shooting_star,
+    wave_white,
+    wave_all_rainbow,
+    wave_white_shooting_star,
+    wave_rainbow_shooting_star,
     cycle_rainbow,
     sparkle_white,
     split_cycle_rainbow_2,
@@ -169,7 +177,7 @@ SimplePatternList gModes = {
     cycle_all_rainbow_and_black,
     pulse_white,
     shooting_star_rainbow,
-    cycle_purple_and_black,
+    cycle_color_and_black,
     sparkle_white_rainbow_all_fade,
     all_rainbow,
     shooting_star_white_mirror,
@@ -191,8 +199,8 @@ int num_modes = (sizeof(gModes) / sizeof(gModes[0]));
 typedef void (*SimplePartyModeList[])();
 
 SimplePartyModeList gPartyModes = {
-    wave_white_mirror,
     flash_rainbow,
+    wave_white_mirror,
     section_flash_rainbow_cycle,
     wave_all_rainbow,
     cycle_red_and_blue_speed,
@@ -212,7 +220,7 @@ SimplePartyModeList gPartyModes = {
     flash_red_and_blue,
     wave_rainbow_shooting_star,
     section_flash_all_fade,
-    flash_blue,
+    flash_color,
     wave_white,
     section_flash_rainbow_cycle_split,
 };
@@ -223,55 +231,7 @@ typedef void (*SimpleAllModeList[])();
 
 SimpleAllModeList gAllModes = {
     cycle_rainbow,
-    sparkle_white,
-    split_cycle_rainbow_2,
-    shooting_star_white_bnf,
-    juggle_rainbow,
-    sparkle_rainbow_all_fade,
-    cycle_all_rainbow_and_black,
-    juggle_white_one_way,
-    pulse_white,
-    shooting_star_rainbow,
-    cycle_purple_and_black,
-    sparkle_white_rainbow_all_fade,
-    shooting_star_white_mirror,
-    all_rainbow,
-    split_shooting_star_rainbow,
-    bpm,
-    pulse_desaturated_rainbow,
-    juggle_rainbow_one_way,
-    shooting_star_white,
-    sparkle_rainbow_saturation,
-    juggle_white,
-    shooting_star_rainbow_bnf,
-    sparkle_rainbow_random,
-    shooting_star_rainbow_mirror,
-    pulse_rainbow,
-    split_shooting_star_white,
-    wave_white_mirror,
-    flash_blue,
-    section_flash_rainbow_cycle,
-    flash_rainbow_ramp,
-    wave_all_rainbow,
-    cycle_red_and_blue_speed,
-    flash_red,
-    flash_all_rainbow_ramp,
-    wave_white_shooting_star,
-    section_flash,
-    wave_rainbow_mirror_shooting_star,
-    flash_white,
-    section_flash_random,
-    wave_rainbow_mirror,
-    cycle_rainbow_speed,
-    wave_white_mirror_shooting_star,
-    section_flash_all_rainbow,
-    flash_red_and_blue,
-    flash_white_ramp,
-    wave_rainbow_shooting_star,
-    section_flash_all_fade,
-    flash_rainbow,
-    wave_white,
-    section_flash_rainbow_cycle_split,
+
 };
 int num_all_modes = (sizeof(gAllModes) / sizeof(gAllModes[0]));
 
