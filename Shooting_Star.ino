@@ -197,7 +197,7 @@ int determine_speed_shooting_star()
     return 30;
     break;
   case 150:
-    return 8;
+    return 20;
     break;
   case 200:
     return 30;
