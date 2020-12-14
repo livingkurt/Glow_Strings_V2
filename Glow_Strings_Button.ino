@@ -10,7 +10,7 @@
 // LED Chip Type
 #define LED_TYPE WS2811
 // Number of LEDs Used
-#define NUM_LEDS 50
+#define NUM_LEDS 150
 // The Order of RGB was wired on the chip
 #define COLOR_ORDER RGB
 
@@ -159,14 +159,14 @@ SimplePatternList gModes = {
     // cycle_rainbow_ramp,
     // juggle_all_rainbow_one_way,
     // wave_rainbow_mirror_shooting_star,
-    wave_white_mirror,
-    wave_rainbow_mirror,
-    wave_white_mirror_shooting_star,
-    wave_rainbow_mirror_shooting_star,
-    wave_white,
-    wave_all_rainbow,
-    wave_white_shooting_star,
-    wave_rainbow_shooting_star,
+    // wave_white_mirror,
+    // wave_rainbow_mirror,
+    // wave_white_mirror_shooting_star,
+    // wave_rainbow_mirror_shooting_star,
+    // wave_white,
+    // wave_all_rainbow,
+    // wave_white_shooting_star,
+    // wave_rainbow_shooting_star,
     cycle_rainbow,
     sparkle_white,
     split_cycle_rainbow_2,
@@ -200,24 +200,26 @@ typedef void (*SimplePartyModeList[])();
 
 SimplePartyModeList gPartyModes = {
     flash_rainbow,
-    wave_white_mirror,
+    // wave_white_mirror,
     section_flash_rainbow_cycle,
     wave_all_rainbow,
     cycle_red_and_blue_speed,
     flash_white_ramp,
     section_flash,
+    juggle_rainbow_one_way,
     flash_rainbow_ramp,
     wave_white_shooting_star,
     flash_red,
-    wave_rainbow_mirror_shooting_star,
+    // wave_rainbow_mirror_shooting_star,
     section_flash_random,
     flash_white,
-    wave_rainbow_mirror,
+    // wave_rainbow_mirror,
     cycle_rainbow_speed,
     flash_all_rainbow_ramp,
-    wave_white_mirror_shooting_star,
+    // wave_white_mirror_shooting_star,
     section_flash_all_rainbow,
     flash_red_and_blue,
+    juggle_white_one_way,
     wave_rainbow_shooting_star,
     section_flash_all_fade,
     flash_color,

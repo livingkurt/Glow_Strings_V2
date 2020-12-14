@@ -246,7 +246,7 @@ int determine_speed_juggle_one_way()
     return 20;
     break;
   case 150:
-    return 20;
+    return 15;
     break;
   case 200:
     return 30;
