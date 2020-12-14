@@ -162,7 +162,7 @@ int determine_length_shooting_star()
   switch (NUM_LEDS)
   {
   case 50:
-    return 50;
+    return 2;
     break;
   case 100:
     return 20;
@@ -323,7 +323,7 @@ int determine_length_shooting_star_bnf()
   switch (NUM_LEDS)
   {
   case 50:
-    return 50;
+    return 2;
     break;
   case 100:
     return 20;
@@ -352,7 +352,7 @@ int determine_speed_shooting_star_bnf()
   switch (NUM_LEDS)
   {
   case 50:
-    return 30;
+    return 20;
     break;
   case 100:
     return 30;
@@ -492,7 +492,7 @@ int determine_length_shooting_star_mirror()
   switch (NUM_LEDS)
   {
   case 50:
-    return 75;
+    return 20;
     break;
   case 100:
     return 20;
@@ -521,7 +521,7 @@ int determine_speed_shooting_star_mirror()
   switch (NUM_LEDS)
   {
   case 50:
-    return 60;
+    return 10;
     break;
   case 100:
     return 30;

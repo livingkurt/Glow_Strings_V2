@@ -34,7 +34,7 @@ int determine_length_juggle()
   switch (NUM_LEDS)
   {
   case 50:
-    return 50;
+    return 5;
     break;
   case 100:
     return 50;
@@ -103,13 +103,13 @@ int determine_speed_juggle()
 
 void juggle_white_one_way()
 {
-  fadeToBlackBy(leds, NUM_LEDS, determine_length_juggle());
+  fadeToBlackBy(leds, NUM_LEDS, determine_length_juggle_one_way());
   int start_hue;
   int delta_hue = 25;
   start_hue = -1 * millis() / 10;
   for (int i = 0; i < 6; i++)
   {
-    uint8_t u = beat88(i + determine_speed_juggle(), 0);
+    uint8_t u = beat88(i + determine_speed_juggle_one_way(), 0);
     uint16_t pos_1 = map(u, 0, 255, 0, NUM_LEDS - 1);
     leds[pos_1] |= CHSV(start_hue, 0, 255);
     start_hue += delta_hue;
@@ -163,13 +163,13 @@ void juggle_white_one_way()
 // }
 void juggle_rainbow_one_way()
 {
-  fadeToBlackBy(leds, NUM_LEDS, determine_length_juggle());
+  fadeToBlackBy(leds, NUM_LEDS, determine_length_juggle_one_way());
   int start_hue;
   int delta_hue = 25;
   start_hue = -1 * millis() / 10;
   for (int i = 0; i < 6; i++)
   {
-    uint8_t u = beat88(i + determine_speed_juggle(), 0);
+    uint8_t u = beat88(i + determine_speed_juggle_one_way(), 0);
     uint16_t pos_1 = map(u, 0, 255, 0, NUM_LEDS - 1);
     leds[pos_1] |= CHSV(start_hue, 255, 255);
     start_hue += delta_hue;
@@ -191,33 +191,33 @@ void juggle_rainbow_one_way()
 //     start_hue += delta_hue;
 //   }
 // }
-void juggle_all_rainbow_one_way()
-{
-  fadeToBlackBy(leds, NUM_LEDS, determine_length_juggle());
-  int start_hue;
-  int delta_hue = 1;
-  start_hue = -1 * millis() / 10;
-  for (int i = 0; i < 6; i++)
-  {
-    uint8_t u = beat88(i + determine_speed_juggle(), 0);
-    uint16_t pos_1 = map(u, 0, 255, 0, NUM_LEDS - 1);
-    leds[pos_1] |= CHSV(start_hue, 255, 255);
-    start_hue += delta_hue;
-  }
-}
+// void juggle_all_rainbow_one_way()
+// {
+//   fadeToBlackBy(leds, NUM_LEDS, determine_length_juggle_one_way());
+//   int start_hue;
+//   int delta_hue = 1;
+//   start_hue = -1 * millis() / 10;
+//   for (int i = 0; i < 6; i++)
+//   {
+//     uint8_t u = beat88(i + determine_speed_juggle_one_way(), 0);
+//     uint16_t pos_1 = map(u, 0, 255, 0, NUM_LEDS - 1);
+//     leds[pos_1] |= CHSV(start_hue, 255, 255);
+//     start_hue += delta_hue;
+//   }
+// }
 
 int determine_length_juggle_one_way()
 {
   switch (NUM_LEDS)
   {
   case 50:
-    return 50;
+    return 5;
     break;
   case 100:
     return 50;
     break;
   case 150:
-    return 2;
+    return 10;
     break;
   case 200:
     return 7;
@@ -246,7 +246,7 @@ int determine_speed_juggle_one_way()
     return 20;
     break;
   case 150:
-    return 30;
+    return 20;
     break;
   case 200:
     return 30;

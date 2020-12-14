@@ -10,7 +10,7 @@
 // LED Chip Type
 #define LED_TYPE WS2811
 // Number of LEDs Used
-#define NUM_LEDS 150
+#define NUM_LEDS 50
 // The Order of RGB was wired on the chip
 #define COLOR_ORDER RGB
 
@@ -50,6 +50,30 @@ int menu_3_length = 4000;
 int menu_4_length = 5000;
 int menu_5_length = 6000;
 int menu_6_length = 7000;
+
+int color_1 = random(255);
+int color_2 = random(255);
+int color_3 = random(255);
+int color_4 = random(255);
+int color_5 = random(255);
+int color_6 = random(255);
+int color_7 = random(255);
+int color_8 = random(255);
+int color_9 = random(255);
+int color_10 = random(255);
+
+// const int *random_colors[10] = {
+//     random(255),
+//     random(255),
+//     random(255),
+//     random(255),
+//     random(255),
+//     random(255),
+//     random(255),
+//     random(255),
+//     random(255),
+//     random(255),
+// };
 
 CRGB leds[NUM_LEDS];
 // Button myButton(2, true, true, 50); // Declare the button
@@ -134,21 +158,21 @@ SimplePatternList gModes = {
     // pulse_rainbow_speed,
     // wave_white_shooting_star,
     // cycle_rainbow_ramp,
+    // juggle_all_rainbow_one_way,
     cycle_rainbow,
     sparkle_white,
     split_cycle_rainbow_2,
     shooting_star_white_bnf,
     juggle_rainbow,
     sparkle_rainbow_all_fade,
-    cycle_all_rainbow_and_black,
     juggle_white_one_way,
+    cycle_all_rainbow_and_black,
     pulse_white,
     shooting_star_rainbow,
     cycle_purple_and_black,
     sparkle_white_rainbow_all_fade,
-    juggle_all_rainbow_one_way,
-    shooting_star_white_mirror,
     all_rainbow,
+    shooting_star_white_mirror,
     split_shooting_star_rainbow,
     bpm,
     pulse_desaturated_rainbow,
