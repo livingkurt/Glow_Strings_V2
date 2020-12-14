@@ -37,7 +37,7 @@ void cycle_gradient()
                255, //full brightness
                LINEARBLEND);
 
-  FastLED.show();
+  // FastLED.show();
   startIndex += 50; // start further down the color palette each time.
 }
 
@@ -64,7 +64,7 @@ void cycle_red_and_blue()
     leds[i] = ColorFromPalette(myPalette, startIndex, 255, LINEARBLEND);
     startIndex += 10;
   };
-  FastLED.show();
+  // FastLED.show();
 }
 
 // =================== Cycle Purple and Black ===================
@@ -90,7 +90,7 @@ void cycle_purple_and_black()
     leds[i] = ColorFromPalette(myPalette, startIndex, 255, LINEARBLEND);
     startIndex += 20;
   };
-  FastLED.show();
+  // FastLED.show();
 }
 
 // =================== Cycle Rainbow Speed ===================
@@ -129,7 +129,7 @@ void cycle_red_and_blue_speed()
     leds[i] = ColorFromPalette(myPalette, startIndex, 255, LINEARBLEND);
     startIndex += 5;
   };
-  FastLED.show();
+  // FastLED.show();
 }
 
 // =================== Cycle All Rainbow and Black ===================
@@ -160,7 +160,7 @@ void cycle_all_rainbow_and_black()
     leds[i] = ColorFromPalette(myPalette, startIndex, 255, LINEARBLEND);
     startIndex += 50;
   };
-  FastLED.show();
+  // FastLED.show();
   start_hue += delta_hue;
 }
 
@@ -192,7 +192,7 @@ void cycle_rainbow_and_black()
     leds[i] = ColorFromPalette(myPalette, startIndex, 255, LINEARBLEND);
     startIndex += 50;
   };
-  FastLED.show();
+  // FastLED.show();
   start_hue += delta_hue;
 }
 

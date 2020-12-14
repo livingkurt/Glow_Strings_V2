@@ -72,6 +72,23 @@ void shooting_star_white()
 //     pos++;
 //   }
 //   leds[pos] = CHSV(255, 0, 255);
+//   // FastLED.show();
+// }
+
+// uint16_t pos = 0;
+
+// void shooting_star_white()
+// {
+//   fadeToBlackBy(leds, NUM_LEDS, 50);
+//   if (pos >= NUM_LEDS - 1)
+//   {
+//     pos = 0;
+//   }
+//   else
+//   {
+//     pos++;
+//   }
+//   leds[pos] = CHSV(255, 0, 255);
 //   FastLED.show();
 // }
 // void shooting_star_white()
@@ -151,7 +168,7 @@ int determine_length_shooting_star()
     return 20;
     break;
   case 150:
-    return 75;
+    return 10;
     break;
   case 200:
     return 7;
@@ -180,7 +197,7 @@ int determine_speed_shooting_star()
     return 30;
     break;
   case 150:
-    return 20;
+    return 8;
     break;
   case 200:
     return 30;
@@ -312,7 +329,7 @@ int determine_length_shooting_star_bnf()
     return 20;
     break;
   case 150:
-    return 75;
+    return 10;
     break;
   case 200:
     return 7;
@@ -341,7 +358,7 @@ int determine_speed_shooting_star_bnf()
     return 30;
     break;
   case 150:
-    return 10;
+    return 8;
     break;
   case 200:
     return 30;

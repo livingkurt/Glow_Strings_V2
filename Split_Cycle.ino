@@ -15,7 +15,7 @@ void split_cycle_rainbow_2()
     leds[NUM_LEDS - 1 - i] = CHSV(start_hue, 255, 255);
     start_hue += delta_hue;
   };
-  FastLED.show();
+  // FastLED.show();
 }
 
 // =================== Split Red and Blue 2 ===================
@@ -44,5 +44,5 @@ void split_cycle_red_and_blue()
     leds[NUM_LEDS - 1 - i] = ColorFromPalette(myPalette, startIndex, 255, LINEARBLEND);
     startIndex += 10;
   };
-  FastLED.show();
+  // FastLED.show();
 }

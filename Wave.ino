@@ -19,12 +19,29 @@ void wave_white()
     {
       last_pos = 0;
       fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0));
-      FastLED.show();
+      // FastLED.show();
     }
-    leds[last_pos] += CHSV(255, 0, 255);
+    leds[last_pos] += CHSV(255, 0, 200);
   }
   start_hue += delta_hue;
 }
+
+// uint16_t pos = 0;
+
+// void wave_white()
+// {
+//   fadeToBlackBy(leds, NUM_LEDS, 50);
+//   if (pos >= random(NUM_LEDS / 2, NUM_LEDS - 1))
+//   {
+//     pos = 0;
+//   }
+//   else
+//   {
+//     pos++;
+//   }
+//   leds[pos] = CHSV(255, 0, 255);
+//   // FastLED.show();
+// }
 
 // =================== Wave Rainbow ===================
 
@@ -47,7 +64,7 @@ void wave_all_rainbow()
     {
       last_pos = 0;
       fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0));
-      FastLED.show();
+      // FastLED.show();
     }
     leds[last_pos] += CHSV(start_hue, 255, 255);
   }
@@ -77,7 +94,7 @@ void wave_white_mirror()
     {
       last_pos_1 = NUM_LEDS / 2;
       fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0));
-      FastLED.show();
+      // FastLED.show();
     }
     if (last_pos_2 > pos_2)
     {
@@ -87,10 +104,10 @@ void wave_white_mirror()
     {
       last_pos_2 = NUM_LEDS / 2;
       fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0));
-      FastLED.show();
+      // FastLED.show();
     }
-    leds[last_pos_1] += CHSV(255, 0, 255);
-    leds[last_pos_2] += CHSV(255, 0, 255);
+    leds[last_pos_1] += CHSV(255, 0, 200);
+    leds[last_pos_2] += CHSV(255, 0, 200);
   }
   start_hue += delta_hue;
 }
@@ -118,7 +135,7 @@ void wave_rainbow_mirror()
     {
       last_pos_1 = NUM_LEDS / 2;
       fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0));
-      FastLED.show();
+      // FastLED.show();
     }
     if (last_pos_2 > pos_2)
     {
@@ -128,7 +145,7 @@ void wave_rainbow_mirror()
     {
       last_pos_2 = NUM_LEDS / 2;
       fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0));
-      FastLED.show();
+      // FastLED.show();
     }
     leds[last_pos_1] += CHSV(start_hue, 255, 255);
     leds[last_pos_2] += CHSV(start_hue, 255, 255);
@@ -161,7 +178,7 @@ void wave_white_shooting_star()
       // FastLED.show();
     }
     fadeToBlackBy(leds, NUM_LEDS, 100); //change fadeby to smaller or larger number to adjust the length of the tail.
-    leds[last_pos] += CHSV(255, 0, 255);
+    leds[last_pos] += CHSV(255, 0, 200);
   }
   start_hue += delta_hue;
 }
@@ -219,7 +236,7 @@ void wave_white_mirror_shooting_star()
     {
       last_pos_1 = NUM_LEDS / 2;
       fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0));
-      FastLED.show();
+      // FastLED.show();
     }
     if (last_pos_2 > pos_2)
     {
@@ -229,11 +246,11 @@ void wave_white_mirror_shooting_star()
     {
       last_pos_2 = NUM_LEDS / 2;
       fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0));
-      FastLED.show();
+      // FastLED.show();
     }
     fadeToBlackBy(leds, NUM_LEDS, 150); //change fadeby to smaller or larger number to adjust the length of the tail.
-    leds[last_pos_1] += CHSV(255, 0, 255);
-    leds[last_pos_2] += CHSV(255, 0, 255);
+    leds[last_pos_1] += CHSV(255, 0, 200);
+    leds[last_pos_2] += CHSV(255, 0, 200);
   }
   start_hue += delta_hue;
 }
@@ -261,7 +278,7 @@ void wave_rainbow_mirror_shooting_star()
     {
       last_pos_1 = NUM_LEDS / 2;
       fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0));
-      FastLED.show();
+      // FastLED.show();
     }
     if (last_pos_2 > pos_2)
     {
@@ -271,7 +288,7 @@ void wave_rainbow_mirror_shooting_star()
     {
       last_pos_2 = NUM_LEDS / 2;
       fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0));
-      FastLED.show();
+      // FastLED.show();
     }
     fadeToBlackBy(leds, NUM_LEDS, 150); //change fadeby to smaller or larger number to adjust the length of the tail.
     leds[last_pos_1] += CHSV(start_hue, 255, 255);

@@ -134,7 +134,6 @@ SimplePatternList gModes = {
     // pulse_rainbow_speed,
     // wave_white_shooting_star,
     // cycle_rainbow_ramp,
-
     cycle_rainbow,
     sparkle_white,
     split_cycle_rainbow_2,
@@ -296,4 +295,5 @@ void loop()
     }
   }
   handle_button(pressed, changed);
+  FastLED.show();
 }

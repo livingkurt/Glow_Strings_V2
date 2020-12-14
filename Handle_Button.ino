@@ -44,9 +44,9 @@ void handle_button(bool pressed, bool changed)
   {
     enter_sleep(pressed, changed);
   }
-  // since_press += 20;
-  FastLED.delay(5);
   since_press += 20;
+  // FastLED.delay(5);
+  // since_press++;
   if (changed)
     since_press = 0;     // If state changed we need to reset since_press
   was_pressed = pressed; // Update was_pressed to this frame's button status
@@ -58,7 +58,7 @@ void state_select(bool pressed, bool changed)
   {
     if (since_press == menu_1_length)
     {
-      Serial.println(menu_1_length);
+      // Serial.println(menu_1_length);
       flash(255, 255, 255);
     }
   }
@@ -66,7 +66,7 @@ void state_select(bool pressed, bool changed)
   {
     if (since_press < short_press && since_press != 0)
     {
-      Serial.println("Next State");
+      // Serial.println("Next State");
       nextState();
       since_press = 0;
       return;
@@ -87,7 +87,7 @@ void setting_select(bool pressed, bool changed)
   {
     if (since_press == menu_1_length)
     {
-      Serial.println(menu_1_length);
+      // Serial.println(menu_1_length);
       flash(255, 255, 255);
     }
   }
@@ -95,7 +95,7 @@ void setting_select(bool pressed, bool changed)
   {
     if (since_press < short_press && since_press != 0)
     {
-      Serial.println("Next Setting");
+      // Serial.println("Next Setting");
       nextSetting();
       since_press = 0;
       return;
@@ -115,7 +115,7 @@ void interval_select(bool pressed, bool changed)
   {
     if (since_press == menu_1_length)
     {
-      Serial.println(menu_1_length);
+      // Serial.println(menu_1_length);
       flash(255, 255, 255);
     }
   }
@@ -123,7 +123,7 @@ void interval_select(bool pressed, bool changed)
   {
     if (since_press < short_press && since_press != 0)
     {
-      Serial.println("Next Interval");
+      // Serial.println("Next Interval");
       nextInterval();
       since_press = 0;
       return;
@@ -149,7 +149,7 @@ void modes(bool pressed, bool changed)
     if (since_press < short_press && since_press != 0)
     {
       state = "modes";
-      Serial.println("Next pattern");
+      // Serial.println("Next pattern");
       nextMode();
       since_press = 0;
       return;
@@ -157,8 +157,8 @@ void modes(bool pressed, bool changed)
     else if (since_press < menu_2_length && since_press > menu_1_length)
     {
 
-      fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0));
-      FastLED.show();
+      // fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0));
+      // FastLED.show();
       state = "enter_sleep";
       last_state = "modes";
       EEPROM.write(0, 3);
@@ -189,7 +189,7 @@ void party_modes(bool pressed, bool changed)
     if (since_press < short_press && since_press != 0)
     {
       state = "party_modes";
-      Serial.println("Next Party Mode");
+      // Serial.println("Next Party Mode");
       nextPartyMode();
       since_press = 0;
       return;
@@ -197,8 +197,8 @@ void party_modes(bool pressed, bool changed)
     else if (since_press < menu_2_length && since_press > menu_1_length)
     {
 
-      fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0));
-      FastLED.show();
+      // fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0));
+      // FastLED.show();
       state = "enter_sleep";
       last_state = "party_modes";
       EEPROM.write(0, 2);
@@ -229,7 +229,7 @@ void all_modes(bool pressed, bool changed)
     if (since_press < short_press && since_press != 0)
     {
       state = "all_modes";
-      Serial.println("Next All Mode");
+      // Serial.println("Next All Mode");
       nextAllMode();
       since_press = 0;
       return;
@@ -237,8 +237,8 @@ void all_modes(bool pressed, bool changed)
     else if (since_press < menu_2_length && since_press > menu_1_length)
     {
 
-      fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0));
-      FastLED.show();
+      // fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0));
+      // FastLED.show();
       state = "enter_sleep";
       last_state = "all_modes";
       EEPROM.write(0, 2);
@@ -269,15 +269,15 @@ void colors(bool pressed, bool changed)
     if (since_press < short_press && since_press != 0)
     {
       state = "colors";
-      Serial.println("Next Color");
+      // Serial.println("Next Color");
       nextHue();
       since_press = 0;
       return;
     }
     else if (since_press < menu_2_length && since_press > menu_1_length)
     {
-      fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0));
-      FastLED.show();
+      // fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0));
+      // FastLED.show();
       state = "enter_sleep";
       last_state = "colors";
       EEPROM.write(0, 2);
@@ -308,7 +308,7 @@ void saturation(bool pressed, bool changed)
   {
     if (since_press == menu_1_length)
     {
-      Serial.println(menu_1_length);
+      // Serial.println(menu_1_length);
       flash(255, 255, 255);
     }
   }
@@ -316,7 +316,7 @@ void saturation(bool pressed, bool changed)
   {
     if (since_press < short_press && since_press != 0)
     {
-      Serial.println("Next Color");
+      // Serial.println("Next Color");
       nextSaturation();
       since_press = 0;
       return;
@@ -337,7 +337,7 @@ void value(bool pressed, bool changed)
   {
     if (since_press == menu_1_length)
     {
-      Serial.println(menu_1_length);
+      // Serial.println(menu_1_length);
       flash(255, 255, 255);
     }
   }
@@ -345,7 +345,7 @@ void value(bool pressed, bool changed)
   {
     if (since_press < short_press && since_press != 0)
     {
-      Serial.println("Next Color");
+      // Serial.println("Next Color");
       nextValue();
       since_press = 0;
       return;
@@ -367,12 +367,12 @@ void enter_sleep(bool pressed, bool changed)
   {
     if (since_press == menu_1_length)
     {
-      Serial.println(menu_1_length);
+      // Serial.println(menu_1_length);
       flash(255, 0, 255);
     }
     else if (since_press == menu_5_length)
     {
-      Serial.println(menu_5_length);
+      // Serial.println(menu_5_length);
       flash(255, 255, 255);
       flash(255, 100, 255);
     }
@@ -381,13 +381,13 @@ void enter_sleep(bool pressed, bool changed)
   {
     if (since_press < menu_2_length && since_press > menu_1_length)
     {
-      Serial.println("Change States");
+      // Serial.println("Change States");
       state = last_state;
       EEPROM.write(0, determine_state_number(last_state));
     }
     else if (since_press < menu_6_length && since_press > menu_5_length)
     {
-      Serial.println("Reset Settings");
+      // Serial.println("Reset Settings");
       reset_setting();
       state = "modes";
       EEPROM.write(0, 0);

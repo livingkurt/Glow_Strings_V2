@@ -24,7 +24,7 @@ void split_shooting_star_white()
   leds[pos_4] = CHSV(255, 0, 255);
   leds[pos_5] = CHSV(255, 0, 255);
   leds[pos_6] = CHSV(255, 0, 255);
-  FastLED.show();
+  // FastLED.show();
 }
 
 // =================== Split Shooting Star Rainbow ===================
@@ -57,7 +57,7 @@ void split_shooting_star_rainbow()
   leds[pos_4] = CHSV(start_hue, 255, 255);
   leds[pos_5] = CHSV(start_hue, 255, 255);
   leds[pos_6] = CHSV(start_hue, 255, 255);
-  FastLED.show();
+  // FastLED.show();
   start_hue += delta_hue;
 }
 
@@ -169,7 +169,7 @@ int determine_length_split_shooting_star()
     return 20;
     break;
   case 150:
-    return 75;
+    return 10;
     break;
   case 200:
     return 7;
@@ -198,7 +198,7 @@ int determine_speed_split_shooting_star()
     return 30;
     break;
   case 150:
-    return 30;
+    return 8;
     break;
   case 200:
     return 30;
