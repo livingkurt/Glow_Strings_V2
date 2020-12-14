@@ -151,7 +151,7 @@ int determine_length_shooting_star()
     return 20;
     break;
   case 150:
-    return 10;
+    return 75;
     break;
   case 200:
     return 7;
@@ -180,7 +180,7 @@ int determine_speed_shooting_star()
     return 30;
     break;
   case 150:
-    return 10;
+    return 20;
     break;
   case 200:
     return 30;
@@ -247,8 +247,8 @@ void shooting_star_white_bnf()
 {
   // a colored dot sweeping back and forth, with fading trails
   static int last_pos = 0;
-  fadeToBlackBy(leds, NUM_LEDS, 20);
-  int pos = beatsin16(30, 0, NUM_LEDS - 1);
+  fadeToBlackBy(leds, NUM_LEDS, determine_length_shooting_star_bnf());
+  int pos = beatsin16(determine_speed_shooting_star_bnf(), 0, NUM_LEDS - 1);
   while (last_pos != pos)
   {
     if (last_pos < pos)
@@ -284,8 +284,8 @@ void shooting_star_rainbow_bnf()
   int delta_hue = 100;
   start_hue = -1 * millis() / rate;
   static int last_pos = 0;
-  fadeToBlackBy(leds, NUM_LEDS, 20);
-  int pos = beatsin16(30, 0, NUM_LEDS - 1);
+  fadeToBlackBy(leds, NUM_LEDS, determine_length_shooting_star_bnf());
+  int pos = beatsin16(determine_speed_shooting_star_bnf(), 0, NUM_LEDS - 1);
   while (last_pos != pos)
   {
     if (last_pos < pos)
@@ -306,13 +306,13 @@ int determine_length_shooting_star_bnf()
   switch (NUM_LEDS)
   {
   case 50:
-    return 100;
+    return 50;
     break;
   case 100:
     return 20;
     break;
   case 150:
-    return 10;
+    return 75;
     break;
   case 200:
     return 7;
@@ -335,7 +335,7 @@ int determine_speed_shooting_star_bnf()
   switch (NUM_LEDS)
   {
   case 50:
-    return 20;
+    return 30;
     break;
   case 100:
     return 30;

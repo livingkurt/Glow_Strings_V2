@@ -6,8 +6,10 @@ void bpm()
   start_index = -1 * millis() / 10;
   for (int i = 0; i < NUM_LEDS / 2; i++)
   {
-    leds[i] = CHSV(start_index + (i * 2), beat - start_index + (i * 10), 255);
-    leds[NUM_LEDS - 1 - i] = CHSV(start_index + (i * 2), beat - start_index + (i * 10), 255);
+    // leds[i] = CHSV(start_index + (i * 2), beat - start_index + (i * 10), 255);
+    // leds[NUM_LEDS - 1 - i] = CHSV(start_index + (i * 2), beat - start_index + (i * 10), 255);
+    leds[i] = ColorFromPalette(RainbowColors_p, start_index + (i * 2), beat - start_index + (i * 10), LINEARBLEND);
+    leds[NUM_LEDS - 1 - i] = ColorFromPalette(RainbowColors_p, start_index + (i * 2), beat - start_index + (i * 10), LINEARBLEND);
   }
   start_index += 100;
 }

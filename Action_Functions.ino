@@ -155,6 +155,14 @@ void update_state()
   }
   else if (gCurrentStateNumber == 1)
   {
+    // if (random_interval = 0)
+    // {
+    //   random_interval = 1;
+    // }
+    // if (autoplay = 0)
+    // {
+    //   autoplay = 1;
+    // }
     state = "party_modes";
   }
   else if (gCurrentStateNumber == 2)
@@ -163,6 +171,14 @@ void update_state()
   }
   else if (gCurrentStateNumber == 3)
   {
+    // if (random_order = 0)
+    // {
+    //   random_order = 1;
+    // }
+    // if (autoplay = 0)
+    // {
+    //   autoplay = 1;
+    // }
     state = "all_modes";
   }
 }

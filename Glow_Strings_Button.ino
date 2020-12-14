@@ -10,7 +10,7 @@
 // LED Chip Type
 #define LED_TYPE WS2811
 // Number of LEDs Used
-#define NUM_LEDS 50
+#define NUM_LEDS 150
 // The Order of RGB was wired on the chip
 #define COLOR_ORDER RGB
 
@@ -129,21 +129,28 @@ int num_interval_colors = (sizeof(interval_colors) / sizeof(interval_colors[0]))
 typedef void (*SimplePatternList[])();
 
 SimplePatternList gModes = {
+    // cycle_rainbow_and_black,
+    // split_cycle_red_and_blue,
+    // pulse_rainbow_speed,
+    // wave_white_shooting_star,
+    // cycle_rainbow_ramp,
 
     cycle_rainbow,
     sparkle_white,
-    split_rainbow_2,
+    split_cycle_rainbow_2,
     shooting_star_white_bnf,
     juggle_rainbow,
-    split_shooting_star_rainbow,
-    juggle_white_one_way,
     sparkle_rainbow_all_fade,
+    cycle_all_rainbow_and_black,
+    juggle_white_one_way,
     pulse_white,
     shooting_star_rainbow,
     cycle_purple_and_black,
     sparkle_white_rainbow_all_fade,
+    juggle_all_rainbow_one_way,
     shooting_star_white_mirror,
     all_rainbow,
+    split_shooting_star_rainbow,
     bpm,
     pulse_desaturated_rainbow,
     juggle_rainbow_one_way,
@@ -161,6 +168,63 @@ int num_modes = (sizeof(gModes) / sizeof(gModes[0]));
 typedef void (*SimplePartyModeList[])();
 
 SimplePartyModeList gPartyModes = {
+    wave_white_mirror,
+    flash_blue,
+    section_flash_rainbow_cycle,
+    flash_rainbow_ramp,
+    wave_all_rainbow,
+    flash_red,
+    cycle_red_and_blue_speed,
+    section_flash,
+    flash_all_rainbow_ramp,
+    wave_white_shooting_star,
+    wave_rainbow_mirror_shooting_star,
+    flash_white,
+    section_flash_random,
+    wave_rainbow_mirror,
+    cycle_rainbow_speed,
+    wave_white_mirror_shooting_star,
+    section_flash_all_rainbow,
+    flash_red_and_blue,
+    flash_white_ramp,
+    wave_rainbow_shooting_star,
+    section_flash_all_fade,
+    flash_rainbow,
+    wave_white,
+    section_flash_rainbow_cycle_split,
+};
+
+int num_party_modes = (sizeof(gPartyModes) / sizeof(gPartyModes[0]));
+
+typedef void (*SimpleAllModeList[])();
+
+SimpleAllModeList gAllModes = {
+    cycle_rainbow,
+    sparkle_white,
+    split_cycle_rainbow_2,
+    shooting_star_white_bnf,
+    juggle_rainbow,
+    sparkle_rainbow_all_fade,
+    cycle_all_rainbow_and_black,
+    juggle_white_one_way,
+    pulse_white,
+    shooting_star_rainbow,
+    cycle_purple_and_black,
+    sparkle_white_rainbow_all_fade,
+    shooting_star_white_mirror,
+    all_rainbow,
+    split_shooting_star_rainbow,
+    bpm,
+    pulse_desaturated_rainbow,
+    juggle_rainbow_one_way,
+    shooting_star_white,
+    sparkle_rainbow_saturation,
+    juggle_white,
+    shooting_star_rainbow_bnf,
+    sparkle_rainbow_random,
+    shooting_star_rainbow_mirror,
+    pulse_rainbow,
+    split_shooting_star_white,
     wave_white_mirror,
     flash_blue,
     section_flash_rainbow_cycle,
@@ -186,46 +250,6 @@ SimplePartyModeList gPartyModes = {
     wave_white,
     section_flash_rainbow_cycle_split,
 };
-
-int num_party_modes = (sizeof(gPartyModes) / sizeof(gPartyModes[0]));
-
-typedef void (*SimpleAllModeList[])();
-
-SimpleAllModeList gAllModes = {
-    cycle_rainbow,
-    sparkle_white,
-    split_rainbow_2,
-    shooting_star_white_bnf,
-    split_shooting_star_rainbow,
-    juggle_white_one_way,
-    sparkle_rainbow_all_fade,
-    pulse_white,
-    shooting_star_rainbow,
-    sparkle_white_rainbow_all_fade,
-    shooting_star_white_mirror,
-    all_rainbow,
-    bpm,
-    juggle_rainbow_one_way,
-    shooting_star_white,
-    sparkle_rainbow_saturation,
-    shooting_star_rainbow_bnf,
-    sparkle_rainbow_random,
-    shooting_star_rainbow_mirror,
-    pulse_rainbow,
-    split_shooting_star_white,
-    section_flash_random,
-    section_flash,
-    section_flash_rainbow_cycle,
-    section_flash_all_fade,
-    flash_red,
-    section_flash_all_rainbow,
-    flash_white,
-    juggle_rainbow,
-    juggle_white,
-    flash_rainbow,
-    section_flash_rainbow_cycle_split,
-};
-
 int num_all_modes = (sizeof(gAllModes) / sizeof(gAllModes[0]));
 
 uint32_t since_press = 0; // Tracks how long since last button press
