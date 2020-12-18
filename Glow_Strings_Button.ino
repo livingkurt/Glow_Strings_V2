@@ -10,7 +10,7 @@
 // LED Chip Type
 #define LED_TYPE WS2811
 // Number of LEDs Used
-#define NUM_LEDS 150
+#define NUM_LEDS 50
 // The Order of RGB was wired on the chip
 #define COLOR_ORDER RGB
 
@@ -115,9 +115,9 @@ int num_state_colors = (sizeof(state_colors) / sizeof(state_colors[0]));
 
 const char *settings[5] = {
     "autoplay",
+    "interval_length",
     "random_order",
     "random_interval",
-    "interval_length",
     "back_to_modes",
     // "save_settings",
 };
@@ -233,6 +233,57 @@ typedef void (*SimpleAllModeList[])();
 
 SimpleAllModeList gAllModes = {
     cycle_rainbow,
+    sparkle_white,
+    split_cycle_rainbow_2,
+    shooting_star_white_bnf,
+    juggle_rainbow,
+    sparkle_rainbow_all_fade,
+    juggle_white_one_way,
+    cycle_all_rainbow_and_black,
+    pulse_white,
+    shooting_star_rainbow,
+    cycle_color_and_black,
+    sparkle_white_rainbow_all_fade,
+    all_rainbow,
+    shooting_star_white_mirror,
+    split_shooting_star_rainbow,
+    bpm,
+    pulse_desaturated_rainbow,
+    juggle_rainbow_one_way,
+    shooting_star_white,
+    sparkle_rainbow_saturation,
+    juggle_white,
+    shooting_star_rainbow_bnf,
+    sparkle_rainbow_random,
+    shooting_star_rainbow_mirror,
+    pulse_rainbow,
+    split_shooting_star_white,
+    flash_rainbow,
+    // wave_white_mirror,
+    section_flash_rainbow_cycle,
+    wave_all_rainbow,
+    cycle_red_and_blue_speed,
+    flash_white_ramp,
+    section_flash,
+    juggle_rainbow_one_way,
+    flash_rainbow_ramp,
+    wave_white_shooting_star,
+    flash_red,
+    // wave_rainbow_mirror_shooting_star,
+    section_flash_random,
+    flash_white,
+    // wave_rainbow_mirror,
+    cycle_rainbow_speed,
+    flash_all_rainbow_ramp,
+    // wave_white_mirror_shooting_star,
+    section_flash_all_rainbow,
+    flash_red_and_blue,
+    juggle_white_one_way,
+    wave_rainbow_shooting_star,
+    section_flash_all_fade,
+    flash_color,
+    wave_white,
+    section_flash_rainbow_cycle_split,
 
 };
 int num_all_modes = (sizeof(gAllModes) / sizeof(gAllModes[0]));

@@ -192,19 +192,19 @@ void update_setting()
   }
   else if (gCurrentSettingNumber == 1)
   {
-    decide_random_order();
-    state = last_state;
+    // decide_interval();
+    // state = last_state;
+    state = "interval_select";
   }
   else if (gCurrentSettingNumber == 2)
   {
-    decide_random_interval();
+    decide_random_order();
     state = last_state;
   }
   else if (gCurrentSettingNumber == 3)
   {
-    // decide_interval();
-    // state = last_state;
-    state = "interval_select";
+    decide_random_interval();
+    state = last_state;
   }
   else if (gCurrentSettingNumber == 4)
   {
