@@ -177,7 +177,7 @@ int determine_length_split_shooting_star()
     return 8;
     break;
   case 200:
-    return 7;
+    return 8;
     break;
   case 300:
     return 7;
@@ -206,7 +206,7 @@ int determine_speed_split_shooting_star()
     return 20;
     break;
   case 200:
-    return 30;
+    return 20;
     break;
   case 300:
     return 20;

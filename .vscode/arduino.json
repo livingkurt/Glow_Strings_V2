@@ -1,7 +1,7 @@
 {
     "board": "arduino:avr:nano",
     "programmer": "AVRISP mkII",
-    "port": "/dev/tty.usbserial-1473310",
+    "port": "/dev/tty.usbserial-1473320",
     "sketch": "Glow_Strings_Button.ino",
     "configuration": "cpu=atmega328"
 }

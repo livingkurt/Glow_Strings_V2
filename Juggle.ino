@@ -43,7 +43,7 @@ int determine_length_juggle()
     return 10;
     break;
   case 200:
-    return 7;
+    return 10;
     break;
   case 300:
     return 7;
@@ -72,7 +72,7 @@ int determine_speed_juggle()
     return 2;
     break;
   case 200:
-    return 30;
+    return 2;
     break;
   case 300:
     return 20;
@@ -220,7 +220,7 @@ int determine_length_juggle_one_way()
     return 10;
     break;
   case 200:
-    return 7;
+    return 10;
     break;
   case 300:
     return 7;
@@ -249,7 +249,7 @@ int determine_speed_juggle_one_way()
     return 15;
     break;
   case 200:
-    return 30;
+    return 15;
     break;
   case 300:
     return 20;
