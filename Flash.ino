@@ -31,8 +31,8 @@ void flash()
 // }
 void flash_white()
 {
-  uint8_t strobe = 10; // controls the interval between strobe flashes
-  uint8_t gap = 30;    // controls the interval between strobe flashes
+  uint8_t strobe = 10;
+  uint8_t gap = 30;
 
   if ((millis() / strobe) % 2)
   {
@@ -40,7 +40,7 @@ void flash_white()
   }
   else if ((millis() / gap) % 2)
   {
-    fill_solid(leds, NUM_LEDS, CHSV(255, 0, 150));
+    fill_solid(leds, NUM_LEDS, CHSV(255, 0, determine_brightness_of_white()));
   }
 }
 
@@ -99,7 +99,7 @@ void flash_random_color()
   }
   else if ((millis() / gap) % 2)
   {
-    fill_solid(leds, NUM_LEDS, CHSV(flash_random_color_color, 255, 255));
+    fill_solid(leds, NUM_LEDS, CHSV(gCurrentHueNumber, gCurrentSaturationNumber, gCurrentValueNumber));
   }
 }
 
@@ -160,9 +160,9 @@ void flash_random_color()
 int flash_red_and_blue_num = 0;
 void flash_red_and_blue()
 {
-  uint8_t strobe = 10;    // controls the interval between strobe flashes
-  uint8_t gap = 30;       // controls the interval between strobe flashes
-  CRGB color = CRGB::Red; // controls the interval between strobe flashes
+  uint8_t strobe = 10;
+  uint8_t gap = 30;
+  CRGB color = CRGB::Red;
 
   if ((millis() / strobe) % 2)
   {
@@ -239,7 +239,7 @@ void flash_white_ramp()
   int rate = 10;
   int strobe = 10;
   int gap = 30;
-  fill_solid(leds, NUM_LEDS, CHSV(255, 0, 255));
+  fill_solid(leds, NUM_LEDS, CHSV(255, 0, determine_brightness_of_white()));
   FastLED.delay(strobe);
   FastLED.show();
   fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0));

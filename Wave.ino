@@ -57,7 +57,7 @@ void wave_white()
       fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0));
     }
     // fadeToBlackBy(leds, NUM_LEDS, 200); //change fadeby to smaller or larger number to adjust the length of the tail.
-    leds[last_wave_white_pos] = CHSV(255, 0, 255);
+    leds[last_wave_white_pos] = CHSV(255, 0, determine_brightness_of_white());
   }
   FastLED.delay(random(speed));
 }
@@ -283,6 +283,9 @@ int determine_ms_wave()
   case 200:
     return 150;
     break;
+  case 250:
+    return 150;
+    break;
   case 300:
     return 7;
     break;
@@ -313,6 +316,9 @@ int determine_rate_wave()
   case 200:
     return 5;
     break;
+  case 250:
+    return 5;
+    break;
   case 300:
     return 7;
     break;
@@ -341,6 +347,9 @@ int determine_length_wave()
     return 150;
     break;
   case 200:
+    return 150;
+    break;
+  case 250:
     return 150;
     break;
   case 300:
@@ -450,8 +459,8 @@ void wave_white_mirror()
       FastLED.show();
     }
     // fadeToBlackBy(leds, NUM_LEDS, 200); //change fadeby to smaller or larger number to adjust the length of the tail.
-    leds[last_wave_white_mirror_pos_1] = CHSV(255, 0, 255);
-    // leds[last_wave_white_mirror_pos_2] = CHSV(255, 0, 255);
+    leds[last_wave_white_mirror_pos_1] = CHSV(255, 0, determine_brightness_of_white());
+    // leds[last_wave_white_mirror_pos_2] = CHSV(255, 0, determine_brightness_of_white());
   }
   // fadeToBlackBy(leds, NUM_LEDS, 200); //change fadeby to smaller or larger number to adjust the length of the tail.
   while (last_wave_white_mirror_pos_2 != wave_white_mirror_pos_2)
@@ -467,7 +476,7 @@ void wave_white_mirror()
       // FastLED.show();
     }
     // fadeToBlackBy(leds, NUM_LEDS, 200); //change fadeby to smaller or larger number to adjust the length of the tail.
-    leds[last_wave_white_mirror_pos_2] = CHSV(255, 0, 255);
+    leds[last_wave_white_mirror_pos_2] = CHSV(255, 0, determine_brightness_of_white());
   }
   // fadeToBlackBy(leds, NUM_LEDS, 200); //change fadeby to smaller or larger number to adjust the length of the tail.
   // leds[wave_white_mirror_pos_1] = CHSV(start_hue, 0, 255);
@@ -834,6 +843,9 @@ int determine_ms_wave_mirror()
   case 200:
     return 300;
     break;
+  case 250:
+    return 300;
+    break;
   case 300:
     return 7;
     break;
@@ -864,6 +876,9 @@ int determine_rate_wave_mirror()
   case 200:
     return 5;
     break;
+  case 250:
+    return 5;
+    break;
   case 300:
     return 7;
     break;
@@ -892,6 +907,9 @@ int determine_length_wave_mirror()
     return 150;
     break;
   case 200:
+    return 150;
+    break;
+  case 250:
     return 150;
     break;
   case 300:

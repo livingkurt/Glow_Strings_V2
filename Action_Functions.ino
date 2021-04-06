@@ -7,6 +7,13 @@ void nextState()
   // Serial.println(gCurrentStateHueNumber);
   EEPROM.write(0, gCurrentStateNumber);
 }
+// Modes
+void previousMode()
+{
+  gCurrentModeNumber = random_order ? random(num_modes) : (gCurrentModeNumber - 1) % ARRAY_SIZE(gModes);
+  // Serial.println(gCurrentModeNumber);
+  EEPROM.write(1, gCurrentModeNumber);
+}
 
 // Modes
 void nextMode()
@@ -219,7 +226,7 @@ void update_interval()
   if (gCurrentIntervalNumber == 0)
   {
     interval = 60;
-    flash(255, 0, 255);
+    flash(255, 0, determine_brightness_of_white());
   }
   else if (gCurrentIntervalNumber == 1)
   {

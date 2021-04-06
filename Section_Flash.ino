@@ -55,7 +55,7 @@ void section_flash_rainbow_cycle()
   };
   FastLED.show();
   int rand = random(split_value);
-  fill_solid(leds + row * rand, row, CHSV(255, 0, 255));
+  fill_solid(leds + row * rand, row, CHSV(255, 0, determine_brightness_of_white()));
   FastLED.delay(strobe);
   start_hue += delta_hue;
   FastLED.show();
@@ -85,7 +85,7 @@ void section_flash_rainbow_cycle_split()
   };
   FastLED.show();
   int rand = random(split_value);
-  fill_solid(leds + row * rand, row, CHSV(255, 0, 255));
+  fill_solid(leds + row * rand, row, CHSV(255, 0, determine_brightness_of_white()));
   FastLED.delay(strobe);
   start_hue += delta_hue;
   FastLED.show();
@@ -111,7 +111,7 @@ void section_flash_all_rainbow()
   fill_solid(leds, NUM_LEDS, CHSV(start_hue, 255, 150)); // Set all to red.
   FastLED.show();
   int rand = random(split_value);
-  fill_solid(leds + row * rand, row, CHSV(255, 0, 255));
+  fill_solid(leds + row * rand, row, CHSV(255, 0, determine_brightness_of_white()));
   FastLED.delay(strobe);
   start_hue += delta_hue;
   FastLED.show();

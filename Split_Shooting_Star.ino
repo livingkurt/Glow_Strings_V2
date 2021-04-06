@@ -18,12 +18,12 @@ void split_shooting_star_white()
   // Backward 6/6
   uint16_t pos_6 = map(u, 0, 255, NUM_LEDS - 1, (NUM_LEDS / 6) * 4);
 
-  leds[pos_1] = CHSV(255, 0, 255);
-  leds[pos_2] = CHSV(255, 0, 255);
-  leds[pos_3] = CHSV(255, 0, 255);
-  leds[pos_4] = CHSV(255, 0, 255);
-  leds[pos_5] = CHSV(255, 0, 255);
-  leds[pos_6] = CHSV(255, 0, 255);
+  leds[pos_1] = CHSV(255, 0, determine_brightness_of_white());
+  leds[pos_2] = CHSV(255, 0, determine_brightness_of_white());
+  leds[pos_3] = CHSV(255, 0, determine_brightness_of_white());
+  leds[pos_4] = CHSV(255, 0, determine_brightness_of_white());
+  leds[pos_5] = CHSV(255, 0, determine_brightness_of_white());
+  leds[pos_6] = CHSV(255, 0, determine_brightness_of_white());
   // FastLED.show();
 }
 
@@ -179,6 +179,9 @@ int determine_length_split_shooting_star()
   case 200:
     return 8;
     break;
+  case 250:
+    return 8;
+    break;
   case 300:
     return 7;
     break;
@@ -206,6 +209,9 @@ int determine_speed_split_shooting_star()
     return 20;
     break;
   case 200:
+    return 20;
+    break;
+  case 250:
     return 20;
     break;
   case 300:

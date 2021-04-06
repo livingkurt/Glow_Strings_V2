@@ -10,7 +10,7 @@
 // LED Chip Type
 #define LED_TYPE WS2811
 // Number of LEDs Used
-#define NUM_LEDS 50
+#define NUM_LEDS 250
 // The Order of RGB was wired on the chip
 #define COLOR_ORDER RGB
 
@@ -42,6 +42,10 @@ uint8_t random_order = 0;    // EPPROM 9
 uint8_t random_interval = 0; // EPPROM 5
 int interval = 60;           // EPPROM 10
 uint8_t save_settings = 0;   // EPPROM 9
+
+int DCgap = 250;           // max ms between clicks for a double click event
+boolean DCwaiting = false; // whether we're waiting for a double click (down)
+boolean DConUp = false;    // whether to register a double click on next release, or whether to wait and click
 
 int short_press = 1000;
 int menu_1_length = 2000;
@@ -343,3 +347,79 @@ void loop()
   handle_button(pressed, changed);
   FastLED.show();
 }
+
+// uint32_t since_press = 0;   // Tracks how long since last button press
+// bool was_pressed = false;   // Tracks if the button was pressed in previous frame
+// int buttonState;            // the current reading from the input pin
+// int lastButtonState = HIGH; // the previous reading from the input pin
+
+// // the following variables are unsigned longs because the time, measured in
+// // milliseconds, will quickly become a bigger number than can be stored in an int.
+// unsigned long lastDebounceTime = 0; // the last time the output pin was toggled
+// unsigned long debounceDelay = 10;   // the debounce time; increase if the output flickers
+
+// void loop()
+// {
+//   bool reading = digitalRead(PIN_BUTTON) == HIGH;
+//   bool changed = reading != was_pressed; // If pressed state has changed, we might need to act
+//                                          // If the switch changed, due to noise or pressing:
+//   if (reading != lastButtonState)
+//   {
+//     // reset the debouncing timer
+//     lastDebounceTime = millis();
+//   }
+//   if ((millis() - lastDebounceTime) > debounceDelay)
+//   {
+//     // whatever the reading is at, it's been there for longer than the debounce
+//     // delay, so take it as the actual current state:
+
+//     // if the button state has changed:
+//     if (reading != buttonState)
+//     {
+//       buttonState = reading;
+
+//       // // only toggle the LED if the new button state is HIGH
+//       // if (buttonState == HIGH) {
+//       //   ledState = !ledState;
+//       // }
+//       if (!reading)
+//       {
+//         if (state == "modes")
+//         {
+//           handle_mode_change();
+//         }
+//         if (state == "party_modes")
+//         {
+//           handle_party_mode_change();
+//         }
+//         if (state == "colors" || state == "value" || state == "saturation")
+//         {
+//           color_selection();
+//         }
+//         if (state == "state_select")
+//         {
+//           state_selection();
+//         }
+//         if (state == "setting_select")
+//         {
+//           setting_selection();
+//         }
+//         if (state == "interval_select")
+//         {
+//           interval_selection();
+//         }
+//         if (state == "all_modes")
+//         {
+//           handle_all_mode_change();
+//         }
+//         if (state == "enter_sleep")
+//         {
+//           enter_sleep();
+//         }
+//       }
+//     }
+//     lastButtonState = reading;
+//     handle_button(reading, changed);
+//     FastLED.show();
+//   }
+// }

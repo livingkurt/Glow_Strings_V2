@@ -105,3 +105,36 @@ void hold(int period)
     // FastLED.show();
   }
 }
+
+int determine_brightness_of_white()
+{
+  switch (NUM_LEDS)
+  {
+  case 50:
+    return 255;
+    break;
+  case 100:
+    return 255;
+    break;
+  case 150:
+    return 255;
+    break;
+  case 200:
+    return 150;
+    break;
+  case 250:
+    return 150;
+    break;
+  case 300:
+    return 100;
+    break;
+  case 400:
+    return 100;
+    break;
+  case 500:
+    return 100;
+    break;
+  default:
+    break;
+  }
+}

@@ -148,6 +148,29 @@ void modes(bool pressed, bool changed)
   {
     if (since_press < short_press && since_press != 0)
     {
+
+      // if (since_press < short_press && since_press != 0)
+      //     {
+      //       if ((since_press) < DCgap && DConUp == false && DCwaiting == true)
+      //       {
+      //         DConUp = true;
+      //         state = "modes";
+      //         // Serial.println("Next pattern");
+      //         previousMode();
+      //       }
+      //       else
+      //       {
+      //         DConUp = false;
+      //         state = "modes";
+      //         // Serial.println("Next pattern");
+      //         nextMode();
+      //       }
+      //       DCwaiting = false;
+
+      //       since_press = 0;
+      //       return;
+      //     }
+
       state = "modes";
       // Serial.println("Next pattern");
       nextMode();
@@ -368,7 +391,7 @@ void enter_sleep(bool pressed, bool changed)
     if (since_press == menu_1_length)
     {
       // Serial.println(menu_1_length);
-      flash(255, 0, 255);
+      flash(255, 0, determine_brightness_of_white());
     }
     else if (since_press == menu_5_length)
     {
@@ -436,24 +459,106 @@ void color_menu()
 
 void flash(int color, int sat, int value)
 {
-  int gap = 150;
-  fill_solid(leds, NUM_LEDS, CHSV(color, sat, value)); // Set all to red.
-  FastLED.delay(gap);
+  int gap = 450;
+  fill_solid(leds, NUM_LEDS, CHSV(color, sat, value - 50)); // Set all to red.
+  FastLED.delay(800);
   FastLED.show();
-  fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0)); // Set all to red.
-  FastLED.delay(gap);
+  fill_solid(leds, NUM_LEDS, CHSV(color, sat, value - 100)); // Set all to red.
+  FastLED.delay(100);
   FastLED.show();
-  fill_solid(leds, NUM_LEDS, CHSV(color, sat, value)); // Set all to red.
-  FastLED.delay(gap);
-  FastLED.show();
-  fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0)); // Set all to red.
-  FastLED.delay(gap);
-  FastLED.show();
-  fill_solid(leds, NUM_LEDS, CHSV(color, sat, value)); // Set all to red.
-  FastLED.delay(gap);
-  FastLED.show();
-  fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0)); // Set all to red.
-  FastLED.delay(gap);
-  FastLED.show();
+  // fill_solid(leds, NUM_LEDS, CHSV(color, sat, value)); // Set all to red.
+  // FastLED.delay(gap);
+  // FastLED.show();
+  // fill_solid(leds, NUM_LEDS, CHSV(color, sat, 150)); // Set all to red.
+  // FastLED.delay(gap);
+  // FastLED.show();
+  // fill_solid(leds, NUM_LEDS, CHSV(color, sat, value)); // Set all to red.
+  // FastLED.delay(gap);
+  // FastLED.show();
+  // fill_solid(leds, NUM_LEDS, CHSV(color, sat, 150)); // Set all to red.
+  // FastLED.delay(gap);
+  // FastLED.show();
   return;
 }
+
+// void flash(int color, int sat, int value)
+// {
+//   int gap = 450;
+//   fill_solid(leds, NUM_LEDS, CHSV(color, sat, value - 50)); // Set all to red.
+//   FastLED.delay(gap);
+//   FastLED.show();
+//   fill_solid(leds, NUM_LEDS, CHSV(color, sat, 100)); // Set all to red.
+//   FastLED.delay(gap);
+//   FastLED.show();
+//   // fill_solid(leds, NUM_LEDS, CHSV(color, sat, value)); // Set all to red.
+//   // FastLED.delay(gap);
+//   // FastLED.show();
+//   // fill_solid(leds, NUM_LEDS, CHSV(color, sat, 150)); // Set all to red.
+//   // FastLED.delay(gap);
+//   // FastLED.show();
+//   // fill_solid(leds, NUM_LEDS, CHSV(color, sat, value)); // Set all to red.
+//   // FastLED.delay(gap);
+//   // FastLED.show();
+//   // fill_solid(leds, NUM_LEDS, CHSV(color, sat, 150)); // Set all to red.
+//   // FastLED.delay(gap);
+//   // FastLED.show();
+//   return;
+// }
+
+// void flash(int color, int sat, int value)
+// {
+//   int gap = 150;
+//   fill_solid(leds, NUM_LEDS, CHSV(color, sat, value)); // Set all to red.
+//   FastLED.delay(gap);
+//   FastLED.show();
+//   fill_solid(leds, NUM_LEDS, CHSV(color, sat, 150)); // Set all to red.
+//   FastLED.delay(gap);
+//   FastLED.show();
+//   fill_solid(leds, NUM_LEDS, CHSV(color, sat, value)); // Set all to red.
+//   FastLED.delay(gap);
+//   FastLED.show();
+//   fill_solid(leds, NUM_LEDS, CHSV(color, sat, 150)); // Set all to red.
+//   FastLED.delay(gap);
+//   FastLED.show();
+//   fill_solid(leds, NUM_LEDS, CHSV(color, sat, value)); // Set all to red.
+//   FastLED.delay(gap);
+//   FastLED.show();
+//   fill_solid(leds, NUM_LEDS, CHSV(color, sat, 150)); // Set all to red.
+//   FastLED.delay(gap);
+//   FastLED.show();
+//   return;
+// }
+
+// void flash(int color, int sat, int value)
+// {
+//   int gap = 900;
+//   // fill_solid(leds, NUM_LEDS, CHSV(color, sat, value)); // Set all to red.
+//   // FastLED.delay(450);
+//   // FastLED.show();
+//   for (int i = 0; i < 35; i++)
+//   {
+//     fill_solid(leds, NUM_LEDS, CHSV(color, sat, value)); // Set all to red.
+//     FastLED.delay(10);
+//     FastLED.show();
+//     fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0)); // Set all to red.
+//     FastLED.delay(10);
+//     FastLED.show();
+//   }
+
+//   // fill_solid(leds, NUM_LEDS, CHSV(color, sat, 150)); // Set all to red.
+//   // FastLED.delay(10);
+//   // FastLED.show();
+//   // fill_solid(leds, NUM_LEDS, CHSV(color, sat, value)); // Set all to red.
+//   // FastLED.delay(gap);
+//   // FastLED.show();
+//   // fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0)); // Set all to red.
+//   // FastLED.delay(gap);
+//   // FastLED.show();
+//   // fill_solid(leds, NUM_LEDS, CHSV(color, sat, value)); // Set all to red.
+//   // FastLED.delay(gap);
+//   // FastLED.show();
+//   // fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0)); // Set all to red.
+//   // FastLED.delay(gap);
+//   // FastLED.show();
+//   return;
+// }

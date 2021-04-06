@@ -78,7 +78,7 @@ void cycle_color_and_black()
   // that goes from startColor, to endColor (in the middle),
   // and back to startColor.
   CRGB startColor(CRGB::Black);
-  CRGB endColor(CHSV(cycle_color_and_black_random_color, 255, 255));
+  CRGB endColor(CHSV(gCurrentHueNumber, gCurrentSaturationNumber, gCurrentValueNumber));
   CRGBPalette16 myPalette(startColor, endColor, startColor);
 
   // Start with the color at the beginning of the palette,

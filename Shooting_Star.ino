@@ -173,6 +173,9 @@ int determine_length_shooting_star()
   case 200:
     return 10;
     break;
+  case 250:
+    return 10;
+    break;
   case 300:
     return 7;
     break;
@@ -200,6 +203,9 @@ int determine_speed_shooting_star()
     return 20;
     break;
   case 200:
+    return 20;
+    break;
+  case 250:
     return 20;
     break;
   case 300:
@@ -334,6 +340,9 @@ int determine_length_shooting_star_bnf()
   case 200:
     return 10;
     break;
+  case 250:
+    return 10;
+    break;
   case 300:
     return 7;
     break;
@@ -361,6 +370,9 @@ int determine_speed_shooting_star_bnf()
     return 8;
     break;
   case 200:
+    return 8;
+    break;
+  case 250:
     return 8;
     break;
   case 300:
@@ -503,6 +515,9 @@ int determine_length_shooting_star_mirror()
   case 200:
     return 10;
     break;
+  case 250:
+    return 10;
+    break;
   case 300:
     return 7;
     break;
@@ -530,6 +545,9 @@ int determine_speed_shooting_star_mirror()
     return 10;
     break;
   case 200:
+    return 10;
+    break;
+  case 250:
     return 10;
     break;
   case 300:

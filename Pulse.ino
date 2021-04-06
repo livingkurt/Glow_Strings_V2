@@ -3,7 +3,7 @@
 
 void pulse_white()
 {
-  fill_solid(leds, NUM_LEDS, CHSV(0, 0, beatsin16(10, 50, 200))); // Set all to Off.
+  fill_solid(leds, NUM_LEDS, CHSV(0, 0, beatsin16(10, 50, determine_brightness_of_white()))); // Set all to Off.
   // FastLED.show();
 }
 
@@ -31,7 +31,7 @@ void pulse_desaturated_rainbow()
   start_hue = -1 * millis() / rate;
   for (int i = 0; i < NUM_LEDS; i++)
   {
-    leds[i] = CHSV(start_hue, beatsin16(10, 50, 255), 255);
+    leds[i] = CHSV(start_hue, beatsin16(10, 50, 255), determine_brightness_of_white());
     start_hue += delta_hue;
   };
 }
