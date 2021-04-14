@@ -10,7 +10,7 @@
 // LED Chip Type
 #define LED_TYPE WS2811
 // Number of LEDs Used
-#define NUM_LEDS 250
+#define NUM_LEDS 50
 // The Order of RGB was wired on the chip
 #define COLOR_ORDER RGB
 
