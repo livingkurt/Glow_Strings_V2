@@ -8,7 +8,7 @@
 // Data Pin on Arduino
 #define LED_PIN 5
 // LED Chip Type
-#define LED_TYPE WS2811
+#define LED_TYPE WS2812B
 // Number of LEDs Used
 #define NUM_LEDS 50
 // The Order of RGB was wired on the chip
@@ -43,9 +43,6 @@ uint8_t random_interval = 0; // EPPROM 5
 int interval = 60;           // EPPROM 10
 uint8_t save_settings = 0;   // EPPROM 9
 
-int DCgap = 250;           // max ms between clicks for a double click event
-boolean DCwaiting = false; // whether we're waiting for a double click (down)
-boolean DConUp = false;    // whether to register a double click on next release, or whether to wait and click
 
 int short_press = 1000;
 int menu_1_length = 2000;
