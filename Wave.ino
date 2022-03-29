@@ -275,7 +275,7 @@ int determine_ms_wave()
     return 100;
     break;
   case 100:
-    return 50;
+    return 125;
     break;
   case 150:
     return 150;
@@ -308,7 +308,7 @@ int determine_rate_wave()
     return 1;
     break;
   case 100:
-    return 50;
+    return 3;
     break;
   case 150:
     return 5;
@@ -341,7 +341,7 @@ int determine_length_wave()
     return 200;
     break;
   case 100:
-    return 50;
+    return 175;
     break;
   case 150:
     return 150;
@@ -835,7 +835,7 @@ int determine_ms_wave_mirror()
     return 200;
     break;
   case 100:
-    return 50;
+    return 250;
     break;
   case 150:
     return 300;
@@ -868,7 +868,7 @@ int determine_rate_wave_mirror()
     return 1;
     break;
   case 100:
-    return 50;
+    return 3;
     break;
   case 150:
     return 5;
@@ -901,7 +901,7 @@ int determine_length_wave_mirror()
     return 200;
     break;
   case 100:
-    return 50;
+    return 175;
     break;
   case 150:
     return 150;

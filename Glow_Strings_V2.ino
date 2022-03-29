@@ -8,11 +8,11 @@
 // Data Pin on Arduino
 #define LED_PIN 5
 // LED Chip Type
-#define LED_TYPE WS2812B
+#define LED_TYPE WS2811
 // Number of LEDs Used
-#define NUM_LEDS 50
+#define NUM_LEDS 100
 // The Order of RGB was wired on the chip
-#define COLOR_ORDER RGB
+#define COLOR_ORDER RGB 
 
 #define PIN_BUTTON 2 // Pin for the button
 
